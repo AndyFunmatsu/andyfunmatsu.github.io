@@ -481,7 +481,7 @@ app.delete('/messages', (req, res) => {
 });
 
 // ✅ Start the Server
-const PORT =  process.env.PORT;
+const PORT =  2008;
 // app.listen(PORT, () => {
 //     console.log("🚀 Listening to port", PORT);
 // });
