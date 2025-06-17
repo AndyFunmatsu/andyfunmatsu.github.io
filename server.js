@@ -119,6 +119,23 @@ app.get('/data', (req, res) => {
     });
 });
 
+app.post('/temperature_data', (req, res) => {
+    console.log("Received body:", req.body); // Debugging step
+    const { temperature } = req.body;
+    const sql = "SELECT * FROM temparature_data";
+
+    connection.query(sql, [temperature], (err, results) => {
+        if (err) return res.status(500).send("Internal Server Error");
+        if (results.length === 0) return res.status(401).json({ success: false });
+
+        const user = results[0];
+        if (password === user.password) {
+            res.json({ success: true, userId: user.id });
+        } else {
+            res.status(401).json({ success: false, message: "❌ Invalid credentials" });
+        }
+    });
+});
 
 app.post("/login", (req, res) => {
     console.log("Received body:", req.body); // Debugging step
@@ -129,12 +146,7 @@ app.post("/login", (req, res) => {
         if (err) return res.status(500).send("Internal Server Error");
         if (results.length === 0) return res.status(401).json({ success: false });
 
-        const user = results[0];
-        if (password === user.password) {
-            res.json({ success: true, userId: user.id });
-        } else {
-            res.status(401).json({ success: false, message: "❌ Invalid credentials" });
-        }
+        res.json({ success: true, userId: user.id });
     });
 });
 
