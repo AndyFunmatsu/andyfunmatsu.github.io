@@ -88,7 +88,7 @@ function generateDiv() {
     }
     let teamName = document.getElementById("team-name").value;
     let teamDescription = document.getElementById("team-desc").value;
-    fetch("https://funmatsugithubio-production.up.railway.app/teams", {
+    fetch("https://starter-production-0722.up.railway.app/teams", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: teamName, description: teamDescription })
@@ -247,7 +247,7 @@ function generateDiv() {
             newerDiv.id = "generatedNew";
             let teamname = document.getElementById("team-name").value;
             let general = "general";
-            fetch("https://funmatsugithubio-production.up.railway.app/channels", {
+            fetch("https://starter-production-0722.up.railway.app/channels", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name: "general", team: teamName })
@@ -280,7 +280,7 @@ function generateDiv() {
             deleteTeamDiv.addEventListener("click", (event) => {
                 event.preventDefault();
                 window,location.href = `../HTML/AdminPage_Template.html?username=${username}`;
-                fetch(`https://funmatsugithubio-production.up.railway.app/teams/${teamname}`, {
+                fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
                     method: "DELETE",
                 })
                 .then(response => response.json())
@@ -478,7 +478,7 @@ function renderTeam() {
     deleteTeamDiv.addEventListener("click", (event) => {
         event.preventDefault();
         if(confirm(`Delete ${teamname} Team?`)){
-        fetch(`http://funmatsugithubio-production.up.railway.app/teams/${teamname}`, {
+        fetch(`http://starter-production-0722.up.railway.app/teams/${teamname}`, {
             method: "DELETE",
         })
         .then(response => response.json())
@@ -515,7 +515,7 @@ const adminPageHeader = document.getElementById("admin-page-header");
 const params = new URLSearchParams(window.location.search);
 const username = params.get("username");
 
-fetch(`https://funmatsugithubio-production.up.railway.app/users/${username}/email`)
+fetch(`https://starter-production-0722.up.railway.app/users/${username}/email`)
     .then(response => response.json())
     .then(data => {
         document.getElementById("usernameInfo").innerText = username
@@ -530,7 +530,7 @@ if (username) {
 
 function fetchTeams() {
     let teamname = document.getElementById("team-name").value;
-    fetch(`https://funmatsugithubio-production.up.railway.app/teams`)
+    fetch(`https://starter-production-0722.up.railway.app/teams`)
     .then(response => response.json())
     .then(data => {
         console.log("✅ Fetched teams:", data); // ✅ Debugging
