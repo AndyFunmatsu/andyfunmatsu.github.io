@@ -122,7 +122,7 @@ app.get('/data', (req, res) => {
 app.post('/temperature_data', (req, res) => {
     console.log("Received body:", req.body); // Debugging step
     const { temperature } = req.body;
-    const sql = "SELECT * FROM temparature_data";
+    const sql = "SELECT * FROM temperature_data";
 
     connection.query(sql, [temperature], (err, results) => {
         if (err) return res.status(500).send("Internal Server Error");
