@@ -137,6 +137,17 @@ app.post('/temperature_data', (req, res) => {
     });
 });
 
+app.get('/temperature_data', (req, res) => {
+    connection.query("SELECT * FROM temperature_data", (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            res.status(500).json({ error: "Database query failed" });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
 app.post("/login", (req, res) => {
     console.log("Received body:", req.body); // Debugging step
     const { username, password } = req.body;
