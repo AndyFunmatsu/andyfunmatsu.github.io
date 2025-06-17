@@ -46,7 +46,7 @@ wss.on("connection", (ws, req) => {
         return;
     }
 
-    // console.log("✅ WebSocket client connected!");
+    console.log("✅ WebSocket client connected!");
 
     ws.on("message", (message) => {
         console.log(`📩 Received message: ${message}`);
@@ -481,7 +481,7 @@ app.delete('/messages', (req, res) => {
 });
 
 // ✅ Start the Server
-const PORT =  3000;
+const PORT =  process.env.PORT;
 // app.listen(PORT, () => {
 //     console.log("🚀 Listening to port", PORT);
 // });
