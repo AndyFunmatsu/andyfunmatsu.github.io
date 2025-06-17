@@ -263,11 +263,11 @@ function generateDiv() {
             .catch(error => console.error("❌ Error:", error));
             
             newDiv.onclick = function() {
-                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
+                window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
             }
         
             newerDiv.onclick = function() {
-                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
+                window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
             }
         
             newerDiv.addEventListener("mouseover", () =>{
@@ -279,7 +279,7 @@ function generateDiv() {
             newerDivText.style.float = "left";
             deleteTeamDiv.addEventListener("click", (event) => {
                 event.preventDefault();
-                window,location.href = `../HTML/AdminPage_Template.html?username=${username}`;
+                window,location.href = `../AdminPage_Template.html?username=${username}`;
                 fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
                     method: "DELETE",
                 })
@@ -461,11 +461,11 @@ function renderTeam() {
     let teamname = document.getElementById("team-name").value;
     
     newDiv.onclick = function() {
-        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
     }
 
     newerDiv.onclick = function() {
-        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
     }
 
     newerDiv.addEventListener("mouseover", () =>{
