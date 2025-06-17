@@ -263,11 +263,11 @@ function generateDiv() {
             .catch(error => console.error("❌ Error:", error));
             
             newDiv.onclick = function() {
-                window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
+                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
             }
         
             newerDiv.onclick = function() {
-                window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
+                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
             }
         
             newerDiv.addEventListener("mouseover", () =>{
