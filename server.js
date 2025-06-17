@@ -46,7 +46,7 @@ wss.on("connection", (ws, req) => {
         return;
     }
 
-    console.log("✅ WebSocket client connected!");
+    // console.log("✅ WebSocket client connected!");
 
     ws.on("message", (message) => {
         console.log(`📩 Received message: ${message}`);
