@@ -461,11 +461,11 @@ function renderTeam() {
     let teamname = document.getElementById("team-name").value;
     
     newDiv.onclick = function() {
-        window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
     }
 
     newerDiv.onclick = function() {
-        window.location.href = `../AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
     }
 
     newerDiv.addEventListener("mouseover", () =>{
