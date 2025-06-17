@@ -98,7 +98,7 @@ app.get("/", (req, res) => {
                                     position: relative;
                                     padding: 15px;
                                     margin: 10px;
-                                    border-radius: 10px">🚀 Railway Backend is Live! Use "/data", "/teams", or "/users" to get started</div>
+                                    border-radius: 10px">🚀 Railway Backend is Live! Use "/data", "/teams", or "/users" to get started and code ur api</div>
                 </div>`);
 });
 
