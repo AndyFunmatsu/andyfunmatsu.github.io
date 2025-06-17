@@ -4,44 +4,11 @@ const app = express();
 const http = require("http");
 const WebSocket = require("ws");
 require("dotenv").config();
-// const { createProxyMiddleware } = require("http-proxy-middleware");
-
-// app.use("/api", createProxyMiddleware({
-//     target: "https://funmatsugithubio-production.up.railway.app",
-//     changeOrigin: true,
-//     pathRewrite: { "^/api": "" } // ✅ Removes "/api" prefix before forwarding
-// }));
-
-// const PORT_prox = 9090; // Choose any port
-// app.listen(PORT_prox, () => console.log(`🚀 Proxy server running on http://localhost:${PORT_prox}_prox`));
-
-// const cors = require('cors');
-
-// const corsOptions = {
-//   origin: 'https://funmatsu.github.io',
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   credentials: true,
-// };
-
-// app.use(cors(corsOptions));
-// app.options("/login", (req, res) => {
-//     res.header("Access-Control-Allow-Origin", "https://funmatsu.github.io");
-//     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//     res.sendStatus(200);
-// });
-
-// app.options("/users", (req, res) => {
-//     res.header("Access-Control-Allow-Origin", "https://funmatsu.github.io");
-//     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//     res.sendStatus(200);
-// });
 
 const cors = require("cors");
 
 const corsOptions = {
-    origin: "https://funmatsu.github.io", // ✅ Allow requests from your frontend
+    origin: "https://andyfunmatsu.github.io", // ✅ Allow requests from your frontend
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
@@ -53,7 +20,7 @@ app.options('/', cors(corsOptions));
 app.use(express.json());
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://funmatsu.github.io");
+    res.header("Access-Control-Allow-Origin", "https://andyfunmatsu.github.io");
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     
@@ -73,7 +40,7 @@ const wss = new WebSocket.Server({ server });
 wss.on("connection", (ws, req) => {
     const origin = req.headers.origin;
     
-    if (origin !== "https://funmatsu.github.io") {
+    if (origin !== "https://andyfunmatsu.github.io") {
         console.log("🚫 Blocked WebSocket connection from:", origin);
         ws.close();
         return;
