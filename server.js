@@ -128,7 +128,7 @@ app.post('/temperature_data', (req, res) => {
         if (err) return res.status(500).send("Internal Server Error");
         if (results.length === 0) return res.status(401).json({ success: false });
 
-        res.json({ success: true, userId: user.id });
+        res.json(results);
     });
 });
 
