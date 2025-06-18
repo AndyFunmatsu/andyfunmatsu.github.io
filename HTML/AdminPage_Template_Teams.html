@@ -163,23 +163,27 @@
                             newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
                         }
                         else{
-                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
                             newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
                             sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
-                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
                             newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
                         }
                         ws.send(JSON.stringify({
                             username: username,  // ✅ Replace with actual logged-in user
                             teamname: teamname,
                             message: newDiv.innerHTML
                         })); // ✅ Send message via WebSocket
-                        storeToDB(newDiv.innerHTML);
+                        
                         event.preventDefault(); // ❌ Prevent default text paste
                         scrollToBottom();
                     }
