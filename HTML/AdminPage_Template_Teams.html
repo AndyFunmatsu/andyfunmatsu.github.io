@@ -168,6 +168,7 @@
                         else{
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
                             newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
                             newDiv.innerHTML = "";
