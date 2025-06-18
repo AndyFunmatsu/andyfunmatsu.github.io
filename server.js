@@ -119,16 +119,20 @@ app.get('/data', (req, res) => {
     });
 });
 
+app.use(express.json()); // Ensure JSON parsing
+
 app.post('/temperature_data', (req, res) => {
     console.log("Received body:", req.body); // Debugging step
+
     const { temperature } = req.body;
-    const sql = "SELECT * FROM temperature_data";
+    if (!temperature) return res.status(400).json({ error: "Temperature is required" });
+
+    const sql = "INSERT INTO temperature_data (value) VALUES (?)";
 
     connection.query(sql, [temperature], (err, results) => {
         if (err) return res.status(500).send("Internal Server Error");
-        if (results.length === 0) return res.status(401).json({ success: false });
 
-        res.json(results);
+        res.json({ success: true, insertedId: results.insertId });
     });
 });
 
