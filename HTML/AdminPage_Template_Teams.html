@@ -155,16 +155,22 @@
                         newDivImg.src = url;
                         console.log(url);
                         newDivImg.height = 150;
-                        newDiv.appendChild(newDivImg);
-                        newDiv.innerHTML += `<br><strong>${username}: </strong>`;
-                        newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                        
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
+                            newDiv.appendChild(newDivImg);
+                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                         }
                         else{
+                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
                             sendMsg(username);
+                            newDiv.appendChild(newDivImg);
+                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                         }
