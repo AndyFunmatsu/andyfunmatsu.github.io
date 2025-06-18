@@ -125,7 +125,7 @@ app.post('/temperature_data', (req, res) => {
     console.log("Received body:", req.body); // Debugging step
 
     const { value } = req.body;
-    if (!temperature) return res.status(400).json({ error: "Temperature is required" });
+    if (!value) return res.status(400).json({ error: "Temperature is required" });
 
     const sql = "INSERT INTO temperature_data (value) VALUES (?)";
 
