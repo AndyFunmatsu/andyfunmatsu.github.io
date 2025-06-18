@@ -148,6 +148,7 @@
                 let newDivImg = document.createElement('img');
                 
                 let url;
+                
                 if (blob) {
                     reader.onload = () => {
                         url = reader.result;
@@ -158,13 +159,20 @@
                         newDiv.innerHTML += `<br><strong>${username}: </strong>`;
                         newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
                         console.log("✅ Image detected and processed!");
-                        document.getElementById("text-bar").value = newDiv.innerHTML;
+                        if(document.getElementById("text-bar").value.length <= 1){
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username);
+                        }
+                        else{
+                            sendMsg(username);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username);
+                        }
                         ws.send(JSON.stringify({
                             username: username,  // ✅ Replace with actual logged-in user
                             teamname: teamname,
                             message: newDiv.innerHTML
                         })); // ✅ Send message via WebSocket
-                        sendMsg(username);
                         storeToDB(newDiv.innerHTML);
                         event.preventDefault(); // ❌ Prevent default text paste
                         scrollToBottom();
