@@ -128,12 +128,7 @@ app.post('/temperature_data', (req, res) => {
         if (err) return res.status(500).send("Internal Server Error");
         if (results.length === 0) return res.status(401).json({ success: false });
 
-        const user = results[0];
-        if (password === user.password) {
-            res.json({ success: true, userId: user.id });
-        } else {
-            res.status(401).json({ success: false, message: "❌ Invalid credentials" });
-        }
+        res.json({ success: true, userId: user.id });
     });
 });
 
