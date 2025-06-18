@@ -124,12 +124,12 @@ app.use(express.json()); // Ensure JSON parsing
 app.post('/temperature_data', (req, res) => {
     console.log("Received body:", req.body); // Debugging step
 
-    const { temperature } = req.body;
+    const { value } = req.body;
     if (!temperature) return res.status(400).json({ error: "Temperature is required" });
 
     const sql = "INSERT INTO temperature_data (value) VALUES (?)";
 
-    connection.query(sql, [temperature], (err, results) => {
+    connection.query(sql, [value], (err, results) => {
         if (err) return res.status(500).send("Internal Server Error");
 
         res.json({ success: true, insertedId: results.insertId });
