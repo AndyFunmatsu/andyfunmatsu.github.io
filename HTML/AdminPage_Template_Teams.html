@@ -158,9 +158,13 @@
                         
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
-                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
@@ -173,8 +177,6 @@
                             storeToDB(newDiv.innerHTML);
                             newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
-                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
