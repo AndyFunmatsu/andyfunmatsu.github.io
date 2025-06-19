@@ -209,11 +209,11 @@ app.get("/teams", (req, res) => {
 });
 
 app.delete("/teams/:teamname", (req, res) => {
-    const { name } = req.params;
+    const { teamname } = req.params;
     
     const sql = "DELETE FROM teams WHERE name = ?";
     
-    connection.query(sql, [name], (err, result) => {
+    connection.query(sql, [teamname], (err, result) => {
         if (err) {
             console.error("❌ Error deleting team:", err);
             return res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -223,7 +223,7 @@ app.delete("/teams/:teamname", (req, res) => {
             return res.status(404).json({ success: false, message: "Team not found!" });
         }
 
-        console.log(`✅ Team '${name}' deleted successfully!`);
+        console.log(`✅ Team '${teamname}' deleted successfully!`);
         res.json({ success: true, message: "Team deleted!" });
     });
 });
