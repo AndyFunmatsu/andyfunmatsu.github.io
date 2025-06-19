@@ -242,7 +242,23 @@
                 newDiv.style.borderRadius = "10px";
                 newDiv.style.padding = "15px";
                 newDiv.style.margin = "10px";
-                
+
+                let deleteMsg = document.createElement('div');
+                deleteMsg.innerText = "❌";
+                deleteMsg.style.alignSelf = "flex-end";
+                deleteMsg.style.float = "right";
+                deleteMsg.style.height = "30px"
+                deleteMsg.style.width = "30px";
+                deleteMsg.style.display = "none";
+                newDiv.addEventListener("mouseover", () => {
+                    newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
+                    deleteMsg.style.display = "block";
+                });
+
+                newDiv.addEventListener("mouseout", () => {
+                    newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
+                    deleteMsg.style.display = "none";
+                });
                 if(username === username_sent){
                     newDiv.style.alignSelf = "flex-end";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
@@ -253,11 +269,46 @@
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                 }
+                deleteTeamDiv.addEventListener("click", (event) => {
+                event.preventDefault();
+                if(confirm((`delete message from ${username} ?`))){
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams`)
+                    .then(response => response.text()) // ✅ Log raw response before parsing
+                    .then(text => {
+                        console.log("📥 Raw server response:", text);
+                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                    })
+                    .then(data => {
+                        data.messages.forEach(msg => {
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${msg.id}`, {
+                                method: "DELETE",
+                            })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("✅ message deleted:", data);
+                            alert(`🎉 Message from '${teamname}' deleted successfully!`);
+                            // window.location.href = `../AdminPage_Template.html?username=${username}`;
+                        } else {
+                            alert("❌ Error deleting message: " + data.message);
+                        }
+                    })
+                    .catch(error => console.error("❌ Error:", error));
+                        })
+                    })
+                    
+                }
+                else{
+                    alert(`team ${teamname} was not deleted!`);
+                }
+                });
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
+                msgcontainer.appendChild(deleteMsg);
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
                 // document.getElementById("text-bar").value = "";
+
             }
 
             function storeToDB(msg){
@@ -351,6 +402,8 @@
                         document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
                         document.getElementById("text-bar").value = "";
+                        newDiv.id = msg.id;
+                        console.log(`id of message: ${msg.id}`);
                     });
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
@@ -426,8 +479,8 @@
                         deleteChannelDiv.style.display = "none";
                     })
                     deleteChannelDiv.addEventListener("click", (event) => {
-                        if(confirm(`Delete ${name} Channel?`)){
                         event.preventDefault();
+                        if(confirm(`Delete ${name} Channel?`)){
                         fetch(`https://starter-production-0722.up.railway.app/channels/${name}`, {
                             method: "DELETE",
                         })
