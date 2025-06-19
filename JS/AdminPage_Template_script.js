@@ -415,6 +415,7 @@ function renderTeam() {
         border-radius: 20px;
         height: 50px;
         cursor: pointer;
+        overflow-y: hidden;
         `);
 
         newerDiv.addEventListener("mouseover", function(){
@@ -429,6 +430,7 @@ function renderTeam() {
                 height: 50px;
                 cursor: pointer;
                 transition: background-color 0.2s ease-in-out;
+                overflow-y: hidden;
                 `);
         });
 
@@ -443,6 +445,7 @@ function renderTeam() {
                 height: 50px;
                 cursor: pointer;
                 transition: background-color 0.2s ease-in-out;
+                overflow-y: hidden;
                 `);
         });
         
@@ -480,22 +483,22 @@ function renderTeam() {
     newerDivText.style.float = "left";
     deleteTeamDiv.addEventListener("click", (event) => {
         event.preventDefault();
-        
-        fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
-            method: "DELETE",
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("✅ Team deleted:", data);
-                alert(`🎉 Team '${teamname}' deleted successfully!`);
-            } else {
-                alert("❌ Error deleting team: " + data.message);
-            }
-            window.location.href = `../AdminPage_Template.html?username=${username}`;
-        })
-        .catch(error => console.error("❌ Error:", error));
-        
+        if(confirm((`delete team ${teamname} ?`))){
+            fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
+                method: "DELETE",
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("✅ Team deleted:", data);
+                    alert(`🎉 Team '${teamname}' deleted successfully!`);
+                    // window.location.href = `../AdminPage_Template.html?username=${username}`;
+                } else {
+                    alert("❌ Error deleting team: " + data.message);
+                }
+            })
+            .catch(error => console.error("❌ Error:", error));
+        }
     });
     newerDiv.appendChild(newerDivText);
     newerDiv.appendChild(deleteTeamDiv);
