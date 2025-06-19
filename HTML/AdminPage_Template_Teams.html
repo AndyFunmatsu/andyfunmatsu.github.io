@@ -272,17 +272,9 @@
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
-                    fetch(`https://starter-production-0722.up.railway.app/messages_teams`)
-                    .then(response => response.text()) // ✅ Log raw response before parsing
-                    .then(text => {
-                        console.log("📥 Raw server response:", text);
-                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}`, {
+                        method: "DELETE",
                     })
-                    .then(data => {
-                        data.messages.forEach(msg => {
-                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${msg.id}`, {
-                                method: "DELETE",
-                            })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -293,13 +285,10 @@
                             alert("❌ Error deleting message: " + data.message);
                         }
                     })
-                    .catch(error => console.error("❌ Error:", error));
-                        })
-                    })
-                    
+                    .catch(error => console.error("❌ Error:", error));                    
                 }
                 else{
-                    alert(`team ${teamname} was not deleted!`);
+                    alert(`message from team ${teamname} was not deleted!`);
                 }
                 });
                 newDiv.className = "generated";
