@@ -280,7 +280,7 @@
                         if (data.success) {
                             console.log("✅ message deleted:", data);
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
-                            // window.location.href = `../AdminPage_Template.html?username=${username}`;
+                            window.location.href = `../AdminPage_Template.html?username=${username}`;
                         } else {
                             alert("❌ Error deleting message: " + data.message);
                         }
