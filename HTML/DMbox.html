@@ -407,7 +407,7 @@
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
                         if(confirm((`delete message from ${username} ?`))){
-                            fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}`, {
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}`, {
                                 method: "DELETE",
                             })
                             .then(response => response.json())
@@ -415,7 +415,7 @@
                                 if (data.success) {
                                     console.log("✅ message deleted:", data);
                                     alert(`🎉 Message from '${teamname}' deleted successfully!`);
-                                    window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=${channel}`;
+                                    window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                                 } else {
                                     alert("❌ Error deleting message: " + data.message);
                                 }
@@ -442,8 +442,7 @@
                         document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
                         document.getElementById("text-bar").value = "";
-                        newDiv.id = msg.id;
-                        console.log(`id of message: ${msg.id}`);
+                        document.getElementById("text-bar").value = "";
                     });
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
