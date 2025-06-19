@@ -484,7 +484,7 @@ function renderTeam() {
                 if (data.success) {
                     console.log("✅ Team deleted:", data);
                     alert(`🎉 Team '${teamname}' deleted successfully!`);
-                    // window.location.href = `../AdminPage_Template.html?username=${username}`;
+                    window.location.href = `../AdminPage_Template.html?username=${username}`;
                 } else {
                     alert("❌ Error deleting team: " + data.message);
                 }
