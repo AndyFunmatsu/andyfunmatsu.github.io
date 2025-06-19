@@ -90,17 +90,7 @@
         </div>
         
         <script>
-            
-            // let storedMsg;
-            // setTimeout(() => {
-            //     storedMsg = document.getElementById("text-bar").value;
-            //     location.reload();
-            // }, 5000); // ✅ Reloads every 5 seconds
 
-            // document.addEventListener("DOMContentLoaded", () => {
-            //     document.getElementById("text-bar").value = storedMsg;
-            // });
-            
             const adminPageHeader = document.getElementById("admin-page-header");
             const params = new URLSearchParams(window.location.search);
             let username = params.get("username");
@@ -125,13 +115,6 @@
                 document.getElementById("text-bar").value = tempTextBar;          
             };
 
-            // const socket = new WebSocket("wss://funmatsugithubio-production.up.railway.app");
-
-            // socket.onmessage = (event) => {
-            //     new Notification("New Message!", { body: event.data });
-            // };
-
-
             document.getElementById("text-bar").addEventListener("keypress", function(event) {  
                 let msgString = `<strong>${username}:  </strong> ${document.getElementById("text-bar").value}       <small>${new Date().toLocaleString()}</small>`;
                 if (event.key === "Enter" && document.getElementById("text-bar").value !== "") {
@@ -143,10 +126,6 @@
                     storeToDB(msgString);
                     document.getElementById("text-bar").value = msgString;
                     sendMsg(username);
-                    // setTimeout(() => {
-                    //     location.reload();
-                    // }, 1000); // ✅ Reloads every 1 seconds
-                    // document.getElementById("text-bar").value = "";
                 }
             });
 
@@ -236,7 +215,6 @@
                         })); // ✅ Send message via WebSocket
                         sendMsg(username);
                         storeToDB(newDiv.innerHTML);
-                        // storeToDB(newDiv.innerHTML);
                         event.preventDefault(); // ❌ Prevent default text paste
                         scrollToBottom();
                     }
@@ -246,60 +224,10 @@
             document.getElementById("admin-page-header").innerHTML = teamname + " | " + channel;
             document.getElementById("team-info").innerHTML = `You: <p style='color: lightgreen;'>${username}<br><hr></p>`;
 
-            // document.getElementById("text-bar").addEventListener("keypress", function(event) {
-            //     if (event.key === "Enter" && document.getElementById("text-bar").value !== "") {
-            //         generateDiv();S
-            //         scrollToBottom();
-            //     }
-            //     // document.getElementByClassName("custom-body").innnerText += "<br>";
-            // });
-            
             document.getElementById("fileInput").addEventListener("change", (event) => {
                 const imagefile = event.target.files[0]; // 📂 Get first selected file
-                // const blob = new Blob([imagefile], {type: imagefile.type});
                 uploadImage(imagefile);
-                // if (file) {
-                //     console.log("✅ File selected:", file.name);
-                //     console.log("📏 File size:", file.size, "bytes");
-                //     console.log("🖼️ File type:", file.type);
-
-                //     // Process the file further (preview, upload, etc.)
-                // } else {
-                //     console.log("❌ No file selected.");
-                // }
             });
-
-            function generateDiv() {
-                var newDiv = document.createElement("div");
-                const message = document.getElementById("text-bar").value;
-                let timeNow = new Date().toISOString();
-                console.log("🚀 Sending POST request to backend at:", timeNow);
-                fetch("https://starter-production-0722.up.railway.app/direct_messages", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        username, 
-                        target_user: teamname, 
-                        message: document.getElementById("text-bar").value, // ✅ Only the message content
-                        channel, 
-                        timeNow
-                    })
-                })
-
-                newDiv.innerHTML = document.getElementById("text-bar").value;
-
-                newDiv.style.backgroundColor = "rgb(44, 121, 202)";
-                newDiv.style.color = "white";
-                newDiv.style.width = "fit-content";
-                newDiv.style.textAlign = "right";
-                newDiv.style.position = "relative";
-                newDiv.style.borderRadius = "10px";
-                newDiv.style.padding = "15px";
-                newDiv.style.margin = "10px";
-                newDiv.className = "generated";
-                document.querySelector("#div-custom-body").appendChild(newDiv);
-                // document.getElementById("text-bar").value = "";
-            }
 
             function sendMsg(username_sent) {
                 var newDiv = document.createElement("div");
@@ -375,10 +303,8 @@
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                 }
-                // if(teamname === msg.teamname)
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
-                // document.getElementById("text-bar").value = "";
             }
 
             function storeToDB(msg){
@@ -577,43 +503,10 @@
                     });
                     channelDiv.appendChild(deleteChannelDiv)
             }
-            // setInterval(() => {
-            //     fetch("http://funmatsugithubio-production.up.railway.app/users/2/messages")
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         let newMessages = data.filter(msg => msg.id > lastMessageId);
-            //         newMessages.forEach(msg => {
-            //             lastMessageId = msg.id;
-            //             if(lastMessageId >= msg.id){
-            //                 document.getElementById("text-bar").value = msg.message; // Display each message (might override previous ones)
-            //                   // Update last message ID as we go
-            //                 generateDiv();
-            //                 scrollToBottom();
-            //             }
-                        
-            //         });
-            //     })
-            //     .catch(error => console.error("❌ Error fetching messages:", error));
-            //     // const newMessages = data.filter(msg => msg.id > lastMessageId);
-            // }, 50); // Fetch every 5 seconds
-            // const popup = document.querySelector("#pop-up");
-            // profile_icon_popup.onclick = function(){
-            //     popup.style.display = "block";
-            //     document.querySelector("#inside-pop-up").style.display = "block";
-            //     document.querySelector("#team-addition-form").style.display = "none";
-            // }
             const back = document.querySelector("#back");
             back.onclick = function() {
                 window.location.href = `DirectMsg.html?username=${username}`
             }
-            // document.querySelector("#back2").onclick = function() {
-            //     popup.style.display = "none";
-            // }
-            // document.querySelector("#add-teams").onclick = function() {
-            //     popup.style.display = "block";
-            //     document.querySelector("#inside-pop-up").style.display = "none";
-            //     document.querySelector("#team-addition-form").style.display = "block";
-            // }
         </script>
     </body>
 </html>
