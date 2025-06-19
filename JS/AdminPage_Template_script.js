@@ -279,7 +279,7 @@ function generateDiv() {
             newerDivText.style.float = "left";
             deleteTeamDiv.addEventListener("click", (event) => {
                 event.preventDefault();
-                window,location.href = `../AdminPage_Template.html?username=${username}`;
+                window.location.href = `../AdminPage_Template.html?username=${username}`;
                 fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
                     method: "DELETE",
                 })
