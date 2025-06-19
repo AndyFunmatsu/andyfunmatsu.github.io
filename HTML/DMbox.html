@@ -153,7 +153,7 @@
 
             document.getElementById("send-msg").addEventListener("click", () => {
                 let msgString = `<strong>${username}:  </strong>` + document.getElementById("text-bar").value + `     <small>${new Date().toLocaleString()}</small>`;
-                if (event.key === "Enter" && document.getElementById("text-bar").value !== "") {
+                if (document.getElementById("text-bar").value !== "") {
                     ws.send(JSON.stringify({
                         username: username,  // ✅ Replace with actual logged-in user
                         teamname: teamname,
