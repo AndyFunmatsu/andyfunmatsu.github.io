@@ -148,37 +148,45 @@
                 let newDivImg = document.createElement('img');
                 
                 let url;
+                
                 if (blob) {
                     reader.onload = () => {
                         url = reader.result;
                         newDivImg.src = url;
                         console.log(url);
-                        newDivImg.height = 150;
+                        newDivImg.width = 500;
                         
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
-                            newDiv.appendChild(newDivImg);
-                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
                         }
                         else{
-                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
                             newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
-                            sendMsg(username);
-                            newDiv.appendChild(newDivImg);
-                            newDiv.innerHTML += `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `  <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username);
+                            storeToDB(newDiv.innerHTML);
                         }
                         ws.send(JSON.stringify({
                             username: username,  // ✅ Replace with actual logged-in user
                             teamname: teamname,
                             message: newDiv.innerHTML
                         })); // ✅ Send message via WebSocket
-                        storeToDB(newDiv.innerHTML);
+                        
                         event.preventDefault(); // ❌ Prevent default text paste
                         scrollToBottom();
                     }
