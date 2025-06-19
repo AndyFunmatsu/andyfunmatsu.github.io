@@ -269,7 +269,7 @@
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                 }
-                deleteTeamDiv.addEventListener("click", (event) => {
+                deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
                     fetch(`https://starter-production-0722.up.railway.app/messages_teams`)
