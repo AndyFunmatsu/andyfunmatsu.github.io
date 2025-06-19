@@ -19,7 +19,7 @@ app.options('/', cors(corsOptions));
 
 app.use(express.json());
 
-const allowedOrigins = ["https://andyfunmatsu.github.io", "https://192.168.0.26"];
+const allowedOrigins = ["https://andyfunmatsu.github.io", "https://192.168.0.26", "http://127.0.0.1:5500/"];
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;

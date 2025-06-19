@@ -465,14 +465,6 @@ function renderTeam() {
     
     newerDiv.id = "generatedNew";
     let teamname = document.getElementById("team-name").value;
-    
-    newDiv.onclick = function() {
-        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
-    }
-
-    newerDiv.onclick = function() {
-        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
-    }
 
     newerDiv.addEventListener("mouseover", () =>{
         deleteTeamDiv.style.display = "block";
@@ -499,7 +491,17 @@ function renderTeam() {
             })
             .catch(error => console.error("❌ Error:", error));
         }
+        else{
+            alert(`team ${teamname} was not deleted!`);
+        }
     });
+    newDiv.onclick = function() {
+        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+    }
+
+    newerDiv.onclick = function() {
+        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+    }
     newerDiv.appendChild(newerDivText);
     newerDiv.appendChild(deleteTeamDiv);
     newerDiv.appendChild(roundDiv);   
