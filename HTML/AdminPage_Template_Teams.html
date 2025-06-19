@@ -385,15 +385,7 @@
                             deleteMsg.style.display = "none";
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
-                        if(username === msg.username){
-                            newDiv.style.alignSelf = "flex-end";
-                            newDiv.style.backgroundColor = "rgb(44, 121, 202)";
-                        }
-                        else{
-                            newDiv.style.alignSelf = "flex-start";
-                            newDiv.style.color = "black";
-                            newDiv.style.backgroundColor = "rgb(212, 212, 212)";
-                        }
+                        
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
                         if(confirm((`delete message from ${username} ?`))){
@@ -417,7 +409,17 @@
                         }
                         });
                         msgcontainer.appendChild(newDiv);
-                        msgcontainer.appendChild(deleteMsg);
+                        if(username === msg.username){
+                            newDiv.style.alignSelf = "flex-end";
+                            newDiv.style.backgroundColor = "rgb(44, 121, 202)";
+                            msgcontainer.appendChild(deleteMsg);
+                        }
+                        else{
+                            newDiv.style.alignSelf = "flex-start";
+                            newDiv.style.color = "black";
+                            newDiv.style.backgroundColor = "rgb(212, 212, 212)";
+                        }
+                        
                         if(teamname === msg.teamname)
                         document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
