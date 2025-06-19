@@ -248,6 +248,26 @@ app.delete("/messages_teams/:teamname/:username/:channel", (req, res) => {
     });
 });
 
+app.delete("/direct_messages/:target_user/:username/:channel", (req, res) => {
+    const { target_user, username, channel } = req.params;
+    
+    const sql = "DELETE FROM direct_messages WHERE target_user = ? AND username = ? AND channel = ?";
+    
+    connection.query(sql, [target_user, username, channel], (err, result) => {
+        if (err) {
+            console.error("❌ Error deleting messages:", err);
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+        
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: "Messages not found!" });
+        }
+
+        console.log(`✅ Messages from '${target_user}' deleted successfully!`);
+        res.json({ success: true, message: "Team deleted!" });
+    });
+});
+
 // ✅ Fetch All Users
 app.get('/users', (req, res) => {
     connection.query("SELECT username FROM users", (err, results) => {
