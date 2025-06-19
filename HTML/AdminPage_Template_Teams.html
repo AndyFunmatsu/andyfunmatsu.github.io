@@ -131,7 +131,7 @@
 
             document.getElementById("send-msg").addEventListener("click", () => {
                 let msgString = `<strong>${username}:  </strong>` + document.getElementById("text-bar").value + `     <small>${new Date().toLocaleString()}</small>`;
-                if (event.key === "Enter" && document.getElementById("text-bar").value !== "") {
+                if (document.getElementById("text-bar").value !== "") {
                     ws.send(JSON.stringify({
                         username: username,  // ✅ Replace with actual logged-in user
                         teamname: teamname,
@@ -259,16 +259,7 @@
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                     deleteMsg.style.display = "none";
                 });
-                if(username === username_sent){
-                    newDiv.style.alignSelf = "flex-end";
-                    newDiv.style.backgroundColor = "rgb(44, 121, 202)";
-                    document.getElementById("text-bar").value = "";
-                }
-                else{
-                    newDiv.style.alignSelf = "flex-start";
-                    newDiv.style.color = "black";
-                    newDiv.style.backgroundColor = "rgb(212, 212, 212)";
-                }
+                
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
@@ -293,7 +284,18 @@
                 });
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
-                msgcontainer.appendChild(deleteMsg);
+                if(username === username_sent){
+                    newDiv.style.alignSelf = "flex-end";
+                    newDiv.style.backgroundColor = "rgb(44, 121, 202)";
+                    document.getElementById("text-bar").value = "";
+                    msgcontainer.appendChild(deleteMsg);
+                }
+                else{
+                    newDiv.style.alignSelf = "flex-start";
+                    newDiv.style.color = "black";
+                    newDiv.style.backgroundColor = "rgb(212, 212, 212)";
+                }
+                
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
                 // document.getElementById("text-bar").value = "";
