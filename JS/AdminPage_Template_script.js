@@ -197,6 +197,7 @@ function generateDiv() {
         height: 50px;
         cursor: pointer;
         display: flex;
+        overflow-y: hidden;
         `);
 
         newerDiv.addEventListener("mouseover", function(){
@@ -279,7 +280,7 @@ function generateDiv() {
             newerDivText.style.float = "left";
             deleteTeamDiv.addEventListener("click", (event) => {
                 event.preventDefault();
-                window.location.href = `../AdminPage_Template.html?username=${username}`;
+                
                 fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
                     method: "DELETE",
                 })
@@ -291,8 +292,10 @@ function generateDiv() {
                     } else {
                         alert("❌ Error deleting team: " + data.message);
                     }
+                    window.location.href = `../AdminPage_Template.html?username=${username}`;
                 })
                 .catch(error => console.error("❌ Error:", error));
+                
             });
             newerDiv.appendChild(newerDivText);
             newerDiv.appendChild(deleteTeamDiv);
@@ -477,8 +480,8 @@ function renderTeam() {
     newerDivText.style.float = "left";
     deleteTeamDiv.addEventListener("click", (event) => {
         event.preventDefault();
-        if(confirm(`Delete ${teamname} Team?`)){
-        fetch(`http://starter-production-0722.up.railway.app/teams/${teamname}`, {
+        
+        fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
             method: "DELETE",
         })
         .then(response => response.json())
@@ -486,14 +489,13 @@ function renderTeam() {
             if (data.success) {
                 console.log("✅ Team deleted:", data);
                 alert(`🎉 Team '${teamname}' deleted successfully!`);
-                window.location.href = `AdminPage_Template.html?username=${username}`;
             } else {
                 alert("❌ Error deleting team: " + data.message);
             }
+            window.location.href = `../AdminPage_Template.html?username=${username}`;
         })
         .catch(error => console.error("❌ Error:", error));
-        window.location.reload();
-        }
+        
     });
     newerDiv.appendChild(newerDivText);
     newerDiv.appendChild(deleteTeamDiv);
