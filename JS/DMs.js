@@ -462,11 +462,11 @@ function renderTeam() {
     let teamname = document.getElementById("team-name").value;
     
     newDiv.onclick = function() {
-        window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=general`;
     }
 
     newerDiv.onclick = function() {
-        window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=general`;
     }
 
     newerDiv.addEventListener("mouseover", () =>{
