@@ -386,25 +386,57 @@
                         newDiv.style.padding = "15px";
                         newDiv.style.margin = "10px";
 
-                        
-                        newDiv.addEventListener("mouseover", () => {
+                        let deleteMsg = document.createElement('div');
+                        deleteMsg.innerText = "❌";
+                        deleteMsg.style.alignSelf = "flex-end";
+                        deleteMsg.style.float = "right";
+                        deleteMsg.style.height = "30px"
+                        deleteMsg.style.width = "30px";
+                        deleteMsg.style.display = "none";
+                        msgcontainer.addEventListener("mouseover", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
+                            deleteMsg.style.display = "block";
                         });
 
-                        newDiv.addEventListener("mouseout", () => {
+                        msgcontainer.addEventListener("mouseout", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
+                            deleteMsg.style.display = "none";
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
+
+                        deleteMsg.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        if(confirm((`delete message from ${username} ?`))){
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}`, {
+                                method: "DELETE",
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log("✅ message deleted:", data);
+                                    alert(`🎉 Message from '${teamname}' deleted successfully!`);
+                                    window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
+                                } else {
+                                    alert("❌ Error deleting message: " + data.message);
+                                }
+                            })
+                            .catch(error => console.error("❌ Error:", error));                    
+                        }
+                        else{
+                            alert(`message from team ${teamname} was not deleted!`);
+                        }
+                        });
+                        
                         if(username === msg.username){
                             newDiv.style.alignSelf = "flex-end";
                             newDiv.style.backgroundColor = "rgb(44, 121, 202)";
+                            msgcontainer.appendChild(deleteMsg);
                         }
                         else{
                             newDiv.style.alignSelf = "flex-start";
                             newDiv.style.color = "black";
                             newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                         }
-
                         msgcontainer.appendChild(newDiv);
                         document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
