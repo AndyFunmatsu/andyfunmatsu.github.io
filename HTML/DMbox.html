@@ -426,7 +426,8 @@
                             alert(`message from team ${teamname} was not deleted!`);
                         }
                         });
-                        
+
+                        msgcontainer.appendChild(newDiv);
                         if(username === msg.username){
                             newDiv.style.alignSelf = "flex-end";
                             newDiv.style.backgroundColor = "rgb(44, 121, 202)";
@@ -437,7 +438,7 @@
                             newDiv.style.color = "black";
                             newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                         }
-                        msgcontainer.appendChild(newDiv);
+                        
                         document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
                         document.getElementById("text-bar").value = "";
