@@ -711,3 +711,26 @@ body {
     top: -20vh; 
     left: -20vw;
 }
+
+#pop-up-image{
+    display: none;
+    position: fixed; 
+    z-index: 500;
+    background-color: rgba(0, 0, 0, 0.598);
+    width: 150vw;
+    height: 140vh;
+    top: -20vh; 
+    left: -20vw;
+    justify-content: center;
+}
+
+#image-container{
+    position: fixed; 
+    z-index: 500;
+    /* background-color: rgba(0, 0, 0, 0.598); */
+    /* width: 100vw; */
+    width: 75vw;
+    /* top: 0vh; 
+    left: 25vw; */
+    align-self: center;
+}

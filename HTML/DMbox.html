@@ -15,7 +15,9 @@
             <!-- <img src="../images/friends.png" id="title-users"> -->
             <hr>
         </div>
-            
+                <div id="pop-up-image">
+                    <img id="image-container">
+                </div>
                 <div id="menu">
                     <div id="team-info"><br>(Team Name)<br><hr><br></div>
 
@@ -141,7 +143,15 @@
                     document.getElementById("text-bar").value = msgString;
                     sendMsg(username);
                 }
-            })
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if(e.key === "Escape"){
+                    document.getElementById("pop-up-image").style.display = "none";
+                    document.getElementById("image-container").src = "";
+                }
+            });
+
             function uploadImage(blob){
                 const reader = new FileReader();
                 let newDiv = document.createElement('div');
@@ -166,7 +176,15 @@
                             newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
                             document.getElementById("text-bar").value = newDiv.innerHTML;
-                            sendMsg(username);
+                            sendMsg(username).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                            });
                             storeToDB(newDiv.innerHTML);
                         }
                         else{
@@ -178,7 +196,15 @@
                             newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
                             document.getElementById("text-bar").value = newDiv.innerHTML;
-                            sendMsg(username);
+                            sendMsg(username).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                            });
                             storeToDB(newDiv.innerHTML);
                         }
                         ws.send(JSON.stringify({
@@ -221,7 +247,15 @@
                             teamname: teamname,
                             message: newDiv.innerHTML
                         })); // ✅ Send message via WebSocket
-                        sendMsg(username);
+                        sendMsg(username).addEventListener("click", () => {
+                            document.getElementById("pop-up-image").style.display = "flex";
+                            document.getElementById("image-container").src = url;
+
+                            document.getElementById("pop-up-image").addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "none";
+                                document.getElementById("image-container").src = "";
+                            });
+                        });
                         storeToDB(newDiv.innerHTML);
                         event.preventDefault(); // ❌ Prevent default text paste
                         scrollToBottom();
@@ -313,6 +347,7 @@
                 }
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
+                return msgcontainer;
             }
 
             function storeToDB(msg){
