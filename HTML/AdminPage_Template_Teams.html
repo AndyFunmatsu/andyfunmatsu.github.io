@@ -299,7 +299,9 @@
                     return JSON.parse(text); // ✅ Parse only if it's valid JSON
                 })
                 .then(data => {
-                    n_messages = data.messages.length;
+                    data.messages.forEach(msg => {
+                        n_messages = msg.id;
+                    })
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
 
