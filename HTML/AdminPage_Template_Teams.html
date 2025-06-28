@@ -49,7 +49,7 @@
                     </button>
                     <button id="send-msg">Send</button>
                     <button id="emojis">😀</button>
-                    <div id="emoji-container" style="display: none;">😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 😉 😊 😇 🥰 😍 🤩 😘 😗 ☺ 😚 😙 🥲 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🤫 🤔 🤐 🤨 😐 😑 😶 😏 😒 🙄 😬 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 😟 🙁 ☹ 😮 😯 😲 😳 🥺 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 ☠ 💩 🤡 👹 👺 👻 👽 👾 🤖 😺 😸 😹 😻 😼 😽 🙀 😿 😾 💋 👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻 👃 🧠</div>
+                    <div id="emoji-container" style="display: none;">😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 😉 😊 😇 🥰 😍 🤩 😘 😗 ☺ 😚 😙 🥲 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🤫 🤔 🤐 🤨 😐 😑 😶 😏 😒 🙄 😬 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 😟 🙁 ☹ 😮 😯 😲 😳 🥺 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 ☠ 💩 🤡 👽 🤖 😺 😸 😹 😻 😼 😽 🙀 😿 😾 💋 👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌ 🤞 🤟 🤘 🤙 👈 👉 👆 👇 ☝ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻 👃 🧠</div>
                 </div>
             </div>
             
@@ -100,6 +100,8 @@
             let username = params.get("username");
             let teamname = params.get("teamname");
             let channel  = params.get("channel" );
+
+            let n_messages = 0;
 
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
@@ -289,17 +291,31 @@
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                     deleteMsg.style.display = "none";
                 });
-                
+
+                fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}`)
+                .then(response => response.text()) // ✅ Log raw response before parsing
+                .then(text => {
+                    console.log("📥 Raw server response:", text);
+                    return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                })
+                .then(data => {
+                    n_messages = data.messages.length;
+                })
+                .catch(error => console.error("❌ Error fetching messages:", error)); 
+
+                n_messages++;
+                newDiv.id = n_messages;
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
-                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}`, {
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}/${newDiv.id}`, {
                         method: "DELETE",
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
                             console.log("✅ message deleted:", data);
+                            n_messages--;
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
                             window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                         } else {
@@ -372,7 +388,7 @@
                 .then(data => {
                     console.log("✅ Data Type:", typeof data); // ✅ Debugging
                     console.log("✅ Parsed JSON:", data);
-
+                    // n_messages = data.messages.length;
                     if (data.messages.length === 0) {
                         console.warn("⚠ No messages found!");
                         return;
@@ -418,16 +434,19 @@
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
                         
+                        n_messages = mgs.id;
+                        newDiv.id = n_messages;
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
                         if(confirm((`delete message from ${username} ?`))){
-                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}`, {
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}/${newDiv.id}`, {
                                 method: "DELETE",
                             })
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
                                     console.log("✅ message deleted:", data);
+                                    n_messages--;
                                     alert(`🎉 Message from '${teamname}' deleted successfully!`);
                                     window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                                 } else {
