@@ -459,7 +459,7 @@ app.delete("/channels/:channel", (req, res) => {
 // });
 
 app.get("/messages_teams", (req, res) => {
-    const sql = "SELECT username, teamname, message, created_at FROM messages_teams ORDER BY created_at ASC";
+    const sql = "SELECT id, username, teamname, message, created_at FROM messages_teams ORDER BY created_at ASC";
 
     connection.query(sql, (err, results) => {
         if (err) {
@@ -498,7 +498,7 @@ app.get("/direct_messages", (req, res) => {
 app.get("/messages_teams/:teamname/:channel", (req, res) => {
     const { teamname, channel } = req.params;
 
-    const sql = "SELECT username, teamname, channel, message, created_at FROM messages_teams WHERE teamname = ? AND channel = ? ORDER BY created_at ASC";
+    const sql = "SELECT id, username, teamname, channel, message, created_at FROM messages_teams WHERE teamname = ? AND channel = ? ORDER BY created_at ASC";
 
     connection.query(sql, [teamname, channel], (err, results) => {
         if (err) {
