@@ -4,14 +4,16 @@
     background-color: rgb(0, 117, 212);
     color: black;
     height: 98%;
-    width: 200px;
+    /* width: 200px; */
+    max-width: 10vw;
     border-radius: 25px;
     overflow: auto;
-    max-width: calc(15%);
+    /* max-width: calc(15%); */
 }
 
 #menu::-webkit-scrollbar {
     width: 12px; /* Width of the scrollbar */
+    display: none;
 }
 
 #menu::-webkit-scrollbar-track {
@@ -114,7 +116,7 @@ body {
 } */
 #admin-page-header {
     position: fixed;
-        left: 215px;
+        left: min(350px, 40vh);
         /* background-image: url(realbook2.jpg); */
         background-color: rgb(44, 121, 202);
         color: white;
@@ -135,7 +137,8 @@ body {
 .custom-body {
     position:fixed;
     top: 80px;
-    left: 215px;
+    left: min(350px, 40vh);
+    /* left: max(40vh, 20vh); */
     width: calc(100% - 320px);
     min-width: 70vw;
     min-height: 100%;
@@ -540,14 +543,15 @@ body {
 }
 
 #text-bar{
-    border-radius: 20px;
-    position: relative;
-    top: calc(100% - 20vh);
+    border-radius: 3vh;
+    /* position: relative; */
+    /* top: calc(100% - 20vh); */
     width: 100%;
-    height: 2vh;
-    min-height: 10px;
+    height: 1px;
+    /* min-height: 10px; */
     padding: 2vw;
     font-size: 2.5vh;
+    border-width: 0.1vh;
     /* min-width: 65vw; */
 }
 
@@ -557,11 +561,12 @@ body {
     gap: 10px;
     width: calc(100%);
     min-width: 65vw;
+    height: 10vh;
 }
 
 #upload-image{
     border-radius: 10px;
-    height: 12vh;
+    height: inherit;
     width: 12vh;
     background-color: rgba(240, 248, 255, 0);
     border-color: rgba(240, 248, 255, 0);
@@ -578,22 +583,23 @@ body {
 }
  
 #send-msg{
-    border-radius: 10px;
-    height: 10vh;
+    height: inherit;
     width: 15vh;
     background-color: rgb(44, 121, 202);
     color: white;
     border: none;
+    font-size: 3vh;
+    border-radius: 1.5vh;
 }
 
 #emojis{
-    border-radius: 10px;
-    height: 10vh;
+    height: inherit;
     width: 15vh;
     background-color: rgb(44, 121, 202);
     color: white;
     border: none;
-    font-size: 30px;
+    font-size: 6vh;
+    border-radius: 1.5vh;
 }
 
 #link{

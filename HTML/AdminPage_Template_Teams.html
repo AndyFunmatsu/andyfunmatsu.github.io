@@ -126,6 +126,8 @@
 //   "\u{1F91D}", "\u{1F64F}", "\u{270D}", "\u{1F485}", "\u{1F933}", "\u{1F4AA}", "\u{1FA7E}",
 //   "\u{1FA7F}", "\u{1F9B5}", "\u{1F9B6}", "\u{1F442}", "\u{1FAEA}", "\u{1F443}", "\u{1F9E0}"
 // ];
+            // const windowWidth = window.innerWidth;
+            // if(windowWidth < )
 
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
@@ -336,7 +338,7 @@
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
                 deleteMsg.style.display = "none";
-                newDiv.style.transition = "box-shadow 0.5s ease";
+                newDiv.style.transition = "box-shadow 0.2s ease";
                 msgcontainer.addEventListener("mouseover", () => {
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                     deleteMsg.style.display = "block";
@@ -481,6 +483,7 @@
                         deleteMsg.style.height = "30px"
                         deleteMsg.style.width = "30px";
                         deleteMsg.style.display = "none";
+                        newDiv.style.transition = "box-shadow 0.2s ease";
                         msgcontainer.addEventListener("mouseover", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                             deleteMsg.style.display = "block";
