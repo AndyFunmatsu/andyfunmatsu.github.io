@@ -403,6 +403,8 @@
                 msgcontainer.appendChild(newDiv);
                 if(username === username_sent){
                     msgcontainer.style.justifyContent = "flex-end"
+                    msgcontainer.appendChild(deleteMsg);
+                    msgcontainer.appendChild(quoteMsg);
                     newDiv.style.alignSelf = "flex-end";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                     document.getElementById("text-bar").value = "";
@@ -413,6 +415,7 @@
                     newDiv.style.alignSelf = "flex-start";
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
+                    msgcontainer.appendChild(quoteMsg);
                 }
                 msgcontainer.appendChild(quoteMsg);
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
@@ -558,10 +561,10 @@
                         msgcontainer.appendChild(newDiv);
                         if(username === msg.username){
                             msgcontainer.style.justifyContent = "flex-end"
-                            newDiv.style.alignSelf = "flex-end";
-                            newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                             msgcontainer.appendChild(deleteMsg);
                             msgcontainer.appendChild(quoteMsg);
+                            newDiv.style.alignSelf = "flex-end";
+                            newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                         }
                         else{
                             msgcontainer.style.justifyContent = "flex-start"
