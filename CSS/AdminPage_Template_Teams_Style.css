@@ -192,6 +192,54 @@ body {
     overflow-y: hidden;
 }
 
+@media (max-width: 768px) {
+  .custom-body {
+        position:fixed;
+        display: flex;
+        flex-wrap: wrap;
+        top: 12vh;
+        left: 10vh;
+        right: 40vh;
+        /* left: max(40vh, 20vh); */
+        width: calc(67.5%);
+        /* min-width: inherit; */
+        /* min-height: 100%; */
+        height: 90vh;
+        background-color: white;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px; */
+        /* border-top-left-radius: 20px;
+        border-top-right-radius: 20px; */
+        padding-top: 15px;
+        line-height: 1.5;
+        padding-bottom: 20px;
+        overflow: auto;
+        transition: background-color 1s ease;
+    }
+    #admin-page-header {
+        position: fixed;
+        left: 10vh;
+        right: 40vh;
+        /* background-image: url(realbook2.jpg); */
+        background-color: rgb(44, 121, 202);
+        color: white;
+        /* background-size: cover; */
+        /* width: inherit; */
+        width: calc(67.5%);
+        height: 100vh;
+        padding: 3vh;
+        font-size: 3vh;
+        /* border-top-left-radius: 20px;
+        border-top-right-radius: 20px; */
+        border-radius: 3vh;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* min-width: inherit; */
+    }
+}
+
 .custom-body::-webkit-scrollbar-track {
     background: #f0f0f0; /* Background of the scrollbar track*/
     border-radius: 50px;
