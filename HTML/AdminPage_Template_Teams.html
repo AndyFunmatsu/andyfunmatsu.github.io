@@ -401,7 +401,7 @@
                 });
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
-                if(username == username_sent){
+                if(username === username_sent){
                     newDiv.style.alignSelf = "flex-end";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                     document.getElementById("text-bar").value = "";
@@ -548,7 +548,7 @@
                         }
                         });
                         msgcontainer.appendChild(newDiv);
-                        if(username == msg.username){
+                        if(username === msg.username){
                             newDiv.style.alignSelf = "flex-end";
                             newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                             msgcontainer.appendChild(deleteMsg);
