@@ -44,7 +44,7 @@
                     <div class="custom-body">
                         <div id="div-custom-body"></div>
                         <div id="quote-n-text-container">
-                            <div id="quote-container"></div>
+                            <div id="quote-container"><div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>
                             <div class="text-bar-container">
                                 <textarea id="text-bar" placeholder="message" ></textarea>
                                 <input type="file" id="fileInput" accept="image/*" style="display: none;" />
@@ -167,8 +167,9 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        // if(document.getElementById("closeQuote"))
-                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        if(document.getElementById("closeQuote")){
+                            document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        }
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -191,8 +192,8 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        // if(document.getElementById("closeQuote"))
-                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        if(document.getElementById("closeQuote"))
+                        document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -376,8 +377,7 @@
                 newDiv.id = n_messages;
 
                 quoteMsg.addEventListener("click", () => {
-                    document.getElementById("quote-container").style.display = "flex";      
-                    console.log(`Quoted msg id: ${newDiv.id}`)
+                    document.getElementById("quote-container").style.display = "flex";
                     fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
                     .then(response => response.text()) // ✅ Log raw response before parsing
                     .then(text => {
@@ -385,19 +385,18 @@
                         return JSON.parse(text); // ✅ Parse only if it's valid JSON
                     })
                     .then(data => {
-                        console.log(`${JSON.stringify(data.messages)}`);
-                        // console.log(`${data.messages.message}`);
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            // if(msg.id === newDiv.id)
-                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
+                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
                         })
                     });
                     // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
-                    // document.getElementById("closeQuote").addEventListener("click", () => {
-                    //     document.getElementById("quote-container").innerHTML = "";
-                    //     document.getElementById("quote-container").style.display = "none";
-                    // });
+                    if(!document.getElementById("closeQuote")){
+                        document.getElementById("closeQuote").addEventListener("click", () => {
+                            document.getElementById("quote-container").innerHTML = "";
+                            document.getElementById("quote-container").style.display = "none";
+                        });
+                    }
                     // document.getElementById("quote-container").appendChild(document.getElementById("closeQuote"));
                     isQuoting = true;
                 });
