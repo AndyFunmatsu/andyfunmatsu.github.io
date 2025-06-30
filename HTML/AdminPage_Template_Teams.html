@@ -372,10 +372,8 @@
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
 
-                n_messages++;
-                newDiv.id = n_messages;
-
                 quoteMsg.addEventListener("click", () => {
+                    console.log("Messaage id: ", newDiv.id);
                     document.getElementById("quote-container").style.display = "flex";
                     fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
                     .then(response => response.text()) // ✅ Log raw response before parsing
@@ -552,14 +550,26 @@
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
                         
+                        n_messages = msg.id;
+                        newDiv.id = n_messages;
+
                         quoteMsg.addEventListener("click", () => {
-                            document.getElementById("quote-container").style.display = "block";
-                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh;">Quoting @${newDiv.innerHTML}</div>`;
+                            document.getElementById("quote-container").style.display = "flex";
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
+                            .then(response => response.text()) // ✅ Log raw response before parsing
+                            .then(text => {
+                                console.log("📥 Raw server response:", text);
+                                return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                            })
+                            .then(data => {
+                                data.messages.forEach(msg => {
+                                    console.log(msg.message)
+                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                                })
+                            });
                             isQuoting = true;
                         });
 
-                        n_messages = msg.id;
-                        newDiv.id = n_messages;
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
                         if(confirm((`delete message from ${username} ?`))){
