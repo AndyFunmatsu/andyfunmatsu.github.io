@@ -378,7 +378,7 @@
                 quoteMsg.addEventListener("click", () => {
                     document.getElementById("quote-container").style.display = "flex";      
                     console.log(`Quoted msg id: ${newDiv.id}`)
-                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}`)
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
                     .then(response => response.text()) // ✅ Log raw response before parsing
                     .then(text => {
                         console.log("📥 Raw server response:", text);
@@ -389,7 +389,7 @@
                         // console.log(`${data.messages.message}`);
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            if(msg.id === newDiv.id)
+                            // if(msg.id === newDiv.id)
                             document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
                         })
                     });
