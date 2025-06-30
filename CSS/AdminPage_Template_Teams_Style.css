@@ -52,8 +52,8 @@
     color: white;
     margin-left: 5px;
     margin-right: 5px;
-    font-size: 2.5vh ;
-    height: 10vh;
+    font-size: 20px;
+    /* height: 10vh; */
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -125,23 +125,24 @@ body {
 } */
 #admin-page-header {
     position: fixed;
-        left: 40vh;
-        right: 40vh;
-        /* background-image: url(realbook2.jpg); */
-        background-color: rgb(44, 121, 202);
-        color: white;
-        /* background-size: cover; */
-        /* width: inherit; */
-        width: calc(67.5%);
-        height: 100vh;
-        padding: 3vh;
-        font-size: 3vh;
-        /* border-top-left-radius: 20px;
-        border-top-right-radius: 20px; */
-        border-radius: 3vh;
-        padding-left: 30px;
-        padding-right: 30px;
-        /* min-width: inherit; */
+    z-index: -1;
+    left: 40vh;
+    right: 40vh;
+    /* background-image: url(realbook2.jpg); */
+    background-color: rgb(44, 121, 202);
+    color: white;
+    /* background-size: cover; */
+    /* width: inherit; */
+    width: calc(67.5%);
+    height: 100vh;
+    padding: 3vh;
+    font-size: 3vh;
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
+    border-radius: 3vh;
+    padding-left: 30px;
+    padding-right: 30px;
+    /* min-width: inherit; */
 }
 
 #custom-body-heaader{
@@ -165,7 +166,7 @@ body {
     position:fixed;
     display: flex;
     flex-wrap: wrap;
-    top: 12vh;
+    top: 10vh;
     left: 40vh;
     right: 40vh;
     /* left: max(40vh, 20vh); */
@@ -192,7 +193,7 @@ body {
     overflow-y: hidden;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (max-height: 1500px) {
     body{
         background-color: cyan;
     }
@@ -233,7 +234,7 @@ body {
         width: calc(67.5%);
         height: 100vh;
         padding: 3vh;
-        font-size: 3vh;
+        font-size: 20px;
         /* border-top-left-radius: 20px;
         border-top-right-radius: 20px; */
         border-radius: 3vh;
@@ -241,6 +242,60 @@ body {
         padding-right: 30px;
         /* min-width: inherit; */
     }
+
+    #team-info {
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        width: 160px;
+        text-align: left;
+        background-color: transparent;
+        color: white;
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 15px;
+        /* height: 10vh; */
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .text-bar-container{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: calc(50%);
+        /* min-width: 65vw; */
+        /* height: 10px; */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 3vh;
+        margin-bottom: 50px;
+    }
+
+    #menu{
+        /* display: none; */
+        position: fixed;
+        background-color: rgb(0, 117, 212);
+        color: black;
+        height: 98%;
+        width: 100px;
+        max-width: 150px;
+        border-radius: 25px;
+        overflow: auto;
+        /* max-width: calc(15%); */
+    }
+
+    /* #upload-image{
+        border-radius: 10px;
+        height: 10px;
+        width: 12vh;
+        background-color: rgba(240, 248, 255, 0);
+        border-color: rgba(240, 248, 255, 0);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75);
+        display: flex;
+        justify-content: center;
+    } */
+
 }
 
 .custom-body::-webkit-scrollbar-track {
