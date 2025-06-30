@@ -167,7 +167,7 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -190,7 +190,7 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -357,26 +357,6 @@
                     quoteMsg.style.display = "none";
                 });
 
-                quoteMsg.addEventListener("click", () => {
-                    document.getElementById("quote-container").style.display = "flex";      
-                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
-                    .then(response => response.text()) // ✅ Log raw response before parsing
-                    .then(text => {
-                        console.log("📥 Raw server response:", text);
-                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
-                    })
-                    .then(data => {
-                        document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${data.messages.message}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
-                    });
-                    // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
-                    document.getElementById("closeQuote").addEventListener("click", () => {
-                        document.getElementById("quote-container").innerHTML = "";
-                        document.getElementById("quote-container").style.display = "none";
-                    });
-                    document.getElementById("quote-container").appendChild(closeQuote);
-                    isQuoting = true;
-                });
-
                 fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}`)
                 .then(response => response.text()) // ✅ Log raw response before parsing
                 .then(text => {
@@ -392,6 +372,28 @@
 
                 n_messages++;
                 newDiv.id = n_messages;
+
+                quoteMsg.addEventListener("click", () => {
+                    document.getElementById("quote-container").style.display = "flex";      
+                    console.log(`Quoted msg id: ${newDiv.id}`)
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
+                    .then(response => response.text()) // ✅ Log raw response before parsing
+                    .then(text => {
+                        console.log("📥 Raw server response:", text);
+                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                    })
+                    .then(data => {
+                        document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${data.messages.message}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
+                    });
+                    // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
+                    document.getElementById("closeQuote").addEventListener("click", () => {
+                        document.getElementById("quote-container").innerHTML = "";
+                        document.getElementById("quote-container").style.display = "none";
+                    });
+                    document.getElementById("quote-container").appendChild(document.getElementById("closeQuote"));
+                    isQuoting = true;
+                });
+
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
@@ -577,7 +579,8 @@
                         });
                         msgcontainer.appendChild(newDiv);
                         if(username === msg.username){
-                            msgcontainer.style.justifyContent = "flex-end"
+                            msgcontainer.style.flexDirection = "row-reverse";
+                            msgcontainer.style.justifyContent = "flex-start"
                             msgcontainer.appendChild(deleteMsg);
                             msgcontainer.appendChild(quoteMsg);
                             newDiv.style.alignSelf = "flex-end";
