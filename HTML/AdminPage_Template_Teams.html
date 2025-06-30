@@ -385,7 +385,7 @@
                         return JSON.parse(text); // ✅ Parse only if it's valid JSON
                     })
                     .then(data => {
-                        console.log(`${data.messages}`);
+                        console.log(`${JSON.stringify(data.messages)}`);
                         // console.log(`${data.messages.message}`);
                         data.messages.forEach(msg => {
                             if(msg.id === newDiv.id)
