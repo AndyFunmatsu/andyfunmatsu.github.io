@@ -498,9 +498,24 @@ app.get("/direct_messages", (req, res) => {
 app.get("/messages_teams/:teamname/:channel", (req, res) => {
     const { teamname, channel } = req.params;
 
-    const sql = "SELECT id, username, teamname, channel, message, created_at FROM messages_teams WHERE teamname = ? AND channel = ? ORDER BY created_at ASC";
+    const sql = "SELECT * FROM messages_teams WHERE teamname = ? AND channel = ? ORDER BY created_at ASC";
 
     connection.query(sql, [teamname, channel], (err, results) => {
+        if (err) {
+            console.error("❌ Error retrieving messages:", err);
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+        console.log(`✅ Retrieved Messages for Team "${teamname}", Channel "${channel}":`, results);
+        res.json({ success: true, messages: results });
+    });
+});
+
+app.get("/messages_teams/:teamname/:channel/:id", (req, res) => {
+    const { teamname, channel, id } = req.params;
+
+    const sql = "SELECT * FROM messages_teams WHERE teamname = ? AND channel = ? AND id = ?ORDER BY created_at ASC";
+
+    connection.query(sql, [teamname, channel, id], (err, results) => {
         if (err) {
             console.error("❌ Error retrieving messages:", err);
             return res.status(500).json({ success: false, message: "Internal Server Error" });

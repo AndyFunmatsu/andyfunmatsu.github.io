@@ -167,6 +167,7 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
+                        document.getElementById("quote-container").removeChild(closeQuote);
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -189,6 +190,7 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
+                        document.getElementById("quote-container").removeChild(closeQuote);
                         document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -312,7 +314,7 @@
                 msgcontainer.style.display = "flex";
                 msgcontainer.style.flexDirection = "row";
                 msgcontainer.style.alignItems = "center";
-                msgcontainer.style.justifyContent = "flex-end"
+                // msgcontainer.style.justifyContent = "flex-end"
                 const message = document.getElementById("text-bar").value;
 
                 newDiv.innerHTML = message;
@@ -328,7 +330,7 @@
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
                 // deleteMsg.style.alignSelf = "flex-end";
-                deleteMsg.style.float = "right";
+                deleteMsg.style.float = "left";
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
                 deleteMsg.style.display = "none";
@@ -336,7 +338,7 @@
 
                 let quoteMsg = document.createElement('div');
                 quoteMsg.innerText = "↪️";
-                quoteMsg.style.float = "right";
+                quoteMsg.style.float = "left";
                 quoteMsg.style.height = "30px"
                 quoteMsg.style.width = "30px";
                 quoteMsg.style.display = "none";
@@ -356,8 +358,22 @@
                 });
 
                 quoteMsg.addEventListener("click", () => {
-                    document.getElementById("quote-container").style.display = "block";
-                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh;">Quoting @${newDiv.innerHTML}</div>`;
+                    document.getElementById("quote-container").style.display = "flex";      
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
+                    .then(response => response.text()) // ✅ Log raw response before parsing
+                    .then(text => {
+                        console.log("📥 Raw server response:", text);
+                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                    })
+                    .then(data => {
+                        document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${data.messages.message}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
+                    });
+                    // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
+                    document.getElementById("closeQuote").addEventListener("click", () => {
+                        document.getElementById("quote-container").innerHTML = "";
+                        document.getElementById("quote-container").style.display = "none";
+                    });
+                    document.getElementById("quote-container").appendChild(closeQuote);
                     isQuoting = true;
                 });
 
@@ -402,13 +418,14 @@
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
                 if(username === username_sent){
-                    msgcontainer.style.justifyContent = "flex-end"
+                    msgcontainer.style.flexDirection = "row-reverse";
+                    msgcontainer.style.justifyContent = "flex-start"
                     msgcontainer.appendChild(deleteMsg);
                     msgcontainer.appendChild(quoteMsg);
-                    newDiv.style.alignSelf = "flex-end";
+                    newDiv.style.float = "right";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                     document.getElementById("text-bar").value = "";
-                    msgcontainer.appendChild(deleteMsg);
+                    // msgcontainer.appendChild(deleteMsg);
                 }
                 else{
                     msgcontainer.style.justifyContent = "flex-start"
@@ -417,7 +434,7 @@
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                     msgcontainer.appendChild(quoteMsg);
                 }
-                msgcontainer.appendChild(quoteMsg);
+                // msgcontainer.appendChild(quoteMsg);
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
                 document.getElementById("quote-container").innerHTML = "";
@@ -499,7 +516,7 @@
                         let deleteMsg = document.createElement('div');
                         deleteMsg.innerText = "❌";
                         // deleteMsg.style.alignSelf = "flex-end";
-                        deleteMsg.style.float = "left";
+                        // deleteMsg.style.float = "left";
                         deleteMsg.style.height = "30px"
                         deleteMsg.style.width = "30px";
                         deleteMsg.style.display = "none";
@@ -507,7 +524,7 @@
 
                         let quoteMsg = document.createElement('div');
                         quoteMsg.innerText = "↪️";
-                        quoteMsg.style.float = "right";
+                        // quoteMsg.style.float = "right";
                         quoteMsg.style.height = "30px"
                         quoteMsg.style.width = "30px";
                         quoteMsg.style.display = "none";

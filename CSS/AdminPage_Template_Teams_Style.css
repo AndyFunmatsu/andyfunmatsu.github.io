@@ -617,7 +617,7 @@ body {
     display: none;
     height: 5vh;
     margin-bottom: 3vh;
-    background-color: deepskyblue;
+    /* background-color: deepskyblue; */
 }
 
 #upload-image{
