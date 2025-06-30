@@ -312,7 +312,7 @@
                 msgcontainer.style.display = "flex";
                 msgcontainer.style.flexDirection = "row";
                 msgcontainer.style.alignItems = "center";
-                msgcontainer.style.justifyContent = "flex-start"
+                msgcontainer.style.justifyContent = "flex-end"
                 const message = document.getElementById("text-bar").value;
 
                 newDiv.innerHTML = message;
@@ -328,7 +328,7 @@
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
                 // deleteMsg.style.alignSelf = "flex-end";
-                deleteMsg.style.float = "left";
+                deleteMsg.style.float = "right";
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
                 deleteMsg.style.display = "none";
