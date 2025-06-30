@@ -388,6 +388,7 @@
                         console.log(`${JSON.stringify(data.messages)}`);
                         // console.log(`${data.messages.message}`);
                         data.messages.forEach(msg => {
+                            console.log(msg.message)
                             if(msg.id === newDiv.id)
                             document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
                         })
