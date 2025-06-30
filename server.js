@@ -248,7 +248,7 @@ app.delete("/messages_teams/:teamname/:username/:channel/:id", (req, res) => {
     });
 });
 
-app.delete("/direct_messages/:target_user/:username/:channel", (req, res) => {
+app.delete("/direct_messages/:target_user/:username/:channel/:id", (req, res) => {
     const { target_user, username, channel } = req.params;
     
     const sql = "DELETE FROM direct_messages WHERE target_user = ? AND username = ? AND channel = ?";
@@ -528,7 +528,7 @@ app.get("/messages_teams/:teamname/:channel", (req, res) => {
 app.get("/direct_messages/:target_user/:channel", (req, res) => {
     const { target_user, channel } = req.params;
 
-    const sql = "SELECT username, target_user, channel, message, created_at FROM direct_messages WHERE target_user = ? AND channel = ? ORDER BY created_at ASC";
+    const sql = "SELECT id, username, target_user, channel, message, created_at FROM direct_messages WHERE target_user = ? AND channel = ? ORDER BY created_at ASC";
 
     connection.query(sql, [target_user, channel], (err, results) => {
         if (err) {

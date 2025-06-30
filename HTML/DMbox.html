@@ -10,14 +10,12 @@
     </head>
 
     <body>
-        <div id="admin-page-header">
-            {TT}
-            <!-- <img src="../images/friends.png" id="title-users"> -->
-            <hr>
-        </div>
-                <div id="pop-up-image">
-                    <img id="image-container">
-                </div>
+        <div id="screen" style="display: flex; flex-direction: row; ">
+       
+            <div id="pop-up-image">
+                <img id="image-container">
+            </div>
+            
                 <div id="menu">
                     <div id="team-info"><br>(Team Name)<br><hr><br></div>
 
@@ -37,20 +35,27 @@
                         Back<img src="../images/arrow.png" id="arrow3">
                     </div></a>
                 </div>
-        
-            <div class="custom-body">
-                <div id="div-custom-body"></div>
-                <div class="text-bar-container">
-                    <input id="text-bar" placeholder="message" >
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;" />
-                    <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
-                        <img id="add-image" src="../blue_camera_icon.png">
-                    </button>
-                    <button id="send-msg">Send</button>
-                    <button id="emojis">😀</button>
-                    <div id="emoji-container" style="display: none;">😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 😉 😊 😇 🥰 😍 🤩 😘 😗 ☺ 😚 😙 🥲 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🤫 🤔 🤐 🤨 😐 😑 😶 😏 😒 🙄 😬 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 😟 🙁 ☹ 😮 😯 😲 😳 🥺 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 ☠ 💩 🤡 👽 🤖 😺 😸 😹 😻 😼 😽 🙀 😿 😾 💋 👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌ 🤞 🤟 🤘 🤙 👈 👉 👆 👇 ☝ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻 👃 🧠</div>
-                </div>                
-            </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;" id="custom-body-heaader">
+                    <div id="admin-page-header">
+                        {TT}
+                        <!-- <img src="../images/friends.png" id="title-users"> -->
+                        <hr>
+                    </div>
+                    <div class="custom-body">
+                        <div id="div-custom-body"></div>
+                        <div class="text-bar-container">
+                            <input id="text-bar" placeholder="message" >
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+                            <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
+                                <img id="add-image" src="../blue_camera_icon.png">
+                            </button>
+                            <button id="send-msg">Send</button>
+                            <button id="emojis">😀</button>
+                            <div id="emoji-container" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            
             <div id="pop-up">
                 <div id="friend-addition-form">
                     <div id="NameForm" >
@@ -87,8 +92,7 @@
                     </div>
                     
                     </div>
-            </div>
-            
+            </div>            
         </div>
         
         <script>
@@ -99,6 +103,8 @@
             let teamname = params.get("teamname");
             let channel  = params.get("channel" );
 
+            let n_messages = 0;
+            const emojis = ['😀','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟','🙁','☹','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','☠','💩','🤡','👽','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','💋','👋','🤚','🖐','✋','🖖','👌','🤏','✌','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻','👃','🧠'];
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
             ws.onmessage = async (event) => {
@@ -111,11 +117,36 @@
                 document.getElementById("text-bar").value = parsedMessage.message;
                 
                 if(parsedMessage.teamname === teamname){
-                    sendMsg();
+                    if(!parsedMessage.message.includes("data:image/png;base64,")){
+                        sendMsg();
+                    }
+                    else{
+                        sendMsg().addEventListener("click", () => {
+                            document.getElementById("pop-up-image").style.display = "flex";
+                            document.getElementById("image-container").src = url;
+
+                            document.getElementById("pop-up-image").addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "none";
+                                document.getElementById("image-container").src = "";
+                            });
+                        });
+                    }
                     scrollToBottom();
                 }          
+
                 document.getElementById("text-bar").value = tempTextBar;          
             };
+
+            emojis.forEach(e => {
+                let emoji = document.createElement('div');
+                emoji.id = "emoji";
+                emoji.textContent= e;
+                // emoji.style.fontSize = "35px";
+                emoji.addEventListener("click" , () => {
+                    document.getElementById("text-bar").value += emoji.innerText;
+                });
+                document.getElementById("emoji-container").appendChild(emoji) 
+            });
 
             document.getElementById("text-bar").addEventListener("keypress", function(event) {  
                 let msgString = `<strong>${username}:  </strong> ${document.getElementById("text-bar").value}       <small>${new Date().toLocaleString()}</small>`;
@@ -275,9 +306,9 @@
                 var newDiv = document.createElement("div");
                 var msgcontainer = document.createElement("div");
                 msgcontainer.id = "msgContainer";
-                msgcontainer.style.width = "75vw";
+                msgcontainer.style.width = "100%";
                 msgcontainer.style.height = "fit-content";
-                msgcontainer.style.maxHeight = "100vh";
+                // msgcontainer.style.maxHeight = "10vh";
                 msgcontainer.style.backgroundColor = "white";
                 msgcontainer.style.display = "flex";
                 msgcontainer.style.flexDirection = "column";
@@ -289,10 +320,10 @@
                 newDiv.style.width = "fit-content";
                 newDiv.style.textAlign = "right";
                 newDiv.style.position = "relative";
-                newDiv.style.borderRadius = "10px";
+                newDiv.style.borderRadius = "1.5vh";
                 newDiv.style.padding = "15px";
                 newDiv.style.margin = "10px";
-                
+
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
                 deleteMsg.style.alignSelf = "flex-end";
@@ -300,6 +331,7 @@
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
                 deleteMsg.style.display = "none";
+                newDiv.style.transition = "box-shadow 0.2s ease";
                 msgcontainer.addEventListener("mouseover", () => {
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                     deleteMsg.style.display = "block";
@@ -309,11 +341,26 @@
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                     deleteMsg.style.display = "none";
                 });
-                
+
+                fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}`)
+                .then(response => response.text()) // ✅ Log raw response before parsing
+                .then(text => {
+                    console.log("📥 Raw server response:", text);
+                    return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                })
+                .then(data => {
+                    data.messages.forEach(msg => {
+                        n_messages = msg.id;
+                    })
+                })
+                .catch(error => console.error("❌ Error fetching messages:", error)); 
+
+                n_messages++;
+                newDiv.id = n_messages;
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
-                    fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}`, {
+                    fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}/${newDiv.id}`, {
                         method: "DELETE",
                     })
                     .then(response => response.json())
@@ -375,7 +422,7 @@
             
             document.getElementById("emojis").addEventListener("click", () => {
                 if(document.getElementById("emoji-container").style.display === "none")
-                document.getElementById("emoji-container").style.display = "block";
+                document.getElementById("emoji-container").style.display = "flex";
                 else
                 document.getElementById("emoji-container").style.display = "none";
             });
@@ -399,21 +446,21 @@
                 .then(data => {
                     console.log("✅ Data Type:", typeof data); // ✅ Debugging
                     console.log("✅ Parsed JSON:", data);
-
+                    // n_messages = data.messages.length;
                     if (data.messages.length === 0) {
                         console.warn("⚠ No messages found!");
                         return;
                     }   
                     document.getElementById("text-bar").value = "";
-                    // document.getElementById("div-custom-body").innerHTML = "";
                     data.messages.forEach(msg => {
+                        console.log("fetch id msg: " + msg.id);
                         document.getElementById("text-bar").value = msg.message;
                         var newDiv = document.createElement("div");
                         var msgcontainer = document.createElement("div");
                         msgcontainer.id = "msgContainer";
                         msgcontainer.style.width = "75vw";
                         msgcontainer.style.height = "fit-content";
-                        msgcontainer.style.maxHeight = "50vh";
+                        msgcontainer.style.maxHeight = "100vh";
                         msgcontainer.style.backgroundColor = "white";
                         msgcontainer.style.display = "flex";
                         msgcontainer.style.flexDirection = "column";
@@ -428,7 +475,6 @@
                         newDiv.style.borderRadius = "10px";
                         newDiv.style.padding = "15px";
                         newDiv.style.margin = "10px";
-
                         let deleteMsg = document.createElement('div');
                         deleteMsg.innerText = "❌";
                         deleteMsg.style.alignSelf = "flex-end";
@@ -436,6 +482,7 @@
                         deleteMsg.style.height = "30px"
                         deleteMsg.style.width = "30px";
                         deleteMsg.style.display = "none";
+                        newDiv.style.transition = "box-shadow 0.2s ease";
                         msgcontainer.addEventListener("mouseover", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                             deleteMsg.style.display = "block";
@@ -446,11 +493,13 @@
                             deleteMsg.style.display = "none";
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
-
+                        
+                        n_messages = msg.id;
+                        newDiv.id = n_messages;
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
                         if(confirm((`delete message from ${username} ?`))){
-                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}`, {
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}/${newDiv.id}`, {
                                 method: "DELETE",
                             })
                             .then(response => response.json())
@@ -532,7 +581,7 @@
                 let channelDiv = document.createElement('div');
                     channelDiv.classList.add('general-button');
                     channelDiv.classList.add('channel');
-                    channelDiv.innerText = name;
+
                     channelDiv.addEventListener("click", () => {
                         window.location.href = `DMbox.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
@@ -540,13 +589,14 @@
                     document.getElementById("back1").onclick();
                     let hashDiv = document.createElement('div');
                     hashDiv.style.fontSize = "20px";
-
                     hashDiv.innerText = "#";
                     hashDiv.style.marginRight = "10px";
                     // hashDiv.style.alignSelf = "flex-start";
-                    hashDiv.style.float = "left";
+                    // hashDiv.style.alignSelf = "flex-start";
                     channelDiv.appendChild(hashDiv);
-
+                    let nameChannel = document.createElement('p');
+                    nameChannel.innerText = name
+                    channelDiv.appendChild(nameChannel);
                     let deleteChannelDiv = document.createElement('div');
                     deleteChannelDiv.innerText = "❌";
                     deleteChannelDiv.style.alignSelf = "flex-end";
@@ -561,8 +611,8 @@
                         deleteChannelDiv.style.display = "none";
                     })
                     deleteChannelDiv.addEventListener("click", (event) => {
-                        if(confirm(`Delete ${name} Channel?`)){
                         event.preventDefault();
+                        if(confirm(`Delete ${name} Channel?`)){
                         fetch(`https://starter-production-0722.up.railway.app/channels/${name}`, {
                             method: "DELETE",
                         })

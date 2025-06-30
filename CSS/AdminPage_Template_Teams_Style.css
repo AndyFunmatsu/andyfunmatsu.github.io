@@ -4,7 +4,7 @@
     background-color: rgb(0, 117, 212);
     color: black;
     height: 98%;
-    /* width: 200px; */
+    width: 200px;
     max-width: 10vw;
     border-radius: 25px;
     overflow: auto;
@@ -43,7 +43,6 @@
 } */
 
 #team-info {
-    
     padding: 15px;
     border: none;
     border-radius: 10px;
@@ -53,8 +52,8 @@
     color: white;
     margin-left: 5px;
     margin-right: 5px;
-    font-size: 15px ;
-
+    font-size: 2.5vh ;
+    height: 10vh;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -63,12 +62,19 @@
     background-color: rgb(107, 193, 239);
 }
 
+/* #screen{
+    height: 00vh;
+    width: 100vw;
+} */
+
 .general-button{
+    display: flex;
     padding: 15px;
     border-radius: 10px;
-    max-width: 160px;
+    max-width: 10vw;
     min-width: 160px;
-    width: fit-content;
+    /* max-height: 2vh; */
+    width: inherit;
     overflow: auto;
     background-color: rgb(204, 209, 212);
     margin-top: 20px;
@@ -76,9 +82,12 @@
     margin-right: 5px;
     border-width: 100px;
     border-bottom-color: rgb(0, 0, 0);
-    font-size: 15px ;
     cursor: pointer;
     transition: background-color 1s ease;
+    font-size: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .general-button::-webkit-scrollbar{
@@ -116,19 +125,37 @@ body {
 } */
 #admin-page-header {
     position: fixed;
-        left: min(350px, 40vh);
+        left: 40vh;
+        right: 40vh;
         /* background-image: url(realbook2.jpg); */
         background-color: rgb(44, 121, 202);
         color: white;
-        background-size: cover;
-        width: calc(100% - 280px);
-        height: 50px;
-        padding-top: 20px;
-        padding-left: 20px;
-        font-size: 20px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        min-width: 75vw;
+        /* background-size: cover; */
+        /* width: inherit; */
+        width: calc(67.5%);
+        height: 100vh;
+        padding: 3vh;
+        font-size: 3vh;
+        /* border-top-left-radius: 20px;
+        border-top-right-radius: 20px; */
+        border-radius: 3vh;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* min-width: inherit; */
+}
+
+#custom-body-heaader{
+    display: flex;
+    flex-direction: row;
+    width: 150vh;
+    height: 100%;
+    align-self: center;
+}
+
+#screen{
+    display: flex;
+    width: 100%;
+    height: fit-content
 }
 /* .about {
     position: fixed;
@@ -136,18 +163,23 @@ body {
 } */
 .custom-body {
     position:fixed;
-    top: 80px;
-    left: min(350px, 40vh);
+    display: flex;
+    flex-wrap: wrap;
+    top: 12vh;
+    left: 40vh;
+    right: 40vh;
     /* left: max(40vh, 20vh); */
-    width: calc(100% - 320px);
-    min-width: 70vw;
-    min-height: 100%;
-    height: 80vw;
+    width: calc(67.5%);
+    /* min-width: inherit; */
+    /* min-height: 100%; */
+    height: 90vh;
     background-color: white;
     padding-left: 30px;
     padding-right: 30px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    /* border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px; */
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
     padding-top: 15px;
     line-height: 1.5;
     padding-bottom: 20px;
@@ -562,6 +594,7 @@ body {
     width: calc(100%);
     min-width: 65vw;
     height: 10vh;
+    box-shadow: 5px, 5px, 10px, rgba(0, 0, 0, 0.5);
 }
 
 #upload-image{
@@ -692,7 +725,7 @@ body {
 
 #div-custom-body {
     width: 100%;
-    height: 60vh;
+    height: 65vh;
     /* position: relative; */
     text-align: center;
     /* height: fit-content; */
