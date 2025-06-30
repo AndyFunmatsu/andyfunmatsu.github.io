@@ -402,12 +402,14 @@
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
                 if(username === username_sent){
+                    msgcontainer.style.justifyContent = "flex-end"
                     newDiv.style.alignSelf = "flex-end";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                     document.getElementById("text-bar").value = "";
                     msgcontainer.appendChild(deleteMsg);
                 }
                 else{
+                    msgcontainer.style.justifyContent = "flex-start"
                     newDiv.style.alignSelf = "flex-start";
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
@@ -522,6 +524,12 @@
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
                         
+                        quoteMsg.addEventListener("click", () => {
+                            document.getElementById("quote-container").style.display = "block";
+                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh;">Quoting @${newDiv.innerHTML}</div>`;
+                            isQuoting = true;
+                        });
+
                         n_messages = msg.id;
                         newDiv.id = n_messages;
                         deleteMsg.addEventListener("click", (event) => {
