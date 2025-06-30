@@ -45,6 +45,7 @@
                         <div id="div-custom-body"></div>
                         <div id="quote-n-text-container">
                             <div id="quote-container"></div>
+                            <div style="float: right;">❌</div>
                             <div class="text-bar-container">
                                 <textarea id="text-bar" placeholder="message" ></textarea>
                                 <input type="file" id="fileInput" accept="image/*" style="display: none;" />
@@ -157,11 +158,6 @@
             document.getElementById("text-bar").addEventListener("keypress", function(event) {  
                 let msgString = `<strong>${username}:  </strong>` + document.getElementById("text-bar").value + `     <small>${new Date().toLocaleString()}</small>`;
                 if (event.key === "Enter" && document.getElementById("text-bar").value !== "") {
-                    ws.send(JSON.stringify({
-                        username: username,  // ✅ Replace with actual logged-in user
-                        teamname: teamname,
-                        message: msgString
-                     })); // ✅ Send message via WebSocket
                     storeToDB(msgString);
                     if(!isQuoting){
                         document.getElementById("text-bar").value = msgString;
@@ -171,8 +167,14 @@
                         // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
+                        msgString = document.getElementById("text-bar").value;
                         isQuoting = false;
                     }
+                    ws.send(JSON.stringify({
+                        username: username,  // ✅ Replace with actual logged-in user
+                        teamname: teamname,
+                        message: msgString
+                     })); // ✅ Send message via WebSocket
                     sendMsg(username);
                     document.getElementById("quote-container").innerHTML = "";
                 }
@@ -181,11 +183,6 @@
             document.getElementById("send-msg").addEventListener("click", () => {
                 let msgString = `<strong>${username}:  </strong>` + document.getElementById("text-bar").value + `     <small>${new Date().toLocaleString()}</small>`;
                 if (document.getElementById("text-bar").value !== "") {
-                    ws.send(JSON.stringify({
-                        username: username,  // ✅ Replace with actual logged-in user
-                        teamname: teamname,
-                        message: msgString
-                     })); // ✅ Send message via WebSocket
                     storeToDB(msgString);
                     if(!isQuoting){
                         document.getElementById("text-bar").value = msgString;
@@ -195,8 +192,14 @@
                         // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
+                        msgString = document.getElementById("text-bar").value;
                         isQuoting = false;
                     }
+                    ws.send(JSON.stringify({
+                        username: username,  // ✅ Replace with actual logged-in user
+                        teamname: teamname,
+                        message: msgString
+                     })); // ✅ Send message via WebSocket
                     sendMsg(username);
                     document.getElementsById("quote-container").innerHTML = "";
                 }
