@@ -193,6 +193,7 @@ body {
     overflow-y: hidden;
 }
 
+
 @media (max-width: 1024px) and (max-height: 1500px) {
     body{
         background-color: cyan;
