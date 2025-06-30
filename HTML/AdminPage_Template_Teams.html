@@ -479,7 +479,7 @@
                         msgcontainer.style.display = "flex";
                         msgcontainer.style.flexDirection = "row";
                         msgcontainer.style.alignItems = "center";
-                        msgcontainer.style.justifyContent = "flex-start"
+                        // msgcontainer.style.justifyContent = "flex-start"
                         
                         const message = document.getElementById("text-bar").value;
 
@@ -549,12 +549,14 @@
                         });
                         msgcontainer.appendChild(newDiv);
                         if(username === msg.username){
+                            msgcontainer.style.justifyContent = "flex-end"
                             newDiv.style.alignSelf = "flex-end";
                             newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                             msgcontainer.appendChild(deleteMsg);
                             msgcontainer.appendChild(quoteMsg);
                         }
                         else{
+                            msgcontainer.style.justifyContent = "flex-start"
                             newDiv.style.alignSelf = "flex-start";
                             newDiv.style.color = "black";
                             newDiv.style.backgroundColor = "rgb(212, 212, 212)";
