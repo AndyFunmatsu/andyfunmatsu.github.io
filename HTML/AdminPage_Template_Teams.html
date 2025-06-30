@@ -167,7 +167,7 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        document.getElementById("quote-container").removeChild(closeQuote);
+                        document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
@@ -190,7 +190,7 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        document.getElementById("quote-container").removeChild(closeQuote);
+                        document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
                         document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         isQuoting = false;
