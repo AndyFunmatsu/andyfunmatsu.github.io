@@ -192,14 +192,17 @@ body {
     overflow-y: hidden;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    body{
+        background-color: cyan;
+    }
   .custom-body {
         /* position:fixed; */
         display: flex;
         flex-wrap: wrap;
-        /* top: 12vh;
+        top: 12vh;
         left: 10vh;
-        right: 40vh; */
+        right: 40vh;
         /* left: max(40vh, 20vh); */
         width: calc(67.5%);
         /* min-width: inherit; */
@@ -220,8 +223,8 @@ body {
     }
     #admin-page-header {
         position: fixed;
-        /* left: 10vh;
-        right: 40vh; */
+        left: 10vh;
+        right: 40vh;
         /* background-image: url(realbook2.jpg); */
         background-color: rgb(44, 121, 202);
         color: white;
