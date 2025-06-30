@@ -44,7 +44,7 @@
                     <div class="custom-body">
                         <div id="div-custom-body"></div>
                         <div class="text-bar-container">
-                            <input id="text-bar" placeholder="message" >
+                            <textarea id="text-bar" placeholder="message" ></textarea>
                             <input type="file" id="fileInput" accept="image/*" style="display: none;" />
                             <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
                                 <img id="add-image" src="../blue_camera_icon.png">
@@ -311,7 +311,9 @@
                 // msgcontainer.style.maxHeight = "10vh";
                 msgcontainer.style.backgroundColor = "white";
                 msgcontainer.style.display = "flex";
-                msgcontainer.style.flexDirection = "column";
+                msgcontainer.style.flexDirection = "row";
+                msgcontainer.style.alignItems = "center";
+                msgcontainer.style.justifyContent = "flex-start"
                 const message = document.getElementById("text-bar").value;
 
                 newDiv.innerHTML = message;
@@ -326,7 +328,7 @@
 
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
-                deleteMsg.style.alignSelf = "flex-end";
+                // deleteMsg.style.alignSelf = "flex-end";
                 deleteMsg.style.float = "right";
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
@@ -462,7 +464,9 @@
                         msgcontainer.style.height = "fit-content";
                         msgcontainer.style.backgroundColor = "white";
                         msgcontainer.style.display = "flex";
-                        msgcontainer.style.flexDirection = "column";
+                        msgcontainer.style.flexDirection = "row";
+                        msgcontainer.style.alignItems = "center";
+                        msgcontainer.style.justifyContent = "flex-start"
                         
                         const message = document.getElementById("text-bar").value;
 
@@ -476,11 +480,19 @@
                         newDiv.style.margin = "10px";
                         let deleteMsg = document.createElement('div');
                         deleteMsg.innerText = "❌";
-                        deleteMsg.style.alignSelf = "flex-end";
+                        // deleteMsg.style.alignSelf = "flex-end";
                         deleteMsg.style.float = "right";
                         deleteMsg.style.height = "30px"
                         deleteMsg.style.width = "30px";
                         deleteMsg.style.display = "none";
+
+                        let quoteMsg = document.createElement('div');
+                        quoteMsg.innerText = "↪️";
+                        quoteMsg.style.float = "right";
+                        quoteMsg.style.height = "30px"
+                        quoteMsg.style.width = "30px";
+                        quoteMsg.style.display = "none";
+                        
                         newDiv.style.transition = "box-shadow 0.2s ease";
                         msgcontainer.addEventListener("mouseover", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";

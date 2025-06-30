@@ -43,15 +43,18 @@
                     </div>
                     <div class="custom-body">
                         <div id="div-custom-body"></div>
-                        <div class="text-bar-container">
-                            <input id="text-bar" placeholder="message" >
-                            <input type="file" id="fileInput" accept="image/*" style="display: none;" />
-                            <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
-                                <img id="add-image" src="../blue_camera_icon.png">
-                            </button>
-                            <button id="send-msg">Send</button>
-                            <button id="emojis">😀</button>
-                            <div id="emoji-container" style="display: none;"></div>
+                        <div id="quote-n-text-container">
+                            <div id="quote-container"></div>
+                            <div class="text-bar-container">
+                                <textarea id="text-bar" placeholder="message" ></textarea>
+                                <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+                                <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
+                                    <img id="add-image" src="../blue_camera_icon.png">
+                                </button>
+                                <button id="send-msg">Send</button>
+                                <button id="emojis">😀</button>
+                                <div id="emoji-container" style="display: none;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,6 +110,7 @@
             let n_messages = 0;
             const emojis = ['😀','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟','🙁','☹','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','☠','💩','🤡','👽','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','💋','👋','🤚','🖐','✋','🖖','👌','🤏','✌','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻','👃','🧠'];
 
+            let isQuoting = false;
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
             ws.onmessage = async (event) => {
@@ -159,8 +163,16 @@
                         message: msgString
                      })); // ✅ Send message via WebSocket
                     storeToDB(msgString);
-                    document.getElementById("text-bar").value = msgString;
+                    if(!isQuoting){
+                        document.getElementById("text-bar").value = msgString;
+                    }
+                    else{
+                        document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
+                        document.getElementById("text-bar").value += msgString;
+                        isQuoting = false;
+                    }
                     sendMsg(username);
+                    document.getElementsById("quote-container").innerHTML = "";
                 }
             });
 
@@ -173,8 +185,16 @@
                         message: msgString
                      })); // ✅ Send message via WebSocket
                     storeToDB(msgString);
-                    document.getElementById("text-bar").value = msgString;
+                    if(!isQuoting){
+                        document.getElementById("text-bar").value = msgString;
+                    }
+                    else{
+                        document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
+                        document.getElementById("text-bar").value += msgString;
+                        isQuoting = false;
+                    }
                     sendMsg(username);
+                    document.getElementsById("quote-container").innerHTML = "";
                 }
             })
             
@@ -290,7 +310,9 @@
                 msgcontainer.style.height = "fit-content";
                 msgcontainer.style.backgroundColor = "white";
                 msgcontainer.style.display = "flex";
-                msgcontainer.style.flexDirection = "column";
+                msgcontainer.style.flexDirection = "row";
+                msgcontainer.style.alignItems = "center";
+                msgcontainer.style.justifyContent = "flex-start"
                 const message = document.getElementById("text-bar").value;
 
                 newDiv.innerHTML = message;
@@ -305,20 +327,38 @@
 
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
-                deleteMsg.style.alignSelf = "flex-end";
-                deleteMsg.style.float = "right";
+                // deleteMsg.style.alignSelf = "flex-end";
+                deleteMsg.style.float = "left";
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
                 deleteMsg.style.display = "none";
+                deleteMsg.style.cursor = "pointer";
+
+                let quoteMsg = document.createElement('div');
+                quoteMsg.innerText = "↪️";
+                quoteMsg.style.float = "right";
+                quoteMsg.style.height = "30px"
+                quoteMsg.style.width = "30px";
+                quoteMsg.style.display = "none";
+                quoteMsg.style.cursor = "pointer";
+
                 newDiv.style.transition = "box-shadow 0.2s ease";
                 msgcontainer.addEventListener("mouseover", () => {
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                     deleteMsg.style.display = "block";
+                    quoteMsg.style.display = "block";
                 });
 
                 msgcontainer.addEventListener("mouseout", () => {
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                     deleteMsg.style.display = "none";
+                    quoteMsg.style.display = "none";
+                });
+
+                quoteMsg.addEventListener("click", () => {
+                    document.getElementById("quote-container").style.display = "block";
+                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh;">Quoting @${newDiv.innerHTML}</div>`;
+                    isQuoting = true;
                 });
 
                 fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}`)
@@ -361,7 +401,7 @@
                 });
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
-                if(username === username_sent){
+                if(username == username_sent){
                     newDiv.style.alignSelf = "flex-end";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                     document.getElementById("text-bar").value = "";
@@ -372,9 +412,11 @@
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                 }
-                
+                msgcontainer.appendChild(quoteMsg);
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
+                document.getElementById("quote-container").innerHTML = "";
+                document.getElementById("quote-container").style.display = "none";
                 // document.getElementById("text-bar").value = "";
                 return msgcontainer;
             }
@@ -435,7 +477,9 @@
                         msgcontainer.style.height = "fit-content";
                         msgcontainer.style.backgroundColor = "white";
                         msgcontainer.style.display = "flex";
-                        msgcontainer.style.flexDirection = "column";
+                        msgcontainer.style.flexDirection = "row";
+                        msgcontainer.style.alignItems = "center";
+                        msgcontainer.style.justifyContent = "flex-start"
                         
                         const message = document.getElementById("text-bar").value;
 
@@ -449,20 +493,32 @@
                         newDiv.style.margin = "10px";
                         let deleteMsg = document.createElement('div');
                         deleteMsg.innerText = "❌";
-                        deleteMsg.style.alignSelf = "flex-end";
-                        deleteMsg.style.float = "right";
+                        // deleteMsg.style.alignSelf = "flex-end";
+                        deleteMsg.style.float = "left";
                         deleteMsg.style.height = "30px"
                         deleteMsg.style.width = "30px";
                         deleteMsg.style.display = "none";
+                        deleteMsg.style.cursor = "pointer";
+
+                        let quoteMsg = document.createElement('div');
+                        quoteMsg.innerText = "↪️";
+                        quoteMsg.style.float = "right";
+                        quoteMsg.style.height = "30px"
+                        quoteMsg.style.width = "30px";
+                        quoteMsg.style.display = "none";
+                        quoteMsg.style.cursor = "pointer";
+
                         newDiv.style.transition = "box-shadow 0.2s ease";
                         msgcontainer.addEventListener("mouseover", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                             deleteMsg.style.display = "block";
+                            quoteMsg.style.display = "block";
                         });
 
                         msgcontainer.addEventListener("mouseout", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                             deleteMsg.style.display = "none";
+                            quoteMsg.style.display = "none";
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
                         
@@ -492,15 +548,17 @@
                         }
                         });
                         msgcontainer.appendChild(newDiv);
-                        if(username === msg.username){
+                        if(username == msg.username){
                             newDiv.style.alignSelf = "flex-end";
                             newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                             msgcontainer.appendChild(deleteMsg);
+                            msgcontainer.appendChild(quoteMsg);
                         }
                         else{
                             newDiv.style.alignSelf = "flex-start";
                             newDiv.style.color = "black";
                             newDiv.style.backgroundColor = "rgb(212, 212, 212)";
+                            msgcontainer.appendChild(quoteMsg);
                         }
                         
                         if(teamname === msg.teamname)
