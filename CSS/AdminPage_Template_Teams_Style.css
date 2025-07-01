@@ -255,15 +255,17 @@ body {
 
     .text-bar-container{
         display: flex;
-        align-items: flex-start;
+        /* flex-wrap: wrap; */
+        flex-grow: 0;
+        align-items: center;
         gap: 10px;
-        width: calc(50%) !important;
+        width: calc(1%) !important;
         /* min-width: 65vw; */
         height: 5vh !important;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         background-color: rgba(255, 255, 255, 0);
-        border-radius: 1vh;
-        margin-bottom: 50px;
+        border-radius: 1vh !important;
+        margin-bottom: 50px !important;
     }
 
     .text-bar-container > * {
@@ -321,9 +323,11 @@ body {
 
     #text-bar{
         border-radius: 1vh;
+        overflow-wrap: break-word;
+        min-width: 0px;
         /* position: relative; */
         /* top: calc(100% - 20vh); */
-        width: 100%;
+        /* width: 100%; */
         height: calc(100% - 2px) !important;
         /* background-color: rgb(44, 121, 202); */
         overflow-y: hidden;
@@ -950,11 +954,11 @@ body {
 }
 
 #emoji-container{
-    display: flex;
+    /* display: flex; */
     /* flex-direction: row; */
     gap: 10px;
     width: calc(100% - 11cm);
-    align-items:flex-start;
+    align-items:center;
     /* max-width: 20vw; */
     /* height: fit-content; */
     /* text-align: start; */
