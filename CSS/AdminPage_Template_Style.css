@@ -237,7 +237,9 @@ body {
             
             /* min-width: 65vw; */
         }
-
+        .NameInput{
+            font-size: 1px !important;
+        }
     }
     #admin-page-header {
         position: fixed;
