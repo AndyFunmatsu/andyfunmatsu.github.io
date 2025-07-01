@@ -202,7 +202,7 @@ body {
         /* position:fixed; */
         display: flex;
         flex-wrap: wrap;
-        top: 12vh;
+        top: 10vh;
         left: 10vh;
         right: 40vh;
         width: calc(67.5%);
