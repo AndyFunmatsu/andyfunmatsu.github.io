@@ -7,18 +7,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const childDiv = document.getElementById('menu');
 
     parentDiv.addEventListener('click', function() {
-        if (childDiv.style.visibility === "hidden") {
+        if (!(childDiv.style.visibility === "visible")) {
             childDiv.style.visibility = "visible";
             setTimeout(() => {
-                childDiv.style.opacity = 1; // Hide after fade-out completes
-            }, 1);
+                childDiv.style.width = "200px";
+                childDiv.style.height = "300px";
+            }, 300);
 
         } else{
-            childDiv.style.opacity = 0;
+            childDiv.style.width = "0px";
+            childDiv.style.height = "0px";
             setTimeout(() => {
                 childDiv.style.visibility = "hidden"; // Hide after fade-out completes
-            }, 1);
+            }, 300);
         }
+    });
+    parentDiv.addEventListener('mouseover', () => {
+        // childDiv.style.animation = "growAnimation 0.5s ease-in-out;"
+        childDiv.style.visibility = "visible";
+        childDiv.style.width = "200px";
+        childDiv.style.height = "300px";
+        // parentDiv.onclick;
+        // this.body.style.backgroundColor = "black";
+    });
+    parentDiv.addEventListener('mouseout', () => {
+        if(!(childDiv.style.visibility === "visible")){
+            childDiv.style.width = "0px";
+            childDiv.style.height = "0px";
+            setTimeout(() => {
+                childDiv.style.visibility = "hidden"; // Hide after fade-out completes
+            }, 300);
+        }
+        // childDiv.style.animation = "growAnimation 0.2s ease-in-out;"
+        // this.body.style.backgroundColor = "rgb(237, 243, 246)";
     });
 });
 document.getElementById("team").onclick = () => {
