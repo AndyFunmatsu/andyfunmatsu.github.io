@@ -164,8 +164,8 @@ body {
 } */
 .custom-body {
     position:fixed;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     top: 10vh;
     left: 40vh;
     right: 40vh;
