@@ -402,6 +402,9 @@ body {
     padding-left: 20px;
 }
 
+.NameInput{
+    font-size: 16px;
+}
 #NameInput-useradd{
     position: relative;
     left: 10px;
