@@ -196,7 +196,7 @@ body {
 
 @media (max-width: 1024px) {
     body{
-        background-color: cyan;
+        background-color: rgb(143, 178, 214);
     }
   .custom-body {
         /* position:fixed; */
@@ -259,7 +259,7 @@ body {
         gap: 10px;
         width: calc(50%) !important;
         /* min-width: 65vw; */
-        height: 7vh !important;
+        height: 5vh !important;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         background-color: rgba(255, 255, 255, 0);
         border-radius: 1vh;
@@ -290,33 +290,33 @@ body {
 
     #upload-image{
         border-radius: 10px;
-        height: inherit !important;
-        width: 10px;
-        background-color: rgba(240, 248, 255, 0);
-        border-color: rgba(240, 248, 255, 0);
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75);
+        height: calc(100% + 1vh) !important;
+        width: 12vh !important;
+        /* background-color: rgba(240, 248, 255, 0); */
+        /* border-color: rgba(240, 248, 255, 0); */
+        /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75); */
         display: flex;
         justify-content: center;
     }
 
     #send-msg{
-        height: 1px;
-        width: 10px;
+        height: inherit !important;
+        width: 10vh !important;
         background-color: rgb(44, 121, 202);
         color: white;
         border: none;
-        font-size: 3vh;
-        border-radius: 1.5vh;
+        font-size: 20px !important;
+        border-radius: 0.5vh !important;
     }
 
     #emojis{
-        height: 1px;
-        width: 10px;
+        height: inherit !important;
+        width: 10vh !important;
         background-color: rgb(44, 121, 202);
         color: white;
         border: none;
-        font-size: 6vh;
-        border-radius: 1.5vh;
+        font-size: 3vh !important;
+        border-radius: 0.5vh !important;
     }
 
     #text-bar{
@@ -325,7 +325,7 @@ body {
         /* top: calc(100% - 20vh); */
         width: 100%;
         height: calc(100% - 2px) !important;
-        background-color: aqua;
+        /* background-color: rgb(44, 121, 202); */
         overflow-y: hidden;
         /* min-height: 10px; */
         padding: 2vw;
@@ -774,8 +774,8 @@ body {
 
 #upload-image{
     border-radius: 10px;
-    height: inherit;
-    width: 12vh;
+    height: calc(100% + 2vh);
+    width: 21vh;
     background-color: rgba(240, 248, 255, 0);
     border-color: rgba(240, 248, 255, 0);
     /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75); */
@@ -785,8 +785,8 @@ body {
 
 #add-image{
     border-radius: 10px;
-    height: 12vh;
-    width: 12vh;
+    height: inherit;
+    width: 100%;
     align-self: center;
 }
  
