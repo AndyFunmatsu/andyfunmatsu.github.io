@@ -12,7 +12,7 @@
         <div id="admin-page-header">
             {TT}
             <hr>
-            
+
         </div>
         
         <div id="teams-column">
@@ -75,16 +75,24 @@
                 <div id="team-addition-form">
                 
                     <div id="TeamNameForm" >
-                            <label for="team-name" id="NameInput-placeholder" style="left: 50px;">Team Name:</label>
-                                <input id="team-name" placeholder="Name" style="padding-left: 45px;"><br><br>
-                            <label for="team-desc" id="RoleInput-placeholder" style="left: 50px;">Team Description:</label>
-                                <input id="team-desc" placeholder="Team description" style="padding-left: 50px;">
-                                <div class="general-buttons" id="create-team-button">
-                                    Create Team
-                                </div>
-                                <div class="general-buttons" id="back" style = "top: -25px; position: relative">
-                                    Back
-                                </div>
+                        <div id="team-creation-info" style="display: flex; flex-direction: column; gap: 10px; width: 100%">
+                            <div id="team-name-container" style="display: flex; flex-direction: row; gap: 10px; width: 100%">
+                                <!-- <label for="team-name" id="NameInput-placeholder" style="left: 50px;">Team Name:</label> -->
+                                    <input id="team-name" placeholder="Name" style="padding-left: 45px;"><br><br>
+                            </div>
+                            <div id="team-desc-container" style="display: flex; flex-direction: row; gap: 10px; width: 100%">
+                                <!-- <label for="team-desc" id="RoleInput-placeholder" style="left: 50px;">Team Description:</label> -->
+                                    <input id="team-desc" placeholder="Team description" style="padding-left: 50px;">
+                            </div>
+                            <div id="create-team-controls" style="display: flex; flex-direction: row; justify-content: space-between; gap: 10px; width: 100%">
+                                    <div id="create-team-button" style="align-self: flex-end;">
+                                        Create Team
+                                    </div>
+                                    <div id="back" style="align-self: flex-start;">
+                                        Back
+                                    </div>
+                            </div>
+                        </div>
                                 
                             <!-- <a href="../HTML/AdminPage_Template.html" id="link"> -->
                                 

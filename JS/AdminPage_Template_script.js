@@ -56,7 +56,8 @@ profile_icon_popup.addEventListener("click", () => {
     profileInfo.style.top = profileInfo.style.top;
 });
 profile_icon_popup.onclick = function(){
-    popup.style.display = "block";
+    popup.style.display = "flex";
+
     insidePopUp.style.display = "block";
     insidePopUp.innnerText = `${username}`;
     document.querySelector("#team-addition-form").style.display = "none";
@@ -69,7 +70,7 @@ document.querySelector("#back2").onclick = function() {
     popup.style.display = "none";
 }
 document.querySelector("#add-teams").onclick = function() {
-    popup.style.display = "block";
+    popup.style.display = "flex";
     document.querySelector("#inside-pop-up").style.display = "none";
     document.querySelector("#team-addition-form").style.display = "block";
 }
