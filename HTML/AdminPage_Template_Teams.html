@@ -118,7 +118,7 @@
             let isQuoting = false;
 
             const isPhone = window.matchMedia("(max-width: 768px)").matches;
-            
+
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
             ws.onmessage = async (event) => {
@@ -344,7 +344,6 @@
 
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
-                // deleteMsg.style.alignSelf = "flex-end";
                 deleteMsg.style.float = "left";
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";

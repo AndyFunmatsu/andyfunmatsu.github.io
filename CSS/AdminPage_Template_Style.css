@@ -112,24 +112,17 @@ body {
             transition: background-color 1s ease;
         }
         #admin-page-header {
-            /* position: fixed; */
             left: 10vh !important;
             right: 40vh;
-            /* background-image: url(realbook2.jpg); */
             background-color: rgb(44, 121, 202);
             color: white;
-            /* background-size: cover; */
-            /* width: inherit; */
             width: calc(67.5%);
             height: 100vh;
             padding: 3vh;
-            font-size: 20px;
-            /* border-top-left-radius: 20px;
-            border-top-right-radius: 20px; */
+            font-size: 40px;
             border-radius: 3vh;
             padding-left: 30px;
             padding-right: 30px;
-            /* min-width: inherit; */
         }
 
         #team-info {
@@ -142,7 +135,7 @@ body {
             color: white;
             margin-left: 5px;
             margin-right: 5px;
-            font-size: 15px;
+            font-size: 20px;
             /* height: 10vh; */
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
