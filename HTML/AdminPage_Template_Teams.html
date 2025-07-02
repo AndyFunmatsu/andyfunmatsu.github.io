@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="team-addition-form">
+                <!-- <div id="team-addition-form"> -->
                 
                     <div id="profile-pop-up">
                             <label for="team-name" id="NameInput-placeholder" style="left: 50px;">Channel Name:</label>
@@ -90,11 +90,11 @@
                                 <div class="general-button" id="create-team-button">
                                     Create Channel
                                 </div>
-                                <div class="general-button" id="back1" style = "top: 25px; position: relative" onclick="document.getElementById('pop-up').style.display = 'none';">
+                                <div class="general-button" id="back1" style = "position: relative" onclick="document.getElementById('pop-up').style.display = 'none';">
                                     Back
                                 </div>
                                 
-                    </div>
+                    <!-- </div> -->
                     </div>
                     
                     </div>
@@ -312,14 +312,14 @@
                 menuImg.style.height = "3vh";
                 menuImg.style.marginRight = "2vh";
                 menuImg.style.cursor = "pointer";
-                menuImg.style.zIndex = "1000";
+                // menuImg.style.zIndex = "1000";
                 menuImg.style.pointerEvents = "auto";
 
                 document.getElementById("admin-page-header").appendChild(menuImg);
                 document.getElementById("admin-page-header").addEventListener("click", () => {
                     // document.querySelector(".custom-body").style.display = "none";
                     // document.getElementById("admin-page-header").style.display = "none";
-                    document.getElementById("menu").style.zIndex = 1000;
+                    document.getElementById("menu").style.zIndex = 10;
                     document.getElementById("menu").style.display = "block";
                     document.getElementById("menu").style.maxWidth = "1000vw";
                     document.getElementById("menu").style.width = "50%";
@@ -673,7 +673,9 @@
             document.addEventListener("DOMContentLoaded", fetchMessages);
             
             document.getElementById("create-channel-button").addEventListener("click", () => {
-                document.getElementById("pop-up").style.display = "block";
+                document.getElementById("pop-up").style.display = "flex";
+                document.getElementById("pop-up").style.alignItems =  "center";
+                document.getElementById("pop-up").style.justifyContent = "center";
                 document.getElementById("create-team-button").addEventListener("click", () => {
                     let channelName = document.getElementById("team-name").value.trim();
                     createChannel(channelName);
@@ -724,7 +726,7 @@
                     let deleteChannelDiv = document.createElement('div');
                     deleteChannelDiv.innerText = "❌";
                     deleteChannelDiv.style.alignself = "flex-end";
-                    deleteChannelDiv.style.height = "30px"
+                    deleteChannelDiv.style.height = "fit-content"
                     deleteChannelDiv.style.width = "30px";
                     deleteChannelDiv.style.display = "none";
                     channelDiv.addEventListener("mouseover", () => {
