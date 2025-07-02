@@ -168,7 +168,7 @@ function generateDiv() {
             width: 25px;
             height: 25px;
             background-color: white;
-            padding: 15px;
+            padding: 18px;
             padding-top: 12px;
             padding-bottom: 17px;
             
@@ -179,7 +179,7 @@ function generateDiv() {
             overflow: hidden;
             font-size: 30px;
         background-color: ${rgbColor};
-        padding: 22px;
+        padding: 18px;
         padding-top: 18px;
         padding-bottom: 24px;
         transition: padding 0.2s ease, left 0.2s ease;
