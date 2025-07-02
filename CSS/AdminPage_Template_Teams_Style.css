@@ -247,7 +247,7 @@ body {
         width: calc(67.5%);
         height: 100vh;
         padding: 3vh;
-        font-size: 20px;
+        font-size: 40px !important;
         /* border-top-left-radius: 20px;
         border-top-right-radius: 20px; */
         border-radius: 3vh;
@@ -266,7 +266,7 @@ body {
         color: white;
         margin-left: 5px;
         margin-right: 5px;
-        font-size: 15px;
+        font-size: 20px !important;
         /* height: 10vh; */
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
