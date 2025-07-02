@@ -6,9 +6,9 @@
     color: black;
     height: 98%;
     width: 200px;
-    max-width: 10vw;
+    /* max-width: 10vw; */
     border-radius: 25px;
-    overflow: auto;
+    overflow: hidden;
     /* max-width: calc(15%); */
 }
 

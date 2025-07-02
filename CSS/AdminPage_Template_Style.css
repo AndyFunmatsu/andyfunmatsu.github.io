@@ -1,6 +1,7 @@
 #teams-column{
     position: fixed;
     /* display: none; */
+    animation: growAnimationTeamsMenu 0.7s ease-in-out;
     background-color: rgb(208, 215, 220);
     color: black;
     height: 98%;
@@ -93,6 +94,7 @@ body {
         background-color: white;
         padding-left: 30px;
         padding-right: 30px;
+        animation: slideAnimation 0.7s ease-in-out;
         /* border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px; */
         /* border-top-left-radius: 20px;
@@ -122,6 +124,19 @@ body {
         background: #255f92; /* Darker color on hover */
     }
 
+    @keyframes slideAnimation {
+        0% { top: 2500px}
+        100% { top: 10vh; }
+    }
+    @keyframes slideAnimation2 {
+        0% { top: calc(2500px - 10vh)}
+        100% { top: 0vh; }
+    }
+    @keyframes growAnimationTeamsMenu {
+        0% { left: -100vh;}
+        100% { left: 0vh; }
+    }
+
     @media (max-width: 1024px) {
         body{
             background-color: rgb(143, 178, 214);
@@ -131,10 +146,11 @@ body {
             display: flex;
             flex-wrap: wrap;
             top: 10vh;
-            left: 10vh;
+            left: 15vh;
             right: 40vh;
             width: calc(67.5%);
             height: 90vh;
+            
             background-color: white;
             padding-left: 30px;
             padding-right: 30px;
@@ -145,12 +161,13 @@ body {
             transition: background-color 1s ease;
         }
         #admin-page-header {
-            left: 10vh !important;
+            left: 15vh !important;
             right: 40vh;
             background-color: rgb(44, 121, 202);
             color: white;
             width: calc(67.5%);
             height: 100vh;
+            
             padding: 3vh;
             font-size: 40px;
             border-radius: 3vh;
@@ -276,6 +293,7 @@ body {
         right: 40vh;
         /* background-image: url(realbook2.jpg); */
         background-color: rgb(44, 121, 202);
+        animation: slideAnimation2 0.7s ease-in-out;
         color: white;
         /* background-size: cover; */
         /* width: inherit; */
