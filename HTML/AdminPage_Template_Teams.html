@@ -703,8 +703,7 @@
                     channelDiv.addEventListener("click", () => {
                         window.location.href = `AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
-                    document.getElementById("menu").appendChild(channelDiv);
-                    document.getElementById("back1").onclick();
+                    
                     let hashDiv = document.createElement('div');
                     hashDiv.style.fontSize = "20px";
                     hashDiv.innerText = "#";
@@ -714,7 +713,13 @@
                     channelDiv.appendChild(hashDiv);
                     let nameChannel = document.createElement('p');
                     nameChannel.innerText = name
-                    nameChannel.style.fontSize = "30px";
+                    if(isPhone){
+                        channelDiv.style.display = "flex";
+                        channelDiv.style.flexDirection = "row";
+                        nameChannel.style.fontSize = "30px";
+                    }
+                    document.getElementById("menu").appendChild(channelDiv);
+                    document.getElementById("back1").onclick();
                     channelDiv.appendChild(nameChannel);
                     let deleteChannelDiv = document.createElement('div');
                     deleteChannelDiv.innerText = "❌";
