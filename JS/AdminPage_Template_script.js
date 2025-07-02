@@ -3,6 +3,7 @@
 // }, 5000); // ✅ Reloads every 5 seconds
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector(".custom-body").style.height = "90vh";
     const parentDiv = document.getElementById('friends-icon');
     const childDiv = document.getElementById('menu');
 
