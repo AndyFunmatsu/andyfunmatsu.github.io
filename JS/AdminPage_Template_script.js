@@ -1,36 +1,6 @@
 // setTimeout(() => {
 //     location.reload();
 // }, 5000); // ✅ Reloads every 5 seconds
-const adminPageHeader = document.getElementById("admin-page-header");
-const params = new URLSearchParams(window.location.search);
-const username = params.get("username");
-
-async function encryptUsername(username_temp) {
-                const key = await crypto.subtle.generateKey(
-                    { name: "AES-GCM", length: 256 },
-                    true,
-                    ["encrypt", "decrypt"]
-                );
-
-                const encoder = new TextEncoder();
-                const data = encoder.encode(username_temp);
-                const iv = crypto.getRandomValues(new Uint8Array(12));
-
-                const encryptedData = await crypto.subtle.encrypt(
-                    { name: "AES-GCM", iv },
-                    key,
-                    data
-                );
-
-                return encryptedData;
-            }
-            const encryptedData = encryptUsername(username);
-
-            function bufferToBase64(buffer) {
-                return btoa(String.fromCharCode(...new Uint8Array(buffer)));
-            }
-
-            const encryptedUsername = bufferToBase64(encryptedData);
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector(".custom-body").style.height = "90vh";
@@ -317,11 +287,11 @@ function generateDiv() {
             .catch(error => console.error("❌ Error:", error));
             
             newDiv.onclick = function() {
-                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${encryptedUsername}&teamname=${teamname}`;
+                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
             }
         
             newerDiv.onclick = function() {
-                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${encryptedUsername}&teamname=${teamname}`;
+                window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}`;
             }
         
             newerDiv.addEventListener("mouseover", () =>{
@@ -345,7 +315,7 @@ function generateDiv() {
                     } else {
                         alert("❌ Error deleting team: " + data.message);
                     }
-                    window.location.href = `../AdminPage_Template.html?username=${encryptedUsername}`;
+                    window.location.href = `../AdminPage_Template.html?username=${username}`;
                 })
                 .catch(error => console.error("❌ Error:", error));
                 
@@ -355,7 +325,7 @@ function generateDiv() {
             console.log("delete team added!");
             newerDiv.appendChild(roundDiv);   
             document.getElementById("custom-team-container").appendChild(newerDiv);   
-            // window.location.reload();
+            window.location.reload();
             back.onclick();
 }
 
@@ -549,11 +519,11 @@ function renderTeam() {
         }
     });
     newDiv.onclick = function() {
-        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${encryptedUsername}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
     }
 
     newerDiv.onclick = function() {
-        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${encryptedUsername}&teamname=${teamname}&channel=${"general"}`;
+        window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${"general"}`;
     }
     newerDiv.appendChild(newerDivText);
     newerDiv.appendChild(deleteTeamDiv);
@@ -570,6 +540,10 @@ function createChannel(name){
         document.getElementById("menu").appendChild(channelDiv);
         document.getElementById("back1").onclick();
 }
+
+const adminPageHeader = document.getElementById("admin-page-header");
+const params = new URLSearchParams(window.location.search);
+const username = params.get("username");
 
 fetch(`https://starter-production-0722.up.railway.app/users/${username}/email`)
     .then(response => response.json())

@@ -116,7 +116,7 @@
             let isQuoting = false;
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
-
+            
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
             ws.onmessage = async (event) => {
@@ -442,7 +442,7 @@
                             console.log("✅ message deleted:", data);
                             n_messages--;
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
-                            window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${encryptedUsername}&teamname=${teamname}&channel=${channel}`;
+                            window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                         } else {
                             alert("❌ Error deleting message: " + data.message);
                         }
