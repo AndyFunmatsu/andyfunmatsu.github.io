@@ -702,6 +702,7 @@
                     channelDiv.classList.add('general-button');
                     channelDiv.classList.add('channel');
                     channelDiv.style.height = "fit-content";
+                    // channelDiv.style.justifyContent = "space-between";
                     channelDiv.addEventListener("click", () => {
                         window.location.href = `AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
@@ -717,6 +718,7 @@
                     channelDiv.appendChild(hashDiv);
                     let nameChannel = document.createElement('p');
                     nameChannel.innerText = name;
+                    nameChannel.style.justifyContent = "space-between";
                     nameChannel.style.margin = "0px"
                     if(isPhone){
                         channelDiv.style.display = "flex";
@@ -758,7 +760,7 @@
                         window.location.reload();
                     }
                     });
-                    channelDiv.appendChild(deleteChannelDiv)
+                    nameChannel.appendChild(deleteChannelDiv)
             }
             
             const back = document.querySelector("#back");
