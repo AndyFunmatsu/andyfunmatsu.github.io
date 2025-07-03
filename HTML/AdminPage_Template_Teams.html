@@ -442,7 +442,7 @@
                             console.log("✅ message deleted:", data);
                             n_messages--;
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
-                            window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
+                            window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${encryptedUsername}&teamname=${teamname}&channel=${channel}`;
                         } else {
                             alert("❌ Error deleting message: " + data.message);
                         }

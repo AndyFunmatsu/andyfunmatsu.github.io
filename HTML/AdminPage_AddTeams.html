@@ -46,7 +46,32 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password_login").value;
             const loginBtn = document.getElementById("loginbtn");
+            async function encryptUsername(username_temp) {
+                const key = await crypto.subtle.generateKey(
+                    { name: "AES-GCM", length: 256 },
+                    true,
+                    ["encrypt", "decrypt"]
+                );
 
+                const encoder = new TextEncoder();
+                const data = encoder.encode(username_temp);
+                const iv = crypto.getRandomValues(new Uint8Array(12));
+
+                const encryptedData = await crypto.subtle.encrypt(
+                    { name: "AES-GCM", iv },
+                    key,
+                    data
+                );
+
+                return encryptedData;
+            }
+            const encryptedData = encryptUsername(username);
+
+            function bufferToBase64(buffer) {
+                return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            }
+
+            const encryptedUsername = bufferToBase64(encryptedData);
             loginBtn.textContent = "Logging in..."; // ✅ Show loading state
             loginBtn.disabled = true; // ✅ Prevent multiple clicks
 
@@ -59,7 +84,7 @@
             .then(async response => {
             const data = await response.json();
             if (data.success) {
-                window.location.href = `AdminPage_Template.html?username=${username}`;
+                window.location.href = `AdminPage_Template.html?username=${encryptedData}`;
                 // window.location.href = "AdminPage_Template.html"; // ✅ Redirect if login succeeds
             } else {
                 alert("❌ Invalid credentials!");
