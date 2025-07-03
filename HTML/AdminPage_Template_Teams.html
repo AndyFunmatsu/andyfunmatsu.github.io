@@ -130,10 +130,10 @@
                 
                 if(parsedMessage.teamname === teamname){
                     if(!parsedMessage.message.includes("data:image/png;base64,")){
-                        sendMsg();
+                        sendMsg(parsedMessage.username);
                     }
                     else{
-                        sendMsg().addEventListener("click", () => {
+                        sendMsg(parsedMessage.username).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
                             document.getElementById("image-container").src = url;
 
