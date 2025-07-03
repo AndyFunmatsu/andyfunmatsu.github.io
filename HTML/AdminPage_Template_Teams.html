@@ -701,20 +701,23 @@
                 let channelDiv = document.createElement('div');
                     channelDiv.classList.add('general-button');
                     channelDiv.classList.add('channel');
-                    
+                    channelDiv.style.height = "fit-content";
                     channelDiv.addEventListener("click", () => {
                         window.location.href = `AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
                     
                     let hashDiv = document.createElement('div');
+                    if(isPhone)
                     hashDiv.style.fontSize = "40px";
+                    else hashDiv.style.fontSize = "20px";
                     hashDiv.innerText = "#";
                     hashDiv.style.marginRight = "10px";
                     // hashDiv.style.alignSelf = "flex-start";
                     // hashDiv.style.alignSelf = "flex-start";
                     channelDiv.appendChild(hashDiv);
                     let nameChannel = document.createElement('p');
-                    nameChannel.innerText = name
+                    nameChannel.innerText = name;
+                    nameChannel.style.margin = "0px"
                     if(isPhone){
                         channelDiv.style.display = "flex";
                         channelDiv.style.flexDirection = "row";
