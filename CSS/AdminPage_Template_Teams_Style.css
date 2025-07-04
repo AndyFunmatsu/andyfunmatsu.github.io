@@ -230,7 +230,7 @@ body {
         display: flex;
         flex-wrap: wrap;
         top: 10vh;
-        left: 2vh;
+        left: 0vh;
         right: 40vh;
         width: calc(85%);
         height: 90vh;
