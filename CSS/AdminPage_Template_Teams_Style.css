@@ -670,7 +670,11 @@ body {
 #loginbtn {
     position: relative;
     top: 15vh;
-    left: 30vw;
+    /* left: 30vw; */
+    /* align-self: center; */
+    justify-self: center;
+    max-width: 20vh; 
+    justify-content: center;
 }
 
 #EmailInput-placeholder{

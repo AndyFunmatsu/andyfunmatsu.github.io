@@ -394,7 +394,7 @@ body {
     background-color: white;
     padding: 15px;
     padding-top: 12px;
-    padding-bottom: 17px;
+    padding-bottom: 18px;
     transition: padding 0.2s ease, left 0.2s ease;
     border-radius: 50px;
     margin-top: 10px;
@@ -407,9 +407,9 @@ body {
 .team-profile:hover{
     background-color: rgb(44, 121, 202);
     padding: 18px;
-    padding-top: 18px;
-    padding-bottom: 24px;
-    left: 6px;
+    padding-top: 15px;
+    padding-bottom: 21px;
+    left: 5px;
 }
 
 .line-under-friends-icon{
