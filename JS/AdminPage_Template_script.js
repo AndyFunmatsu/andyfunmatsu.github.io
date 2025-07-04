@@ -219,7 +219,6 @@ function generateDiv() {
         border-radius: 20px;
         height: 50px;
         cursor: pointer;
-        display: flex;
         overflow-y: hidden;
         `);
 
@@ -235,7 +234,7 @@ function generateDiv() {
                 height: 50px;
                 cursor: pointer;
                 transition: background-color 0.2s ease-in-out;
-                display: flex;
+                overflow-y: hidden;
                 `);
         });
 
@@ -250,7 +249,7 @@ function generateDiv() {
                 height: 50px;
                 cursor: pointer;
                 transition: background-color 0.2s ease-in-out;
-                display: flex;
+                overflow-y: hidden;
                 `);
         });
         
@@ -265,7 +264,7 @@ function generateDiv() {
             top: -45px;
             position: relative;
             margin: 10px;
-            display: flex;
+            align-self: flex-start;
             `);
     
             newerDiv.id = "generatedNew";
@@ -315,7 +314,7 @@ function generateDiv() {
                     } else {
                         alert("❌ Error deleting team: " + data.message);
                     }
-                    window.location.href = `../AdminPage_Template.html?username=${username}`;
+                    // window.location.href = `../AdminPage_Template.html?username=${username}`;
                 })
                 .catch(error => console.error("❌ Error:", error));
                 
@@ -325,7 +324,7 @@ function generateDiv() {
             console.log("delete team added!");
             newerDiv.appendChild(roundDiv);   
             document.getElementById("custom-team-container").appendChild(newerDiv);   
-            window.location.reload();
+            // window.location.reload();
             back.onclick();
 }
 
