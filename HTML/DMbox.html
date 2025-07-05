@@ -706,7 +706,7 @@
                     channelDiv.style.height = "fit-content";
                     // channelDiv.style.justifyContent = "space-between";
                     channelDiv.addEventListener("click", () => {
-                        window.location.href = `AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${name}`;
+                        window.location.href = `DMbox.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
                     
                     let hashDiv = document.createElement('div');
@@ -753,7 +753,7 @@
                             if (data.success) {
                                 console.log("✅ Channel deleted:", data);
                                 alert(`🎉 Channel '${channel}' deleted successfully!`);
-                                window.location.href = `AdminPage_Template.html?username=${username}&teamname=${teamname}`;
+                                window.location.href = `DirectMsg.html?username=${username}&teamname=${teamname}`;
                             } else {
                                 alert("❌ Error deleting Channel: " + data.message);
                             }
