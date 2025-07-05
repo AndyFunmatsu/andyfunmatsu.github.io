@@ -97,7 +97,7 @@
                     <!-- </div> -->
                     </div>
                     
-                    </div>
+                    
             
             <!-- </div> -->
         </div>
@@ -135,7 +135,7 @@
                     else{
                         sendMsg(parsedMessage.username).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
-                            document.getElementById("image-container").src = url;
+                            document.getElementById("image-container").src = parsedMessage.message;
 
                             document.getElementById("pop-up-image").addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "none";
@@ -208,7 +208,7 @@
                     sendMsg(username);
                     document.getElementsById("quote-container").innerHTML = "";
                 }
-            })
+            });
             
             document.addEventListener("keydown", (e) => {
                 if(e.key === "Escape"){

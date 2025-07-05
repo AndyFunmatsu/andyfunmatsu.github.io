@@ -3,22 +3,44 @@
 // }, 5000); // ✅ Reloads every 5 seconds
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector(".custom-body").style.height = "90vh";
     const parentDiv = document.getElementById('friends-icon');
     const childDiv = document.getElementById('menu');
 
     parentDiv.addEventListener('click', function() {
-        if (childDiv.style.visibility === "hidden") {
+        if (!(childDiv.style.visibility === "visible")) {
             childDiv.style.visibility = "visible";
             setTimeout(() => {
-                childDiv.style.opacity = 1; // Hide after fade-out completes
-            }, 1);
+                childDiv.style.width = "200px";
+                childDiv.style.height = "300px";
+            }, 300);
 
         } else{
-            childDiv.style.opacity = 0;
+            childDiv.style.width = "0px";
+            childDiv.style.height = "0px";
             setTimeout(() => {
                 childDiv.style.visibility = "hidden"; // Hide after fade-out completes
-            }, 1);
+            }, 300);
         }
+    });
+    parentDiv.addEventListener('mouseover', () => {
+        // childDiv.style.animation = "growAnimation 0.5s ease-in-out;"
+        childDiv.style.visibility = "visible";
+        childDiv.style.width = "200px";
+        childDiv.style.height = "300px";
+        // parentDiv.onclick;
+        // this.body.style.backgroundColor = "black";
+    });
+    parentDiv.addEventListener('mouseout', () => {
+        if(!(childDiv.style.visibility === "visible")){
+            childDiv.style.width = "0px";
+            childDiv.style.height = "0px";
+            setTimeout(() => {
+                childDiv.style.visibility = "hidden"; // Hide after fade-out completes
+            }, 300);
+        }
+        // childDiv.style.animation = "growAnimation 0.2s ease-in-out;"
+        // this.body.style.backgroundColor = "rgb(237, 243, 246)";
     });
 });
 
@@ -30,13 +52,14 @@ const profile_icon_popup = document.querySelector(".profile-icon");
 const popup = document.querySelector("#pop-up");
 const profileInfo = document.querySelector(".profile-name");
 const insidePopUp = document.getElementById("inside-pop-up");
+
 profile_icon_popup.addEventListener("click", () => {
     profileInfo.style.display = "block";
     profileInfo.style.position = "absolute";
-    profileInfo.style.top = profileInfo.style.top;
+    profileInfo.style.top = document.getElementById("add-teams").style.top;
 });
 profile_icon_popup.onclick = function(){
-    popup.style.display = "block";
+    popup.style.display = "flex";
     insidePopUp.style.display = "block";
     insidePopUp.innnerText = `${username}`;
     document.querySelector("#team-addition-form").style.display = "none";
@@ -49,7 +72,7 @@ document.querySelector("#back2").onclick = function() {
     popup.style.display = "none";
 }
 document.querySelector("#add-teams").onclick = function() {
-    popup.style.display = "block";
+    popup.style.display = "flex";
     document.querySelector("#inside-pop-up").style.display = "none";
     document.querySelector("#team-addition-form").style.display = "block";
 }
@@ -122,13 +145,13 @@ function generateDiv() {
     newDiv.setAttribute("style", `position: relative;
         text-align: center;
         top: 5px;
-        left: 12px;
+        left: 8px;
         width: 25px;
         height: 25px;
         background-color: white;
         padding: 15px;
         padding-top: 12px;
-        padding-bottom: 17px;
+        padding-bottom: 18px;
         background-color: ${rgbColor};
         border-radius: 50px;
         margin-top: 10px;
@@ -143,13 +166,13 @@ function generateDiv() {
         `text-align: center;
         position: relative;
             top: 5px;
-            left: 6px;
+            left: 5px;
             width: 25px;
             height: 25px;
             background-color: white;
-            padding: 15px;
-            padding-top: 12px;
-            padding-bottom: 17px;
+            padding: 18px;
+            padding-top: 15px;
+            padding-bottom: 21px;
             
             border-radius: 50px;
             margin-top: 10px;
@@ -158,7 +181,7 @@ function generateDiv() {
             overflow: hidden;
             font-size: 30px;
         background-color: ${rgbColor};
-        padding: 22px;
+        padding: 18px;
         padding-top: 18px;
         padding-bottom: 24px;
         transition: padding 0.2s ease, left 0.2s ease;
@@ -168,13 +191,13 @@ function generateDiv() {
         newDiv.setAttribute("style", `position: relative;
             text-align: center;
             top: 5px;
-            left: 12px;
+            left: 8px;
             width: 25px;
             height: 25px;
             background-color: white;
             padding: 15px;
             padding-top: 12px;
-            padding-bottom: 17px;
+            padding-bottom: 18px;
             background-color: ${rgbColor};
             border-radius: 50px;
             margin-top: 10px;
@@ -198,7 +221,6 @@ function generateDiv() {
         border-radius: 20px;
         height: 50px;
         cursor: pointer;
-        display: flex;
         `);
 
         newerDiv.addEventListener("mouseover", function(){
@@ -213,7 +235,6 @@ function generateDiv() {
                 height: 50px;
                 cursor: pointer;
                 transition: background-color 0.2s ease-in-out;
-                display: flex;
                 `);
         });
 
@@ -228,7 +249,6 @@ function generateDiv() {
                 height: 50px;
                 cursor: pointer;
                 transition: background-color 0.2s ease-in-out;
-                display: flex;
                 `);
         });
         
@@ -243,7 +263,7 @@ function generateDiv() {
             top: -45px;
             position: relative;
             margin: 10px;
-            display: flex;
+            align-self: flex-start;
             `);
     
             newerDiv.id = "generatedNew";

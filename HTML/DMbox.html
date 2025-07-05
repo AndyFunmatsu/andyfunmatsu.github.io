@@ -43,15 +43,19 @@
                     </div>
                     <div class="custom-body">
                         <div id="div-custom-body"></div>
-                        <div class="text-bar-container">
-                            <textarea id="text-bar" placeholder="message" ></textarea>
-                            <input type="file" id="fileInput" accept="image/*" style="display: none;" />
-                            <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
-                                <img id="add-image" src="../blue_camera_icon.png">
-                            </button>
-                            <button id="send-msg">Send</button>
-                            <button id="emojis">😀</button>
-                            <div id="emoji-container" style="display: none;"></div>
+                        <div id="quote-n-text-container">
+                            <div id="quote-container"></div>
+                            <!-- <div style="float: right;">❌</div> -->
+                            <div class="text-bar-container">
+                                <textarea id="text-bar" placeholder="message" ></textarea>
+                                <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+                                <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
+                                    <img id="add-image" src="../blue_camera_icon.png">
+                                </button>
+                                <button id="send-msg">Send</button>
+                                <button id="emojis">😀</button>
+                                <div id="emoji-container" style="display: none;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="team-addition-form">
+                <!-- <div id="team-addition-form"> -->
                 
                     <div id="profile-pop-up">
                             <label for="team-name" id="NameInput-placeholder" style="left: 50px;">Channel Name:</label>
@@ -88,8 +92,8 @@
                                     Back
                                 </div>
                                 
-                    </div>
-                    </div>
+                    <!-- </div> -->
+                    
                     
                     </div>
             </div>            
@@ -105,6 +109,10 @@
 
             let n_messages = 0;
             const emojis = ['😀','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟','🙁','☹','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','☠','💩','🤡','👽','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','💋','👋','🤚','🖐','✋','🖖','👌','🤏','✌','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻','👃','🧠'];
+            let isQuoting = false;
+
+            const isPhone = window.matchMedia("(max-width: 1024px)").matches;
+
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
             ws.onmessage = async (event) => {
@@ -118,12 +126,12 @@
                 
                 if(parsedMessage.teamname === teamname){
                     if(!parsedMessage.message.includes("data:image/png;base64,")){
-                        sendMsg();
+                        sendMsg(parsedMessage.username);
                     }
                     else{
-                        sendMsg().addEventListener("click", () => {
+                        sendMsg(parsedMessage.username).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
-                            document.getElementById("image-container").src = url;
+                            document.getElementById("image-container").src = parsedMessage.message;
 
                             document.getElementById("pop-up-image").addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "none";
@@ -132,7 +140,7 @@
                         });
                     }
                     scrollToBottom();
-                }          
+                }        
 
                 document.getElementById("text-bar").value = tempTextBar;          
             };
@@ -149,32 +157,54 @@
             });
 
             document.getElementById("text-bar").addEventListener("keypress", function(event) {  
-                let msgString = `<strong>${username}:  </strong> ${document.getElementById("text-bar").value}       <small>${new Date().toLocaleString()}</small>`;
+                let msgString = `<strong>${username}:  </strong>` + document.getElementById("text-bar").value + `     <small>${new Date().toLocaleString()}</small>`;
                 if (event.key === "Enter" && document.getElementById("text-bar").value !== "") {
+                    storeToDB(msgString);
+                    if(!isQuoting){
+                        document.getElementById("text-bar").value = msgString;
+                    }
+                    else{
+                        // if(document.getElementById("closeQuote"))
+                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
+                        document.getElementById("text-bar").value += msgString;
+                        msgString = document.getElementById("text-bar").value;
+                        isQuoting = false;
+                    }
                     ws.send(JSON.stringify({
                         username: username,  // ✅ Replace with actual logged-in user
                         teamname: teamname,
                         message: msgString
                      })); // ✅ Send message via WebSocket
-                    storeToDB(msgString);
-                    document.getElementById("text-bar").value = msgString;
                     sendMsg(username);
+                    document.getElementById("quote-container").innerHTML = "";
                 }
             });
 
             document.getElementById("send-msg").addEventListener("click", () => {
                 let msgString = `<strong>${username}:  </strong>` + document.getElementById("text-bar").value + `     <small>${new Date().toLocaleString()}</small>`;
                 if (document.getElementById("text-bar").value !== "") {
+                    storeToDB(msgString);
+                    if(!isQuoting){
+                        document.getElementById("text-bar").value = msgString;
+                    }
+                    else{
+                        // if(document.getElementById("closeQuote"))
+                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
+                        document.getElementById("text-bar").value += msgString;
+                        msgString = document.getElementById("text-bar").value;
+                        isQuoting = false;
+                    }
                     ws.send(JSON.stringify({
                         username: username,  // ✅ Replace with actual logged-in user
                         teamname: teamname,
                         message: msgString
                      })); // ✅ Send message via WebSocket
-                    storeToDB(msgString);
-                    document.getElementById("text-bar").value = msgString;
                     sendMsg(username);
+                    document.getElementsById("quote-container").innerHTML = "";
                 }
-            });
+            })
 
             document.addEventListener("keydown", (e) => {
                 if(e.key === "Escape"){
@@ -235,7 +265,9 @@
                                     document.getElementById("pop-up-image").style.display = "none";
                                     document.getElementById("image-container").src = "";
                                 });
+                                
                             });
+
                             storeToDB(newDiv.innerHTML);
                         }
                         ws.send(JSON.stringify({
@@ -293,6 +325,28 @@
                     }
                 }
             });
+            document.getElementById("admin-page-header").innerHTML = "";
+            if(isPhone){
+                let menuImg = document.createElement('img');
+                menuImg.src = "../images/menu-icon.png";
+                menuImg.id = "menu-icon";
+                menuImg.style.height = "3vh";
+                menuImg.style.marginRight = "2vh";
+                menuImg.style.cursor = "pointer";
+                // menuImg.style.zIndex = "1000";
+                menuImg.style.pointerEvents = "auto";
+
+                document.getElementById("admin-page-header").appendChild(menuImg);
+                document.getElementById("admin-page-header").addEventListener("click", () => {
+                    // document.querySelector(".custom-body").style.display = "none";
+                    // document.getElementById("admin-page-header").style.display = "none";
+                    document.getElementById("menu").style.zIndex = 10;
+                    document.getElementById("menu").style.display = "block";
+                    document.getElementById("menu").style.maxWidth = "1000vw";
+                    document.getElementById("menu").style.width = "50%";
+                    });
+                    
+            }
 
             document.getElementById("admin-page-header").innerHTML = teamname + " | " + channel;
             document.getElementById("team-info").innerHTML = `You: <p style='color: lightgreen;'>${username}<br><hr></p>`;
@@ -308,12 +362,11 @@
                 msgcontainer.id = "msgContainer";
                 msgcontainer.style.width = "100%";
                 msgcontainer.style.height = "fit-content";
-                // msgcontainer.style.maxHeight = "10vh";
                 msgcontainer.style.backgroundColor = "white";
                 msgcontainer.style.display = "flex";
                 msgcontainer.style.flexDirection = "row";
                 msgcontainer.style.alignItems = "center";
-                msgcontainer.style.justifyContent = "flex-start"
+                // msgcontainer.style.justifyContent = "flex-end"
                 const message = document.getElementById("text-bar").value;
 
                 newDiv.innerHTML = message;
@@ -322,26 +375,40 @@
                 newDiv.style.width = "fit-content";
                 newDiv.style.textAlign = "right";
                 newDiv.style.position = "relative";
-                newDiv.style.borderRadius = "1.5vh";
+                newDiv.style.borderRadius = "10px";
                 newDiv.style.padding = "15px";
                 newDiv.style.margin = "10px";
+                if(isPhone){
+                    newDiv.style.fontSize = "20px";
+                }
 
                 let deleteMsg = document.createElement('div');
                 deleteMsg.innerText = "❌";
-                // deleteMsg.style.alignSelf = "flex-end";
-                deleteMsg.style.float = "right";
+                deleteMsg.style.float = "left";
                 deleteMsg.style.height = "30px"
                 deleteMsg.style.width = "30px";
                 deleteMsg.style.display = "none";
+                deleteMsg.style.cursor = "pointer";
+
+                let quoteMsg = document.createElement('div');
+                quoteMsg.innerText = "↪️";
+                quoteMsg.style.float = "left";
+                quoteMsg.style.height = "30px"
+                quoteMsg.style.width = "30px";
+                quoteMsg.style.display = "none";
+                quoteMsg.style.cursor = "pointer";
+
                 newDiv.style.transition = "box-shadow 0.2s ease";
                 msgcontainer.addEventListener("mouseover", () => {
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                     deleteMsg.style.display = "block";
+                    quoteMsg.style.display = "block";
                 });
 
                 msgcontainer.addEventListener("mouseout", () => {
                     newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                     deleteMsg.style.display = "none";
+                    quoteMsg.style.display = "none";
                 });
 
                 fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}`)
@@ -357,8 +424,32 @@
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
 
-                n_messages++;
-                newDiv.id = n_messages;
+                quoteMsg.addEventListener("click", () => {
+                    console.log("Messaage id: ", newDiv.id);
+                    document.getElementById("quote-container").style.display = "flex";
+                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
+                    .then(response => response.text()) // ✅ Log raw response before parsing
+                    .then(text => {
+                        console.log("📥 Raw server response:", text);
+                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                    })
+                    .then(data => {
+                        data.messages.forEach(msg => {
+                            console.log(msg.message)
+                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                        })
+                    });
+                    // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
+                    // if(!document.getElementById("closeQuote")){
+                    //     document.getElementById("closeQuote").addEventListener("click", () => {
+                    //         document.getElementById("quote-container").innerHTML = "";
+                    //         document.getElementById("quote-container").style.display = "none";
+                    //     });
+                    // }
+                    // document.getElementById("quote-container").appendChild(document.getElementById("closeQuote"));
+                    isQuoting = true;
+                });
+
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
@@ -384,18 +475,28 @@
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
                 if(username === username_sent){
-                    newDiv.style.alignSelf = "flex-end";
+                    msgcontainer.style.flexDirection = "row-reverse";
+                    msgcontainer.style.justifyContent = "flex-start"
+                    msgcontainer.appendChild(deleteMsg);
+                    msgcontainer.appendChild(quoteMsg);
+                    newDiv.style.float = "right";
                     newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                     document.getElementById("text-bar").value = "";
-                    msgcontainer.appendChild(deleteMsg);
+                    // msgcontainer.appendChild(deleteMsg);
                 }
                 else{
+                    msgcontainer.style.justifyContent = "flex-start"
                     newDiv.style.alignSelf = "flex-start";
                     newDiv.style.color = "black";
                     newDiv.style.backgroundColor = "rgb(212, 212, 212)";
+                    msgcontainer.appendChild(quoteMsg);
                 }
+                // msgcontainer.appendChild(quoteMsg);
                 document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
+                document.getElementById("quote-container").innerHTML = "";
+                document.getElementById("quote-container").style.display = "none";
+                // document.getElementById("text-bar").value = "";
                 return msgcontainer;
             }
 
@@ -466,7 +567,7 @@
                         msgcontainer.style.display = "flex";
                         msgcontainer.style.flexDirection = "row";
                         msgcontainer.style.alignItems = "center";
-                        msgcontainer.style.justifyContent = "flex-start"
+                        // msgcontainer.style.justifyContent = "flex-start"
                         
                         const message = document.getElementById("text-bar").value;
 
@@ -478,73 +579,83 @@
                         newDiv.style.borderRadius = "10px";
                         newDiv.style.padding = "15px";
                         newDiv.style.margin = "10px";
+                        if(isPhone){
+                            newDiv.style.fontSize = "20px";
+                        }
+
                         let deleteMsg = document.createElement('div');
                         deleteMsg.innerText = "❌";
                         // deleteMsg.style.alignSelf = "flex-end";
-                        deleteMsg.style.float = "right";
+                        // deleteMsg.style.float = "left";
                         deleteMsg.style.height = "30px"
                         deleteMsg.style.width = "30px";
                         deleteMsg.style.display = "none";
+                        deleteMsg.style.cursor = "pointer";
 
                         let quoteMsg = document.createElement('div');
                         quoteMsg.innerText = "↪️";
-                        quoteMsg.style.float = "right";
+                        // quoteMsg.style.float = "right";
                         quoteMsg.style.height = "30px"
                         quoteMsg.style.width = "30px";
                         quoteMsg.style.display = "none";
-                        
+                        quoteMsg.style.cursor = "pointer";
+
                         newDiv.style.transition = "box-shadow 0.2s ease";
                         msgcontainer.addEventListener("mouseover", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.5)";
                             deleteMsg.style.display = "block";
+                            quoteMsg.style.display = "block";
                         });
 
                         msgcontainer.addEventListener("mouseout", () => {
                             newDiv.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0)";
                             deleteMsg.style.display = "none";
+                            quoteMsg.style.display = "none";
                         });
                         newDiv.style.transition = "box-shadow 0.5s ease;"
                         
                         n_messages = msg.id;
                         newDiv.id = n_messages;
-                        deleteMsg.addEventListener("click", (event) => {
-                        event.preventDefault();
-                        if(confirm((`delete message from ${username} ?`))){
-                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${username}/${channel}/${newDiv.id}`, {
-                                method: "DELETE",
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    console.log("✅ message deleted:", data);
-                                    alert(`🎉 Message from '${teamname}' deleted successfully!`);
-                                    window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
-                                } else {
-                                    alert("❌ Error deleting message: " + data.message);
-                                }
-                            })
-                            .catch(error => console.error("❌ Error:", error));                    
-                        }
-                        else{
-                            alert(`message from team ${teamname} was not deleted!`);
-                        }
-                        });
 
+                        quoteMsg.addEventListener("click", () => {
+                            document.getElementById("quote-container").style.display = "flex";
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
+                            .then(response => response.text()) // ✅ Log raw response before parsing
+                            .then(text => {
+                                console.log("📥 Raw server response:", text);
+                                return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                            })
+                            .then(data => {
+                                data.messages.forEach(msg => {
+                                    console.log(msg.message)
+                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                                })
+                            });
+                            isQuoting = true;
+                        });
                         msgcontainer.appendChild(newDiv);
                         if(username === msg.username){
+                            msgcontainer.style.flexDirection = "row-reverse";
+                            msgcontainer.style.justifyContent = "flex-start"
+                            msgcontainer.appendChild(deleteMsg);
+                            msgcontainer.appendChild(quoteMsg);
                             newDiv.style.alignSelf = "flex-end";
                             newDiv.style.backgroundColor = "rgb(44, 121, 202)";
-                            msgcontainer.appendChild(deleteMsg);
                         }
                         else{
+                            msgcontainer.style.justifyContent = "flex-start"
                             newDiv.style.alignSelf = "flex-start";
                             newDiv.style.color = "black";
                             newDiv.style.backgroundColor = "rgb(212, 212, 212)";
+                            msgcontainer.appendChild(quoteMsg);
                         }
                         
+                        if(teamname === msg.teamname)
                         document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
                         document.getElementById("text-bar").value = "";
+                        newDiv.id = msg.id;
+                        console.log(`id of message: ${msg.id}`);
                     });
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
@@ -566,7 +677,9 @@
             document.addEventListener("DOMContentLoaded", fetchMessages);
             
             document.getElementById("create-channel-button").addEventListener("click", () => {
-                document.getElementById("pop-up").style.display = "block";
+                document.getElementById("pop-up").style.display = "flex";
+                document.getElementById("pop-up").style.alignItems =  "center";
+                document.getElementById("pop-up").style.justifyContent = "center";
                 document.getElementById("create-team-button").addEventListener("click", () => {
                     let channelName = document.getElementById("team-name").value.trim();
                     createChannel(channelName);
@@ -592,27 +705,36 @@
                 let channelDiv = document.createElement('div');
                     channelDiv.classList.add('general-button');
                     channelDiv.classList.add('channel');
+                    channelDiv.style.height = "fit-content";
 
                     channelDiv.addEventListener("click", () => {
                         window.location.href = `DMbox.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
-                    document.getElementById("menu").appendChild(channelDiv);
-                    document.getElementById("back1").onclick();
                     let hashDiv = document.createElement('div');
-                    hashDiv.style.fontSize = "20px";
+                    if(isPhone)
+                    hashDiv.style.fontSize = "40px";
+                    else hashDiv.style.fontSize = "20px";
                     hashDiv.innerText = "#";
                     hashDiv.style.marginRight = "10px";
                     // hashDiv.style.alignSelf = "flex-start";
                     // hashDiv.style.alignSelf = "flex-start";
                     channelDiv.appendChild(hashDiv);
                     let nameChannel = document.createElement('p');
-                    nameChannel.innerText = name
+                    nameChannel.innerText = name;
+                    nameChannel.style.justifyContent = "space-between";
+                    nameChannel.style.margin = "0px"
+                    if(isPhone){
+                        channelDiv.style.display = "flex";
+                        channelDiv.style.flexDirection = "row";
+                        nameChannel.style.fontSize = "30px";
+                    }
+                    document.getElementById("menu").appendChild(channelDiv);
+                    document.getElementById("back1").onclick();
                     channelDiv.appendChild(nameChannel);
                     let deleteChannelDiv = document.createElement('div');
                     deleteChannelDiv.innerText = "❌";
-                    deleteChannelDiv.style.alignSelf = "flex-end";
-                    deleteChannelDiv.style.float = "right";
-                    deleteChannelDiv.style.height = "30px"
+                    deleteChannelDiv.style.alignself = "flex-end";
+                    deleteChannelDiv.style.height = "fit-content"
                     deleteChannelDiv.style.width = "30px";
                     deleteChannelDiv.style.display = "none";
                     channelDiv.addEventListener("mouseover", () => {
