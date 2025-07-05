@@ -704,10 +704,11 @@
                     channelDiv.classList.add('general-button');
                     channelDiv.classList.add('channel');
                     channelDiv.style.height = "fit-content";
-
+                    // channelDiv.style.justifyContent = "space-between";
                     channelDiv.addEventListener("click", () => {
-                        window.location.href = `DMbox.html?username=${username}&teamname=${teamname}&channel=${name}`;
+                        window.location.href = `AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${name}`;
                     })
+                    
                     let hashDiv = document.createElement('div');
                     if(isPhone)
                     hashDiv.style.fontSize = "40px";
@@ -752,7 +753,7 @@
                             if (data.success) {
                                 console.log("✅ Channel deleted:", data);
                                 alert(`🎉 Channel '${channel}' deleted successfully!`);
-                                window.location.href = `DirectMsg.html?username=${username}&teamname=${teamname}`;
+                                window.location.href = `AdminPage_Template.html?username=${username}&teamname=${teamname}`;
                             } else {
                                 alert("❌ Error deleting Channel: " + data.message);
                             }
@@ -761,8 +762,9 @@
                         window.location.reload();
                     }
                     });
-                    channelDiv.appendChild(deleteChannelDiv)
+                    nameChannel.appendChild(deleteChannelDiv)
             }
+            
             const back = document.querySelector("#back");
             back.onclick = function() {
                 window.location.href = `DirectMsg.html?username=${username}`
