@@ -357,13 +357,13 @@ function renderTeam() {
     newDiv.setAttribute("style", `position: relative;
         text-align: center;
         top: 5px;
-        left: 12px;
+        left: 8px;
         width: 25px;
         height: 25px;
         background-color: white;
         padding: 15px;
         padding-top: 12px;
-        padding-bottom: 17px;
+        padding-bottom: 18px;
         background-color: ${rgbColor};
         border-radius: 50px;
         margin-top: 10px;
@@ -383,8 +383,8 @@ function renderTeam() {
             height: 25px;
             background-color: white;
             padding: 15px;
-            padding-top: 12px;
-            padding-bottom: 17px;
+            padding-top: 18px;
+            padding-bottom: 21px;
             
             border-radius: 50px;
             margin-top: 10px;
@@ -403,13 +403,13 @@ function renderTeam() {
         newDiv.setAttribute("style", `position: relative;
             text-align: center;
             top: 5px;
-            left: 12px;
+            left: 8px;
             width: 25px;
             height: 25px;
             background-color: white;
             padding: 15px;
             padding-top: 12px;
-            padding-bottom: 17px;
+            padding-bottom: 18px;
             background-color: ${rgbColor};
             border-radius: 50px;
             margin-top: 10px;
