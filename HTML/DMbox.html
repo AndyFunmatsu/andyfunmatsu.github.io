@@ -35,10 +35,9 @@
                         Back
                     </div></a>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;" id="custom-body-heaader">
                     <div id="admin-page-header">
                         {TT}
-                        <!-- <img src="../images/friends.png" id="title-users"> -->
+                        <!-- <img src="../images/menu-icon.png" id="title-users"> -->
                         <hr>
                     </div>
                     <div class="custom-body">
@@ -58,7 +57,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             
             <div id="pop-up">
                 <div id="friend-addition-form">
@@ -348,7 +346,7 @@
                     
             }
 
-            document.getElementById("admin-page-header").innerHTML = teamname + " | " + channel;
+            document.getElementById("admin-page-header").innerHTML += teamname + " | " + channel;
             document.getElementById("team-info").innerHTML = `You: <p style='color: lightgreen;'>${username}<br><hr></p>`;
 
             document.getElementById("fileInput").addEventListener("change", (event) => {
