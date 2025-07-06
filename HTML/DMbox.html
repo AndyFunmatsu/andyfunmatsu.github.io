@@ -555,7 +555,6 @@
                     document.getElementById("text-bar").value = "";
                     data.messages.forEach(msg => {
                         console.log("fetch id msg: " + msg.id);
-                        document.getElementById("text-bar").value = msg.message;
                         var newDiv = document.createElement("div");
                         var msgcontainer = document.createElement("div");
                         msgcontainer.id = "msgContainer";
@@ -567,7 +566,8 @@
                         msgcontainer.style.alignItems = "center";
                         // msgcontainer.style.justifyContent = "flex-start"
                         
-                        const message = document.getElementById("text-bar").value;
+                        const message = msg.message;
+                        console.log(message);
 
                         newDiv.innerHTML = message;
                         
@@ -644,7 +644,7 @@
                                     console.log("✅ message deleted:", data);
                                     n_messages--;
                                     alert(`🎉 Message from '${teamname}' deleted successfully!`);
-                                    window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
+                                    window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                                 } else {
                                     alert("❌ Error deleting message: " + data.message);
                                 }
