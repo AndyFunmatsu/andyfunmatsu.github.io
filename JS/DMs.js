@@ -546,7 +546,7 @@ let email = document.getElementById("emailInfo").innerText;
 
 
 if (username) {
-    adminPageHeader.innerText = `Welcome, ${username}!`;
+    adminPageHeader.innerHTML = `Welcome, <b style="color: rgb(3, 234, 255)">${username}</b> to direct messages!`;
 }
 
 function fetchTeams() {
