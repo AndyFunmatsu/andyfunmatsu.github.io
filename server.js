@@ -540,10 +540,25 @@ app.get("/messages_teams/:teamname/:channel/:id", (req, res) => {
 //     });
 // });
 
+app.get("/direct_messages/:target_user/:username/:channel", (req, res) => {
+    const { target_user, username, channel } = req.params;
+
+    const sql = "SELECT * FROM direct_messages WHERE ((target_user = ? AND username = ?) OR (target_user = ? AND username = ?)) AND channel = ? ORDER BY created_at ASC";
+
+    connection.query(sql, [target_user, username, username, target_user, channel], (err, results) => {
+        if (err) {
+            console.error("❌ Error retrieving messages:", err);
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+        console.log(`✅ Retrieved Messages for Team "${target_user}", Channel "${channel}":`, results);
+        res.json({ success: true, messages: results });
+    });
+});
+
 app.get("/direct_messages/:target_user/:channel", (req, res) => {
     const { target_user, channel } = req.params;
 
-    const sql = "SELECT * FROM direct_messages WHERE target_user = ? AND channel = ? ORDER BY created_at ASC";
+    const sql = "SELECT * FROM direct_messages WHERE ((target_user = ? AND username = ?) OR (target_user = ? AND username = ?)) AND channel = ? ORDER BY created_at ASC";
 
     connection.query(sql, [target_user, channel], (err, results) => {
         if (err) {
