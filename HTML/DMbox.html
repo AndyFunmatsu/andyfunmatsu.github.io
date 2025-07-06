@@ -425,7 +425,7 @@
                 quoteMsg.addEventListener("click", () => {
                     console.log("Messaage id: ", newDiv.id);
                     document.getElementById("quote-container").style.display = "flex";
-                    fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${newDiv.id}`)
+                    fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}/${newDiv.id}`)
                     .then(response => response.text()) // ✅ Log raw response before parsing
                     .then(text => {
                         console.log("📥 Raw server response:", text);
@@ -630,6 +630,30 @@
                                 })
                             });
                             isQuoting = true;
+                        });
+
+                        deleteMsg.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        if(confirm((`delete message from ${username} ?`))){
+                            fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}/${newDiv.id}`, {
+                                method: "DELETE",
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log("✅ message deleted:", data);
+                                    n_messages--;
+                                    alert(`🎉 Message from '${teamname}' deleted successfully!`);
+                                    window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
+                                } else {
+                                    alert("❌ Error deleting message: " + data.message);
+                                }
+                            })
+                            .catch(error => console.error("❌ Error:", error));                    
+                        }
+                        else{
+                            alert(`message from team ${teamname} was not deleted!`);
+                        }
                         });
                         msgcontainer.appendChild(newDiv);
                         if(username === msg.username){
