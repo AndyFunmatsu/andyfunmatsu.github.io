@@ -71,6 +71,9 @@
     width: 100%;
     /* font-size: 15px; */
 }
+/* #create-team-button{
+    max-width: 200px;
+} */
 #back{
     width: 100%;
     /* font-size: 15px; */
@@ -79,12 +82,13 @@
     display: flex;
     padding: 15px;
     border-radius: 10px;
-    /* max-width: 10vw; */
+    max-width: 10vw;
     /* min-width: 160px; */
     /* max-height: 2vh; */
     width: 100%;
     overflow: auto;
     background-color: rgb(204, 209, 212);
+    color: black;
     margin-top: 20px;
     margin-left: 5px;
     margin-right: 5px;
