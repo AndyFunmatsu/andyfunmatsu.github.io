@@ -249,11 +249,11 @@ app.delete("/messages_teams/:teamname/:username/:channel/:id", (req, res) => {
 });
 
 app.delete("/direct_messages/:target_user/:username/:channel/:id", (req, res) => {
-    const { target_user, username, channel } = req.params;
+    const { target_user, username, channel, id } = req.params;
     
-    const sql = "DELETE FROM direct_messages WHERE target_user = ? AND username = ? AND channel = ?";
+    const sql = "DELETE FROM direct_messages WHERE target_user = ? AND username = ? AND channel = ? AND id = ?";
     
-    connection.query(sql, [target_user, username, channel], (err, result) => {
+    connection.query(sql, [target_user, username, channel, id], (err, result) => {
         if (err) {
             console.error("❌ Error deleting messages:", err);
             return res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -591,6 +591,21 @@ app.get("/direct_messages/:username/:target_user/:channel", (req, res) => {
     const sql = "SELECT * FROM direct_messages WHERE ((username = ? AND target_user = ?) OR (target_user = ? AND username = ?)) AND channel = ? ORDER BY created_at ASC";
 
     connection.query(sql, [username, target_user, username, target_user, channel], (err, results) => {
+        if (err) {
+            console.error("❌ Error retrieving messages:", err);
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+        console.log(`✅ Retrieved Messages for user "${target_user}" from ${username}, Channel "${channel}":`, results);
+        res.json({ success: true, messages: results });
+    });
+});
+
+app.get("/direct_messages/:target_user/:username/:channel/:id", (req, res) => {
+    const { username, target_user, channel, id } = req.params;
+
+    const sql = "SELECT * FROM direct_messages WHERE ((username = ? AND target_user = ?) OR (target_user = ? AND username = ?)) AND channel = ? AND id = ?ORDER BY created_at ASC";
+
+    connection.query(sql, [username, target_user, username, target_user, channel, id], (err, results) => {
         if (err) {
             console.error("❌ Error retrieving messages:", err);
             return res.status(500).json({ success: false, message: "Internal Server Error" });
