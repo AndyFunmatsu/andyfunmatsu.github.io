@@ -673,9 +673,9 @@
                             newDiv.style.backgroundColor = "rgb(212, 212, 212)";
                             msgcontainer.appendChild(quoteMsg);
                         }
-                        
+                        console.log(msg.teamname);
                         if(teamname === msg.teamname)
-                        document.querySelector("#div-custom-body").appendChild(msgcontainer);
+                            document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
                         document.getElementById("text-bar").value = "";
                         newDiv.id = msg.id;
