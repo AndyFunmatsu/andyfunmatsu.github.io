@@ -538,7 +538,7 @@
             }
 
             function fetchMessages() {
-                fetch(`https://starter-production-0722.up.railway.app/direct_messages/${username}/${teamname}/${channel}`)
+                fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}`)
                 .then(response => response.text()) // ✅ Log raw response before parsing
                 .then(text => {
                     console.log("📥 Raw server response:", text);
