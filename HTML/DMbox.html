@@ -506,7 +506,8 @@
                     msgcontainer.appendChild(quoteMsg);
                 }
                 // msgcontainer.appendChild(quoteMsg);
-                document.querySelector("#div-custom-body").appendChild(msgcontainer);
+                if(teamname === msg.target_user || (username === msg.target_user && teamname == msg.username))
+                    document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
                 document.getElementById("quote-container").innerHTML = "";
                 document.getElementById("quote-container").style.display = "none";
