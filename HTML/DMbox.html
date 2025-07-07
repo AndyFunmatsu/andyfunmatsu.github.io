@@ -415,7 +415,7 @@
                     quoteMsg.style.display = "none";
                 });
 
-                fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}`)
+                fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}`)
                 .then(response => response.text()) // ✅ Log raw response before parsing
                 .then(text => {
                     console.log("📥 Raw server response:", text);
