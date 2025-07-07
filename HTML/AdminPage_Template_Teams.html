@@ -627,11 +627,15 @@
                                 data.messages.forEach(msgs => {
                                     let tempMsg = msgs.message;
                                     tempMsg += message;
+                                    tempMsg += "<br>";
                                     message = tempMsg;
                                     console.log(message)
                                     newDiv.innerHTML = message;
                                 })
                             });
+                        }
+                        else{
+                            newDiv.innerHTML = message;
                         }
                         
 
