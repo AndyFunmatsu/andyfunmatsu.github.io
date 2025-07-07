@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="theme-color" content="rgb(44, 121, 202)">
 
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no"> -->
         <link rel="stylesheet" href="../CSS/AdminPage_Template_Teams_Style.css">
         <link rel="icon" href="../images/chathaven_logo.png">
@@ -362,7 +363,7 @@
                 newDiv.style.padding = "15px";
                 newDiv.style.margin = "10px";
                 if(isPhone){
-                    newDiv.style.fontSize = "30px";
+                    newDiv.style.fontSize = "15px";
                 }
 
                 let deleteMsg = document.createElement('div');
@@ -486,7 +487,7 @@
 
             function storeToDB(msg){
                 const message = msg;
-                let timeNow = new Date().toLocaleTimeString("en-US", { hour12: true });
+                let timeNow = new Date().toISOString();
                 console.log("🚀 Sending POST request to backend at:", timeNow);
                 fetch("https://starter-production-0722.up.railway.app/messages_teams", {
                     method: "POST",
@@ -726,7 +727,7 @@
                     if(isPhone){
                         channelDiv.style.display = "flex";
                         channelDiv.style.flexDirection = "row";
-                        nameChannel.style.fontSize = "25px";
+                        nameChannel.style.fontSize = "30px";
                     }
                     document.getElementById("menu").appendChild(channelDiv);
                     document.getElementById("back1").onclick();
