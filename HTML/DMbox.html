@@ -728,13 +728,31 @@
                     return JSON.parse(text); // ✅ Parse only if it's valid JSON
                 })
                 .then(data => {
+
                     data.channels.forEach(msg => {
-                        if((teamname === msg.target_user && username === msg.username) || (username === msg.target_user && teamname == msg.username)){
+                        // if((teamname === msg.target_user && username === msg.username) || (username === msg.target_user && teamname == msg.username)){
                             createChannel(msg.name);
                             console.log(msg.name);
-                        }
+                        // }
                     })
                 })
+                if(teamname !== msg.target_user){
+                    fetch(`https://starter-production-0722.up.railway.app/channels/${msg.target_user}`)
+                    .then(response => response.text()) // ✅ Log raw response before parsing
+                    .then(text => {
+                        console.log("📥 Raw server response:", text);
+                        return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                    })
+                    .then(data => {
+
+                        data.channels.forEach(msg => {
+                            // if((teamname === msg.target_user && username === msg.username) || (username === msg.target_user && teamname == msg.username)){
+                                createChannel(msg.name);
+                                console.log(msg.name);
+                            // }
+                        })
+                    })
+                }
             }
 
             document.addEventListener("DOMContentLoaded", fetchMessages);
