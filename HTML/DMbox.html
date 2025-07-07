@@ -113,6 +113,7 @@
             let n_messages = 0;
             const emojis = ['😀','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟','🙁','☹','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','☠','💩','🤡','👽','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','💋','👋','🤚','🖐','✋','🖖','👌','🤏','✌','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻','👃','🧠'];
             let isQuoting = false;
+            let quote_id = 0;
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
 
@@ -430,6 +431,8 @@
                     })
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
+                n_messages++;
+                newDiv.id = n_messages;
 
                 quoteMsg.addEventListener("click", () => {
                     console.log("Messaage id: ", newDiv.id);
@@ -446,6 +449,9 @@
                             document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
                         })
                     });
+
+                    quote_id = newDiv.id;
+                    console.log(quote_id);
                     // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
                     // if(!document.getElementById("closeQuote")){
                     //     document.getElementById("closeQuote").addEventListener("click", () => {
@@ -467,7 +473,7 @@
                     .then(data => {
                         if (data.success) {
                             console.log("✅ message deleted:", data);
-                            n_messages--;
+                            // n_messages--;
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
                             window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                         } else {
@@ -520,7 +526,8 @@
                         target_user: teamname, 
                         message: message, // ✅ Only the message content
                         channel,
-                        created_at: timeNow
+                        created_at: timeNow,
+                        quote_id
                     })
                 })
 
@@ -576,10 +583,7 @@
                         msgcontainer.style.alignItems = "center";
                         // msgcontainer.style.justifyContent = "flex-start"
                         
-                        const message = msg.message;
-                        console.log(message);
-
-                        newDiv.innerHTML = message;
+                        let message = msg.message;
                         
                         newDiv.style.color = "white";
                         newDiv.style.width = "fit-content"
@@ -639,8 +643,30 @@
                                     document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
                                 })
                             });
+                            quote_id = newDiv.id;
+                            console.log(quote_id);
                             isQuoting = true;
                         });
+                        console.log(msg.quote_id);
+                        if(msg.quote_id !== 0){
+                            fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}/${msg.quote_id}`)
+                            .then(response => response.text())
+                            .then(text => {
+                                console.log("📥 Raw server response:", text);
+                                return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                            })
+                            .then(data => {
+                                console.log(data.messages);
+                                data.messages.forEach(msgs => {
+                                    let tempMsg = `<div style="background-color: rgb(0, 255, 0); border-radius: 10px; padding: 10px">Quoting: ${msgs.message}</div><div>${message}</div>`;
+                                    newDiv.innerHTML = tempMsg;
+                                })
+                            });
+                        }
+                        else{
+                            newDiv.innerHTML = message;
+                        }
+                        
 
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
