@@ -554,6 +554,7 @@ let email = document.getElementById("emailInfo").innerText;
 
 
 if (username) {
+    adminPageHeader.style.fontSize = "20px";
     adminPageHeader.innerHTML = `Welcome, <b style="color: rgb(7, 255, 3)">${username}</b> to team discussions!`;
 }
 

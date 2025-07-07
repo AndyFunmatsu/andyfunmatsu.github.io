@@ -69,11 +69,11 @@
 } */
 #create-channel-button{
     width: 100%;
-    /* font-size: 15px; */
+    font-size: 15px;
 }
 #back{
     width: 100%;
-    /* font-size: 15px; */
+    font-size: 15px !important;
 }
 .general-button{
     display: flex;

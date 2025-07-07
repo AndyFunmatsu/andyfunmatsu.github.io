@@ -546,6 +546,7 @@ let email = document.getElementById("emailInfo").innerText;
 
 
 if (username) {
+    adminPageHeader.style.fontSize = "20px";
     adminPageHeader.innerHTML = `Welcome, <b style="color: rgb(3, 234, 255)">${username}</b> to direct messages!`;
 }
 
