@@ -464,6 +464,7 @@
                     .then(data => {
                         if (data.success) {
                             console.log("✅ message deleted:", data);
+                            n_messages--;
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
                             window.location.href = `../HTML/DMbox.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                         } else {
@@ -496,8 +497,7 @@
                     msgcontainer.appendChild(quoteMsg);
                 }
                 // msgcontainer.appendChild(quoteMsg);
-                if(teamname === msg.target_user || (username === msg.target_user && teamname == msg.username))
-                    document.querySelector("#div-custom-body").appendChild(msgcontainer);
+                document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
                 document.getElementById("quote-container").innerHTML = "";
                 document.getElementById("quote-container").style.display = "none";
