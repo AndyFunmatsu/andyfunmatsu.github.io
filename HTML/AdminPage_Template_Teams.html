@@ -625,12 +625,8 @@
                             .then(data => {
                                 console.log(data.messages);
                                 data.messages.forEach(msgs => {
-                                    let tempMsg = msgs.message;
-                                    tempMsg += message;
-                                    tempMsg += "<br>";
-                                    message = tempMsg;
-                                    console.log(message)
-                                    newDiv.innerHTML = message;
+                                    let tempMsg = `<div style="background-color: rgb(0, 255, 0);"><div>${msgs.message}${message}</div></div>`;
+                                    newDiv.innerHTML = tempMsg;
                                 })
                             });
                         }
