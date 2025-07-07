@@ -513,7 +513,7 @@ app.get("/messages_teams/:teamname/:channel", (req, res) => {
 app.get("/messages_teams/:teamname/:channel/:id", (req, res) => {
     const { teamname, channel, id } = req.params;
 
-    const sql = "SELECT * FROM messages_teams WHERE teamname = ? AND channel = ? AND id = ?ORDER BY created_at ASC";
+    const sql = "SELECT * FROM messages_teams WHERE teamname = ? AND channel = ? AND id = ? ORDER BY created_at ASC";
 
     connection.query(sql, [teamname, channel, id], (err, results) => {
         if (err) {

@@ -553,9 +553,6 @@
                         // msgcontainer.style.justifyContent = "flex-start"
                         
                         let message = msg.message;
-
-
-                        newDiv.innerHTML = message;
                         
                         newDiv.style.color = "white";
                         newDiv.style.width = "fit-content"
@@ -625,15 +622,15 @@
                                 console.log("📥 Raw server response:", text);
                                 return JSON.parse(text); // ✅ Parse only if it's valid JSON
                             })
-
                             .then(data => {
                                 data.messages.forEach(msg => {
                                     let tempMsg = msg.message;
                                     tempMsg += message;
                                     message = tempMsg;
                                 })
-                            })
+                            });
                         }
+                        newDiv.innerHTML = message;
 
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
