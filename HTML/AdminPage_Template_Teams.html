@@ -410,6 +410,8 @@
                     })
                 })
                 .catch(error => console.error("❌ Error fetching messages:", error)); 
+                n_messages++;
+                newDiv.id = n_messages;
 
                 quoteMsg.addEventListener("click", () => {
                     console.log("Messaage id: ", newDiv.id);
