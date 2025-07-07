@@ -131,11 +131,11 @@
                 console.log("Sending message!");
                 if(parsedMessage.teamname === teamname || (parsedMessage.teamname === username && teamname == parsedMessage.username)){
                     if(!parsedMessage.message.includes("data:image/png;base64,")){
-                        sendMsg(parsedMessage.username);
+                        sendMsg(parsedMessage.username, parsedMessage.teamname);
                         console.log("Sent message!");
                     }
                     else{
-                        sendMsg(parsedMessage.username).addEventListener("click", () => {
+                        sendMsg(parsedMessage.username, parsedMessage.teamname).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
                             document.getElementById("image-container").src = parsedMessage.message;
 
@@ -183,7 +183,7 @@
                         teamname: teamname,
                         message: msgString
                      })); // ✅ Send message via WebSocket
-                    sendMsg(username);
+                    sendMsg(username, teamname);
                     document.getElementById("quote-container").innerHTML = "";
                 }
             });
@@ -208,7 +208,7 @@
                         teamname: teamname,
                         message: msgString
                      })); // ✅ Send message via WebSocket
-                    sendMsg(username);
+                    sendMsg(username, teamname);
                     document.getElementsById("quote-container").innerHTML = "";
                 }
             });
@@ -239,12 +239,12 @@
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
                             newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
-                            sendMsg(username);
+                            sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
                             newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
                             document.getElementById("text-bar").value = newDiv.innerHTML;
-                            sendMsg(username).addEventListener("click", () => {
+                            sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
                                 document.getElementById("image-container").src = url;
 
@@ -259,12 +259,12 @@
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
                             newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
-                            sendMsg(username);
+                            sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
                             newDiv.innerHTML = "";
                             newDiv.appendChild(newDivImg);
                             document.getElementById("text-bar").value = newDiv.innerHTML;
-                            sendMsg(username).addEventListener("click", () => {
+                            sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
                                 document.getElementById("image-container").src = url;
 
@@ -317,7 +317,7 @@
                             teamname: teamname,
                             message: newDiv.innerHTML
                         })); // ✅ Send message via WebSocket
-                        sendMsg(username).addEventListener("click", () => {
+                        sendMsg(username, teamname).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
                             document.getElementById("image-container").src = url;
 
@@ -364,7 +364,7 @@
                 uploadImage(imagefile);
             });
 
-            function sendMsg(username_sent) {
+            function sendMsg(username_sent, teamname_sent) {
                 var newDiv = document.createElement("div");
                 var msgcontainer = document.createElement("div");
                 msgcontainer.id = "msgContainer";
@@ -506,7 +506,7 @@
                     msgcontainer.appendChild(quoteMsg);
                 }
                 // msgcontainer.appendChild(quoteMsg);
-                if(teamname === msg.target_user || (username === msg.target_user && teamname == msg.username))
+                if(teamname === teamname_sent || (username === teamname_sent && teamname == username_sent))
                     document.querySelector("#div-custom-body").appendChild(msgcontainer);
                 scrollToBottom()
                 document.getElementById("quote-container").innerHTML = "";
