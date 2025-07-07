@@ -614,7 +614,7 @@
                             });
                             isQuoting = true;
                         });
-
+                        console.log(msg.quote_id);
                         if(msg.quote_id !== 0){
                             fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${msg.quote_id}`)
                             .then(response => response.text())
