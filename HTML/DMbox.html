@@ -446,7 +446,7 @@
                     .then(data => {
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: center">Quoting @${msg.message}</div>`;
                         })
                     });
 
@@ -641,7 +641,7 @@
                             .then(data => {
                                 data.messages.forEach(msg => {
                                     console.log(msg.message)
-                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: center">Quoting @${msg.message}</div>`;
                                 })
                             });
                             quote_id = newDiv.id;
@@ -659,7 +659,7 @@
                             .then(data => {
                                 console.log(data.messages);
                                 data.messages.forEach(msgs => {
-                                    let tempMsg = `<div style="background-color: rgb(7, 168, 255); border-radius: 10px; padding: 10px">Quoting: ${msgs.message}</div><div>${message}</div>`;
+                                    let tempMsg = `<div style="background-color: rgb(7, 168, 255); border-radius: 10px; padding: 10px">Quoting @${msgs.message}</div><div>${message}</div>`;
                                     newDiv.innerHTML = tempMsg;
                                 })
                             });
