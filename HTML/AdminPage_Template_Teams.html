@@ -624,11 +624,11 @@
                             })
                             .then(data => {
                                 console.log(data.messages);
-                                data.messages.forEach(msg => {
-                                    let tempMsg = msg.message;
+                                data.messages.forEach(msgs => {
+                                    let tempMsg = msgs.message;
                                     tempMsg += message;
                                     message = tempMsg;
-                                    console.log(data.messages)
+                                    console.log(message)
                                 })
                             });
                         }
