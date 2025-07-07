@@ -373,7 +373,7 @@ app.post("/messages_teams", (req, res) => {
 });
 
 app.post("/direct_messages", (req, res) => {
-    const { username, target_user, message, channel, created_at } = req.body;
+    const { username, target_user, message, channel, created_at, quote_id } = req.body;
 
     if (!username || !message || !target_user || !channel) {
         return res.status(400).json({ success: false, message: "Username, teamname, and message required!" });
@@ -382,8 +382,8 @@ app.post("/direct_messages", (req, res) => {
     // ✅ Ensure message does not include username formatting
     const cleanMessage = message.trim(); // Remove any HTML formatting
 
-    const sql = "INSERT INTO direct_messages (username, target_user, message, channel, created_at) VALUES (?, ?, ?, ?, ?)";
-    connection.query(sql, [username, target_user, cleanMessage, channel, created_at], (err, result) => {
+    const sql = "INSERT INTO direct_messages (username, target_user, message, channel, created_at, quote_id) VALUES (?, ?, ?, ?, ?, ?)";
+    connection.query(sql, [username, target_user, cleanMessage, channel, created_at, quote_id], (err, result) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Internal Server Error" });
         }
