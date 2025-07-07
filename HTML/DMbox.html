@@ -631,7 +631,7 @@
 
                         quoteMsg.addEventListener("click", () => {
                             document.getElementById("quote-container").style.display = "flex";
-                            fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}/${newDiv.id}`)
+                            fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${channel}/${newDiv.id}`)
                             .then(response => response.text()) // ✅ Log raw response before parsing
                             .then(text => {
                                 console.log("📥 Raw server response:", text);
