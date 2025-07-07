@@ -729,8 +729,10 @@
                 })
                 .then(data => {
                     data.channels.forEach(msg => {
-                        createChannel(msg.name);
-                        console.log(msg.name);
+                        if((teamname === msg.target_user && username === msg.username) || (username === msg.target_user && teamname == msg.username)){
+                            createChannel(msg.name);
+                            console.log(msg.name);
+                        }
                     })
                 })
             }
