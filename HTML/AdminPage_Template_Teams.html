@@ -623,10 +623,12 @@
                                 return JSON.parse(text); // ✅ Parse only if it's valid JSON
                             })
                             .then(data => {
+                                console.log(data.messages);
                                 data.messages.forEach(msg => {
                                     let tempMsg = msg.message;
                                     tempMsg += message;
                                     message = tempMsg;
+                                    console.log(data.messages)
                                 })
                             });
                         }
