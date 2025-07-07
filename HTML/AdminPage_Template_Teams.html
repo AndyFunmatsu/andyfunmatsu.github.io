@@ -118,6 +118,7 @@
             const emojis = ['😀','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','☺','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟','🙁','☹','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','☠','💩','🤡','👽','🤖','😺','😸','😹','😻','😼','😽','🙀','😿','😾','💋','👋','🤚','🖐','✋','🖖','👌','🤏','✌','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻','👃','🧠'];
 
             let isQuoting = false;
+            let quote_id = 0;
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
             
@@ -186,6 +187,7 @@
                      })); // ✅ Send message via WebSocket
                     sendMsg(username);
                     document.getElementById("quote-container").innerHTML = "";
+
                 }
             });
 
@@ -424,6 +426,7 @@
                             document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
                         })
                     });
+                    quote_id = newDiv.id;
                     // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
                     // if(!document.getElementById("closeQuote")){
                     //     document.getElementById("closeQuote").addEventListener("click", () => {
@@ -434,7 +437,7 @@
                     // document.getElementById("quote-container").appendChild(document.getElementById("closeQuote"));
                     isQuoting = true;
                 });
-
+                
                 deleteMsg.addEventListener("click", (event) => {
                 event.preventDefault();
                 if(confirm((`delete message from ${username} ?`))){
@@ -445,7 +448,7 @@
                     .then(data => {
                         if (data.success) {
                             console.log("✅ message deleted:", data);
-                            n_messages--;
+                            // n_messages--;
                             alert(`🎉 Message from '${teamname}' deleted successfully!`);
                             window.location.href = `../HTML/AdminPage_Template_Teams.html?username=${username}&teamname=${teamname}&channel=${channel}`;
                         } else {
@@ -498,7 +501,8 @@
                         teamname, 
                         message: message, // ✅ Only the message content
                         channel,
-                        created_at: new Date().toISOString()
+                        created_at: new Date().toISOString(),
+                        quote_id
                     })
                 })
 
@@ -534,7 +538,7 @@
                     document.getElementById("text-bar").value = "";
                     data.messages.forEach(msg => {
                         console.log("fetch id msg: " + msg.id);
-                        document.getElementById("text-bar").value = msg.message;
+                        // document.getElementById("text-bar").value = msg.message;
                         var newDiv = document.createElement("div");
                         var msgcontainer = document.createElement("div");
                         msgcontainer.id = "msgContainer";
@@ -546,7 +550,8 @@
                         msgcontainer.style.alignItems = "center";
                         // msgcontainer.style.justifyContent = "flex-start"
                         
-                        const message = document.getElementById("text-bar").value;
+                        const message = msg.message;
+
 
                         newDiv.innerHTML = message;
                         
@@ -610,6 +615,23 @@
                             });
                             isQuoting = true;
                         });
+
+                        if(msg.quote_id !== 0){
+                            fetch(`https://starter-production-0722.up.railway.app/messages_teams/${teamname}/${channel}/${msg.quote_id}`)
+                            .then(response => response.text())
+                            .then(text => {
+                                console.log("📥 Raw server response:", text);
+                                return JSON.parse(text); // ✅ Parse only if it's valid JSON
+                            })
+
+                            .then(data => {
+                                data.messages.forEach(msg => {
+                                    let tempMsg = msg.message;
+                                    tempMsg += message;
+                                    message = tempMsg;
+                                })
+                            })
+                        }
 
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();

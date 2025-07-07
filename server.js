@@ -354,7 +354,7 @@ app.get('/users/:username/email', (req, res) => {
 // });
 
 app.post("/messages_teams", (req, res) => {
-    const { username, teamname, message, channel, created_at } = req.body;
+    const { username, teamname, message, channel, created_at, quote_id } = req.body;
 
     if (!username || !message || !teamname || !channel) {
         return res.status(400).json({ success: false, message: "Username, teamname, and message required!" });
@@ -363,8 +363,8 @@ app.post("/messages_teams", (req, res) => {
     // ✅ Ensure message does not include username formatting
     const cleanMessage = message.trim(); // Remove any HTML formatting
 
-    const sql = "INSERT INTO messages_teams (username, teamname, message, channel, created_at) VALUES (?, ?, ?, ?, ?)";
-    connection.query(sql, [username, teamname, cleanMessage, channel, created_at], (err, result) => {
+    const sql = "INSERT INTO messages_teams (username, teamname, message, channel, created_at, quote_id) VALUES (?, ?, ?, ?, ?, ?)";
+    connection.query(sql, [username, teamname, cleanMessage, channel, created_at, quote_id], (err, result) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Internal Server Error" });
         }
