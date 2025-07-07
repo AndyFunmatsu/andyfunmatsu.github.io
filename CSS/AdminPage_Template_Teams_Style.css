@@ -79,7 +79,7 @@
     display: flex;
     padding: 15px;
     border-radius: 10px;
-    max-width: 10vw;
+    /* max-width: 100px; */
     /* min-width: 160px; */
     /* max-height: 2vh; */
     width: 100%;
