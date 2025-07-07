@@ -629,10 +629,11 @@
                                     tempMsg += message;
                                     message = tempMsg;
                                     console.log(message)
+                                    newDiv.innerHTML = message;
                                 })
                             });
                         }
-                        newDiv.innerHTML = message;
+                        
 
                         deleteMsg.addEventListener("click", (event) => {
                         event.preventDefault();
