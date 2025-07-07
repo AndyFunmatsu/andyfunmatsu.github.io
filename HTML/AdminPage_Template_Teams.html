@@ -614,6 +614,8 @@
                                     document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
                                 })
                             });
+                            quote_id = newDiv.id;
+                            console.log(quote_id);
                             isQuoting = true;
                         });
                         console.log(msg.quote_id);
