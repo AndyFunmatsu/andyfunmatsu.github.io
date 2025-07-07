@@ -127,9 +127,11 @@
                 tempTextBar = document.getElementById("text-bar").value;
                 document.getElementById("text-bar").value = parsedMessage.message;
                 
+                console.log("Sending message!");
                 if(parsedMessage.teamname === teamname){
                     if(!parsedMessage.message.includes("data:image/png;base64,")){
                         sendMsg(parsedMessage.username);
+                        console.log("Sent message!");
                     }
                     else{
                         sendMsg(parsedMessage.username).addEventListener("click", () => {
@@ -141,6 +143,7 @@
                                 document.getElementById("image-container").src = "";
                             });
                         });
+                        console.log("Sent message!");
                     }
                     scrollToBottom();
                 }        
