@@ -733,8 +733,8 @@
                                 // }
                             })
                         })
-                        if(teamname !== data.messages.target_user[0]){
-                            fetch(`https://starter-production-0722.up.railway.app/channels/${data.messages.target_user[0]}`)
+                        if(teamname !== data.messages[0].target_user){
+                            fetch(`https://starter-production-0722.up.railway.app/channels/${data.messages[0].target_user}`)
                             .then(response => response.text()) // ✅ Log raw response before parsing
                             .then(text => {
                                 console.log("📥 Raw server response:", text);
