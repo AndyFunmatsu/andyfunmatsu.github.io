@@ -680,7 +680,7 @@
                             msgcontainer.appendChild(quoteMsg);
                         }
                         console.log(msg.target_user);
-                        if(teamname === msg.target_user || username === msg.target_user)
+                        if(teamname === msg.target_user || username === msg.username)
                             document.querySelector("#div-custom-body").appendChild(msgcontainer);
                         scrollToBottom();
                         document.getElementById("text-bar").value = "";
