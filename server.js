@@ -410,11 +410,44 @@ app.post("/channels", (req, res) => {
     });
 });
 
+app.post("/channels", (req, res) => {
+    const { name, team, username } = req.body;
+
+    if (!name || !team) {
+        return res.status(400).json({ success: false, message: "team and/or name required!" });
+    }
+
+    const sql = "INSERT INTO channels (name, username, team) VALUES (?, ?, ?)";
+
+    connection.query(sql, [name, username, team], (err, result) => {
+        if (err) {
+            console.error("❌ Error inserting channel:", err);
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+
+        res.json({ success: true, message: "✅ Channel created!", channelId: result.insertId });
+    });
+});
+
 app.get("/channels/:team", (req, res) => {
     const {team} = req.params;
     const sql = "SELECT * FROM channels WHERE team = ?";
 
     connection.query(sql, [team], (err, result) => {
+        if (err) {
+            console.error("❌ Error fetching channels:", err);
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+
+        res.json({ success: true, channels: result });
+    });
+});
+
+app.get("/channels/:team/:username", (req, res) => {
+    const {team, username} = req.params;
+    const sql = "SELECT * FROM channels WHERE team = ? AND username = ?";
+
+    connection.query(sql, [team, username], (err, result) => {
         if (err) {
             console.error("❌ Error fetching channels:", err);
             return res.status(500).json({ success: false, message: "Internal Server Error" });
