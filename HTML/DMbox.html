@@ -766,7 +766,10 @@
                     fetch("https://starter-production-0722.up.railway.app/channels", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ name: channelName, team: teamname, username })
+                        body: JSON.stringify({
+                            name: channelName,
+                            team: teamname,
+                            username: username })
                     })
                     .then(response => response.json())
                     .then(data => {
@@ -775,6 +778,7 @@
                         } else {
                             console.error("❌ Error creating general channel:", data.message);
                         }
+                        console.log(username);
                     })
                     .catch(error => console.error("❌ Error:", error));
                 })

@@ -391,24 +391,24 @@ app.post("/direct_messages", (req, res) => {
     });
 });
 
-app.post("/channels", (req, res) => {
-    const { name, team } = req.body;
+// app.post("/channels", (req, res) => {
+//     const { name, team } = req.body;
 
-    if (!name || !team) {
-        return res.status(400).json({ success: false, message: "team and/or name required!" });
-    }
+//     if (!name || !team) {
+//         return res.status(400).json({ success: false, message: "team and/or name required!" });
+//     }
 
-    const sql = "INSERT INTO channels (name, team) VALUES (?, ?)";
+//     const sql = "INSERT INTO channels (name, team) VALUES (?, ?)";
 
-    connection.query(sql, [name, team], (err, result) => {
-        if (err) {
-            console.error("❌ Error inserting channel:", err);
-            return res.status(500).json({ success: false, message: "Internal Server Error" });
-        }
+//     connection.query(sql, [name, team], (err, result) => {
+//         if (err) {
+//             console.error("❌ Error inserting channel:", err);
+//             return res.status(500).json({ success: false, message: "Internal Server Error" });
+//         }
 
-        res.json({ success: true, message: "✅ Channel created!", channelId: result.insertId });
-    });
-});
+//         res.json({ success: true, message: "✅ Channel created!", channelId: result.insertId });
+//     });
+// });
 
 app.post("/channels", (req, res) => {
     const { name, team, username } = req.body;
