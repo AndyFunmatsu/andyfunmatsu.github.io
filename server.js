@@ -417,9 +417,9 @@ app.post("/channels", (req, res) => {
         return res.status(400).json({ success: false, message: "team and/or name required!" });
     }
 
-    const sql = "INSERT INTO channels (name, username, team) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO channels (name, team, username) VALUES (?, ?, ?)";
 
-    connection.query(sql, [name, username, team], (err, result) => {
+    connection.query(sql, [name, team, username], (err, result) => {
         if (err) {
             console.error("❌ Error inserting channel:", err);
             return res.status(500).json({ success: false, message: "Internal Server Error" });
