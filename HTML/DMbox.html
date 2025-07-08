@@ -766,7 +766,7 @@
                     fetch("https://starter-production-0722.up.railway.app/channels", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ name: channelName, team: teamname, username: username })
+                        body: JSON.stringify({ name: channelName, team: teamname, username })
                     })
                     .then(response => response.json())
                     .then(data => {
