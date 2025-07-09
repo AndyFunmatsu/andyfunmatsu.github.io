@@ -117,6 +117,89 @@
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
 
+            const fs = require("fs");
+            let filename;
+            
+            function uploadImageVolume(imageBuffer, filename){
+                fs.writeFile(path, imageBuffer, (err) => {
+                if (err) throw err;
+                console.log("✅ Image saved to volume!");
+                let path = "/app/uploads/" + filename;
+
+                let newDiv = document.createElement('div');
+                let newDivImg = document.createElement('img');
+                
+                let url;
+                
+                if (blob) {
+                    reader.onload = () => {
+                        url = path;
+                        newDivImg.src = url;
+                        console.log(url);
+                        newDivImg.width = 500;
+                        
+                        console.log("✅ Image detected and processed!");
+                        if(document.getElementById("text-bar").value.length <= 1){
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                            });
+                            storeToDB(newDiv.innerHTML);
+                        }
+                        else{
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                                
+                            });
+
+                            storeToDB(newDiv.innerHTML);
+                        }
+                        ws.send(JSON.stringify({
+                            username: username,  // ✅ Replace with actual logged-in user
+                            teamname: teamname,
+                            message: newDiv.innerHTML
+                        })); // ✅ Send message via WebSocket
+                        
+                        event.preventDefault(); // ❌ Prevent default text paste
+                        scrollToBottom();
+                    }
+                    
+                    reader.readAsDataURL(blob); // 🔥 Convert blob to Base64
+                }
+            });
+            }
+            // fs.writeFile(path, imageBuffer, (err) => {
+            // if (err) throw err;
+            // console.log("✅ Image saved to volume!");
+            // });
+
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
             ws.onmessage = async (event) => {
@@ -130,7 +213,11 @@
                 
                 console.log("Sending message!");
                 if(parsedMessage.teamname === teamname || (parsedMessage.teamname === username && teamname == parsedMessage.username)){
-                    if(!parsedMessage.message.includes("data:image/png;base64,")){
+                    // if(!parsedMessage.message.includes("data:image/png;base64,")){
+                    //     sendMsg(parsedMessage.username, parsedMessage.teamname);
+                    //     console.log("Sent message!");
+                    // }
+                    if(!parsedMessage.message.file()){
                         sendMsg(parsedMessage.username, parsedMessage.teamname);
                         console.log("Sent message!");
                     }
@@ -361,8 +448,13 @@
 
             document.getElementById("fileInput").addEventListener("change", (event) => {
                 const imagefile = event.target.files[0]; // 📂 Get first selected file
-                uploadImage(imagefile);
+                // uploadImage(imagefile);
+                imagefile.arrayBuffer().then(buffer => {
+                    uploadImageVolume(buffer);
+                });
             });
+
+            
 
             function sendMsg(username_sent, teamname_sent) {
                 var newDiv = document.createElement("div");
