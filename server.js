@@ -102,9 +102,9 @@ connection.connect(err => {
 
 
 // ✅ Test Route
-app.get('/', (req, res) => {
-    res.send("Hello, World! Your Node.js server is running!");
-});
+// app.get('/', (req, res) => {
+//     res.send("Hello, World! Your Node.js server is running!");
+// });
 app.post("/upload", upload.single("image"), (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).send("No file uploaded");
