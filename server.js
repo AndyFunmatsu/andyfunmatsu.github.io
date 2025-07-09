@@ -2,7 +2,7 @@ const express = require('express');
 // const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-// const fs = require("fs");
+const fs = require("fs");
 
 const app = express();
 const upload = multer({ dest: "/app/uploads" }); // Volume path
@@ -124,7 +124,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
     res.send(`/images/${req.file.originalname}`);
 });
 
-const fs = require('fs');
+// const fs = require('fs');
 app.get('/list-images', (req, res) => {
   fs.readdir('/app/images', (err, files) => {
     if (err) return res.status(500).json({ error: err.message });
