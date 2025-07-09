@@ -2,7 +2,7 @@ const express = require('express');
 // const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
+// const fs = require("fs");
 
 const app = express();
 const upload = multer({ dest: "/app/uploads" }); // Volume path
