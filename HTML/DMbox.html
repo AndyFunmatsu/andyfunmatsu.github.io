@@ -463,7 +463,7 @@
                     let image = document.createElement('img');
                     image.src = "https://starter-production-0722.up.railway.app" + msg;
                     image.onerror = () => {
-                        image.src = "blue_camera_icon.png"; // or any safe fallback
+                        image.src = "../blue_camera_icon.png"; // or any safe fallback
                     };
                     document.querySelector("#div-custom-body").appendChild(image);
                 })
