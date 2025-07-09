@@ -460,12 +460,12 @@
                 .then(res => res.text())
                 .then(msg => {
                     console.log(msg);
-                    // let image = document.createElement('img');
-                    // image.src = "https://starter-production-0722.up.railway.app" + msg;
-                    // img.onerror = () => {
-                    //     img.src = "blue_camera_icon.png"; // or any safe fallback
-                    // };
-                    // document.querySelector("#div-custom-body").appendChild(image);
+                    let image = document.createElement('img');
+                    image.src = "https://starter-production-0722.up.railway.app" + msg;
+                    img.onerror = () => {
+                        img.src = "blue_camera_icon.png"; // or any safe fallback
+                    };
+                    document.querySelector("#div-custom-body").appendChild(image);
                 })
                 .catch(err => console.error("Upload failed:", err));
                 
