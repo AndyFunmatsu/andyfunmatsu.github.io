@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
     <head>
         <meta charset="UTF-8">
         <meta name="theme-color" content="rgb(44, 121, 202)">
@@ -14,7 +14,7 @@
     </head>
 
     <body>
-        <div id="screen" style="display: flex; flex-direction: row; ">
+        <div id="screen" style="display: flex; flex-direction: row; align-items: flex-start">
        
             <div id="pop-up-image">
                 <img id="image-container">
@@ -707,6 +707,7 @@
                         console.log(msg.name);
                     })
                 })
+                scrollToBottom();
             }
 
             document.addEventListener("DOMContentLoaded", fetchMessages);

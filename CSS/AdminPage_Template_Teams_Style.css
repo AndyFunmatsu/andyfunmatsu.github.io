@@ -140,7 +140,6 @@ body {
     /* background-image: url(realbook2.jpg); */
     background-color: rgb(44, 121, 202);
     color: white;
-    overflow-y: auto;
     /* background-size: cover; */
     /* width: inherit; */
     animation: growAnimation2 1s ease-in-out;
