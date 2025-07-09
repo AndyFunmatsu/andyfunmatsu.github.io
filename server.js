@@ -108,7 +108,7 @@ app.get('/', (req, res) => {
 app.post("/upload", upload.single("image"), (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).send("No file uploaded");
-  res.send(`/images/${req.file.originalname}`); // image src
+//   res.send(`/images/${req.file.originalname}`); // image src
 });
 
 app.get("/", (req, res) => {
