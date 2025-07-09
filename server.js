@@ -7,12 +7,7 @@ const path = require("path");
 const app = express();
 const upload = multer({ dest: "/app/uploads" }); // Volume path
 
-app.post("/upload", upload.single("image"), (req, res) => {
-  const file = req.file;
-  if (!file) return res.status(400).send("No file uploaded");
-    res.send(`/images/${req.file.originalname}`);
-});
-app.use("/images", express.static("/app/images")); // Volume path
+
 
 const http = require("http");
 const WebSocket = require("ws");
@@ -120,6 +115,13 @@ app.get("/", (req, res) => {
                                     border-radius: 10px">🚀 Railway Backend is Live! Use "/data", "/teams", or "/users" to get started and code ur api</div>
                 </div>`);
 });
+
+app.post("/upload", upload.single("image"), (req, res) => {
+  const file = req.file;
+  if (!file) return res.status(400).send("No file uploaded");
+    res.send(`/images/${req.file.originalname}`);
+});
+app.use("/images", express.static("/app/images")); // Volume path
 
 app.get('/data', (req, res) => {
     connection.query("SELECT * FROM users", (err, results) => {
