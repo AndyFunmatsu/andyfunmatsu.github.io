@@ -2,18 +2,16 @@ const express = require('express');
 // const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-// const fs = require("fs");
+const fs = require("fs");
 
 const app = express();
-const upload = multer({ dest: "/app/images" }); // Volume path
-// const storage = multer.diskStorage({
-//   destination: "/app/uploads", // ✅ Volume mount point
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname); // Or use a unique name with timestamp
-//   }
-// });
+const upload = multer({ dest: "/app/uploads" }); // Volume path
 
-// const upload = multer({ storage }); 
+app.post("/upload", upload.single("image"), (req, res) => {
+  const file = req.file;
+  if (!file) return res.status(400).send("No file uploaded");
+    res.send(`/images/${req.file.originalname}`);
+});
 
 const http = require("http");
 const WebSocket = require("ws");
@@ -105,11 +103,6 @@ connection.connect(err => {
 // app.get('/', (req, res) => {
 //     res.send("Hello, World! Your Node.js server is running!");
 // });
-app.post("/upload", upload.single("image"), (req, res) => {
-  const file = req.file;
-  if (!file) return res.status(400).send("No file uploaded");
-//   res.send(`/images/${req.file.originalname}`); // image src
-});
 
 app.get("/", (req, res) => {
     res.send(`<div style="
