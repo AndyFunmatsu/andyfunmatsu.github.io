@@ -461,7 +461,7 @@
                 .then(msg => {
                     console.log(msg);
                     let image = document.createElement('img');
-                    image.src = msg;
+                    image.src = "https://starter-production-0722.up.railway.app" + msg;
                     document.querySelector("#div-custom-body").appendChild(image);
                 })
                 .catch(err => console.error("Upload failed:", err));
