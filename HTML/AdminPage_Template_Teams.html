@@ -201,7 +201,7 @@
                     else{
                         // if(document.getElementById("closeQuote"))
                         // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
-                        document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
+                        document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         msgString = document.getElementById("text-bar").value;
                         isQuoting = false;
@@ -638,7 +638,7 @@
                                 console.log(data.messages);
                                 data.messages.forEach(msgs => {
                                     let tempMsg = `<div style="background-color: rgb(0, 255, 0); border-radius: 10px; padding: 10px; justify-content: center">Quoting @${msgs.message}</div><div>${message}</div>`;
-                                    if(username !== msgs.username){
+                                    if(username === msgs.username){
                                         tempMsg = `<div style="background-color: rgb(7, 168, 255); border-radius: 10px; padding: 10px; justify-content: center">Quoting @${msgs.message}</div><div>${message}</div>`;
                                     }
                                     newDiv.innerHTML = tempMsg;
