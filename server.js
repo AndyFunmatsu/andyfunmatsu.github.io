@@ -119,7 +119,7 @@ app.get("/", (req, res) => {
 app.post("/upload", upload.single("image"), (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).send("No file uploaded");
-    res.send(`app/images/${req.file.originalname}`);
+    res.send(`/app/images/${req.file.originalname}`);
 });
 // app.use("/images", express.static("/app/images")); // Volume path
 
