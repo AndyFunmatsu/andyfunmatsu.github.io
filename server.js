@@ -116,12 +116,21 @@ app.get("/", (req, res) => {
                 </div>`);
 });
 
+app.use("/images", express.static("/app/images")); // Volume path
+
 app.post("/upload", upload.single("image"), (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).send("No file uploaded");
     res.send(`/images/${req.file.originalname}`);
 });
-app.use("/images", express.static("/app/images")); // Volume path
+
+const fs = require('fs');
+app.get('/list-images', (req, res) => {
+  fs.readdir('/app/images', (err, files) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(files);
+  });
+});
 
 app.get('/data', (req, res) => {
     connection.query("SELECT * FROM users", (err, results) => {
