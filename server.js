@@ -12,6 +12,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
   if (!file) return res.status(400).send("No file uploaded");
     res.send(`/images/${req.file.originalname}`);
 });
+app.use("/images", express.static("/app/images")); // Volume path
 
 const http = require("http");
 const WebSocket = require("ws");
