@@ -645,6 +645,8 @@
                                 data.messages.forEach(msgs => {
                                     console.log(msgs.message)
                                     document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msgs.message}</div>`;
+                                    console.log("username: ", username);
+                                    console.log("username quote: ", msgs.username);
                                     if(username !== msgs.username){
                                         document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msgs.message}</div>`;
                                     }
