@@ -140,7 +140,7 @@
                         };
                         newDivImg.width = 500;
                         newDivImg.style.maxWidth = 500;
-                        newDivImg.style.maxHeight = 500;
+                        newDivImg.style.maxWidth = 500;
                         
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
@@ -154,11 +154,11 @@
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("image-container").src = url;
+                                document.getElementById("pop-up-image").innerHTML = newDiv.innerTe;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
-                                    document.getElementById("image-container").src = "";
+                                    document.getElementById("pop-up-image").innerHTML = "";
                                 });
                             });
                             storeToDB(newDiv.innerHTML);
@@ -571,6 +571,19 @@
                     alert(`message from team ${teamname} was not deleted!`);
                 }
                 });
+                if(message.includes("starter-production-0722.up.railway.app")){
+                    newDiv.addEventListener("click", () => {
+                        document.getElementById("pop-up-image").style.display = "flex";
+                        document.getElementById("pop-up-image").innerHTML = message;
+                        // document.getElementById("pop-up-image").innerHTML = newDiv.innerText;
+
+                        document.getElementById("pop-up-image").addEventListener("click", () => {
+                            document.getElementById("pop-up-image").style.display = "none";
+                            document.getElementById("pop-up-image").innerHTML = "";
+                        });
+                        
+                    });
+                }
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
                 if(username === username_sent){
