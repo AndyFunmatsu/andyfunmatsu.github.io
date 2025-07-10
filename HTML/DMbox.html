@@ -285,7 +285,7 @@
                     else{
                         // if(document.getElementById("closeQuote"))
                         // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
-                        document.getElementById("text-bar").value = document.getElementsById("quote-container").innerHTML;
+                        document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         msgString = document.getElementById("text-bar").value;
                         isQuoting = false;
@@ -390,32 +390,7 @@
 
                     if (items[i].type.startsWith("image")) {
                         const blob = items[i].getAsFile(); // ✅ Extract image Blob
-                        const url = URL.createObjectURL(blob);
-                        let newDiv = document.createElement('div');
-                        let newDivImg = document.createElement('img');
-                        newDivImg.src = url;
-                        newDiv.appendChild(newDivImg);
-                        newDiv.innerHTML += `<br><strong>${username}: </strong>`;
-                        newDiv.innerHTML += `<small>${new Date().toISOString()}</small>`;
-                        console.log("✅ Image detected and processed!");
-                        document.getElementById("text-bar").value = newDiv.innerHTML;
-                        ws.send(JSON.stringify({
-                            username: username,  // ✅ Replace with actual logged-in user
-                            teamname: teamname,
-                            message: newDiv.innerHTML
-                        })); // ✅ Send message via WebSocket
-                        sendMsg(username, teamname).addEventListener("click", () => {
-                            document.getElementById("pop-up-image").style.display = "flex";
-                            document.getElementById("image-container").src = url;
-
-                            document.getElementById("pop-up-image").addEventListener("click", () => {
-                                document.getElementById("pop-up-image").style.display = "none";
-                                document.getElementById("image-container").src = "";
-                            });
-                        });
-                        storeToDB(newDiv.innerHTML);
-                        event.preventDefault(); // ❌ Prevent default text paste
-                        scrollToBottom();
+                        uploadImage(blob);
                     }
                 }
             });
@@ -653,15 +628,6 @@
                 else
                 document.getElementById("emoji-container").style.display = "none";
             });
-
-            function clearMessages() {
-                fetch("https://starter-production-0722.up.railway.app/messages", {
-                    method: "DELETE",
-                })
-                .then(response => response.json())
-                .then(data => console.log(data.message)) // Confirm deletion
-                .catch(error => console.error("❌ Error:", error));
-            }
 
             function fetchMessages() {
                 fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}`)
