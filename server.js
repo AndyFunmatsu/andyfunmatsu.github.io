@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
-const upload = multer({ dest: "/app/uploads" }); // Volume path
+// const upload = multer({ dest: "/app/uploads" }); // Volume path
 
 
 
@@ -116,13 +116,27 @@ app.get("/", (req, res) => {
                 </div>`);
 });
 
+const storage = multer.diskStorage({
+  destination: "/app/images",
+});
+
+const upload = multer({ storage });
+
 app.use("/images", express.static("/app/images")); // Volume path
 
+// app.post("/upload", upload.single("image"), (req, res) => {
+//   const file = req.file;
+//   if (!file) return res.status(400).send("No file uploaded");
+//     res.send(`/images/${req.file.originalname}`);
+// });
+
 app.post("/upload", upload.single("image"), (req, res) => {
-  const file = req.file;
-  if (!file) return res.status(400).send("No file uploaded");
-    res.send(`/images/${req.file.originalname}`);
+  if (!req.file) return res.status(400).send("No file uploaded");
+
+  const imagePath = `/images/${req.file.filename}`;
+  res.send(imagePath); // You could also use res.json({ url: imagePath })
 });
+
 
 // const fs = require('fs');
 app.get('/list-images', (req, res) => {
