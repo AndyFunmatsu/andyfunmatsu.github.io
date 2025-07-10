@@ -224,7 +224,7 @@
                     else{
                         sendMsg(parsedMessage.username, parsedMessage.teamname).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
-                            document.getElementById("image-container").src = parsedMessage.message;
+                            document.getElementById("image-container").src = parsedMessage.message.src;
 
                             document.getElementById("pop-up-image").addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "none";
