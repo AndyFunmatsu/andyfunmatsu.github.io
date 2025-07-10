@@ -135,7 +135,7 @@ body {
 } */
 #admin-page-header {
     position: fixed;
-    z-index: -1;
+    z-index: 2;
     left: 40vh;
     right: 40vh;
     /* background-image: url(realbook2.jpg); */
