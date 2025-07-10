@@ -139,6 +139,8 @@
                             return newDivImg.src;
                         };
                         newDivImg.width = 500;
+                        newDivImg.style.maxWidth = 500;
+                        newDivImg.style.maxHeight = 500;
                         
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
