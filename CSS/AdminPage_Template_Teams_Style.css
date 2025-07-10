@@ -1019,8 +1019,8 @@ body {
     height: 140vh; */
     width: 100vw;
     height: 100vh;
-    top: -20vh; 
-    left: -20vw;
+    /* top: -20vh;  */
+    /* left: -20vw; */
     justify-content: center;
     align-items: center;
 }
