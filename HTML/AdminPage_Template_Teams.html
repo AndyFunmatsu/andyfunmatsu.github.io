@@ -121,6 +121,80 @@
             let quote_id = 0;
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
+            function uploadImageVolume(filename){
+                // fs.writeFile(path, imageBuffer, (err) => {
+                console.log("✅ Image saved to volume!");
+                // let path = "/app/uploads/" + filename;
+
+                let newDiv = document.createElement('div');
+                let newDivImg = document.createElement('img');
+                
+                let url;
+                
+                // if (blob) {
+                        url = filename;
+                        newDivImg.src = url;
+                        console.log(url);
+                        newDivImg.onerror = () => {
+                            newDivImg.src = "../blue_camera_icon.png";
+                            return newDivImg.src;
+                        };
+                        newDivImg.width = 500;
+                        
+                        console.log("✅ Image detected and processed!");
+                        if(document.getElementById("text-bar").value.length <= 1){
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                            });
+                            storeToDB(newDiv.innerHTML);
+                        }
+                        else{
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                                
+                            });
+
+                            storeToDB(newDiv.innerHTML);
+                        }
+                        ws.send(JSON.stringify({
+                            username: username,  // ✅ Replace with actual logged-in user
+                            teamname: teamname,
+                            message: newDiv.innerHTML
+                        })); // ✅ Send message via WebSocket
+                        
+                        scrollToBottom();
+                    // }
+                    
+                    // reader.readAsDataURL(blob); // 🔥 Convert blob to Base64
+                }
             
             const ws = new WebSocket("wss://starter-production-0722.up.railway.app"); // ✅ Connect to WebSocket server
 
@@ -134,19 +208,21 @@
                 document.getElementById("text-bar").value = parsedMessage.message;
                 
                 if(parsedMessage.teamname === teamname){
-                    if(!parsedMessage.message.includes("data:image/png;base64,")){
-                        sendMsg(parsedMessage.username);
+                    if(!parsedMessage.message.includes("starter-production-0722.up.railway.app")){
+                        sendMsg(parsedMessage.username, parsedMessage.teamname);
+                        console.log("Sent message!");
                     }
                     else{
-                        sendMsg(parsedMessage.username).addEventListener("click", () => {
+                        sendMsg(parsedMessage.username, parsedMessage.teamname).addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
-                            document.getElementById("image-container").src = parsedMessage.message;
+                            document.getElementById("image-container").src = parsedMessage.message.src;
 
                             document.getElementById("pop-up-image").addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "none";
                                 document.getElementById("image-container").src = "";
                             });
                         });
+                        console.log("Sent message!");
                     }
                     scrollToBottom();
                 }          
@@ -339,8 +415,24 @@
             document.getElementById("team-info").innerHTML = `You: <p style='color: lightgreen;'>${username}<br><hr></p>`;
 
             document.getElementById("fileInput").addEventListener("change", (event) => {
-                const imagefile = event.target.files[0]; // 📂 Get first selected file
-                uploadImage(imagefile);
+                const imageFile = event.target.files[0]; // 📂 Get first selected file
+                // uploadImage(imagefile);
+                // imagefile.arrayBuffer().then(buffer => {
+                //     uploadImageVolume(buffer, imagefile.name);
+                // });
+                const formData = new FormData();
+                formData.append("image", imageFile);
+
+                fetch(`https://starter-production-0722.up.railway.app/upload`, {
+                    method: "POST",
+                    body: formData
+                })
+                .then(res => res.text())
+                .then(msg => {
+                    uploadImageVolume("https://starter-production-0722.up.railway.app" + msg);
+                })
+                .catch(err => console.error("Upload failed:", err));
+                
             });
 
             function sendMsg(username_sent) {
