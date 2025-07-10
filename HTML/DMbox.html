@@ -571,19 +571,7 @@
                     alert(`message from team ${teamname} was not deleted!`);
                 }
                 });
-                if(message.includes("starter-production-0722.up.railway.app")){
-                    newDiv.addEventListener("click", () => {
-                        document.getElementById("pop-up-image").style.display = "flex";
-                        document.getElementById("pop-up-image").innerHTML = message;
-                        // document.getElementById("pop-up-image").innerHTML = newDiv.innerText;
-
-                        document.getElementById("pop-up-image").addEventListener("click", () => {
-                            document.getElementById("pop-up-image").style.display = "none";
-                            document.getElementById("pop-up-image").innerHTML = "";
-                        });
-                        
-                    });
-                }
+                
                 newDiv.className = "generated";
                 msgcontainer.appendChild(newDiv);
                 if(username === username_sent){
