@@ -809,7 +809,7 @@
                         if(msg.message.includes("starter-production-0722.up.railway.app")){
                             newDiv.addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("image-container").src = newDiv.src;
+                                document.getElementById("image-container").src = msg.message.src;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
