@@ -217,7 +217,7 @@
                     //     sendMsg(parsedMessage.username, parsedMessage.teamname);
                     //     console.log("Sent message!");
                     // }
-                    if(!parsedMessage.message.file()){
+                    if(!parsedMessage.message.includes("starter-production-0722.up.railway.app")){
                         sendMsg(parsedMessage.username, parsedMessage.teamname);
                         console.log("Sent message!");
                     }
