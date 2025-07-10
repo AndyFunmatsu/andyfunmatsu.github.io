@@ -12,11 +12,12 @@
     </head>
 
     <body>
-        <div id="screen" style="display: flex; flex-direction: row; ">
-       
-            <div id="pop-up-image" style="justify-content: center; align-items: center;">
+        <div id="pop-up-image" style="justify-content: center; align-items: center;">
                 <img id="image-container">
             </div>
+        <div id="screen" style="display: flex; flex-direction: row; ">
+       
+            
             
                 <div id="menu">
                     <div id="team-info"><br>(Team Name)<br><hr style="justify-self: center; width: 100%"><br></div>
@@ -814,7 +815,7 @@
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
-                                    document.getElementById("image-container").src = "";
+                                    document.getElementById("pop-up-image").innerHTML = "";
                                 });
                                 
                             });
