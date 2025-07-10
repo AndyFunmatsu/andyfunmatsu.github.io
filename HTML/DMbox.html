@@ -460,11 +460,67 @@
                 .then(res => res.text())
                 .then(msg => {
                     console.log(msg);
-                    let image = document.createElement('img');
-                    image.src = "https://starter-production-0722.up.railway.app" + msg;
-                    image.onerror = () => {
-                        image.src = "../blue_camera_icon.png"; // or any safe fallback
+                    let newDiv = document.createElement('div');
+                    let newDivImg = document.createElement('img');
+                    // let image = document.createElement('img');
+                    newDivImg.src = "https://starter-production-0722.up.railway.app" + msg;
+                    newDivImg.onerror = () => {
+                        newDivImg.src = "../blue_camera_icon.png";
                     };
+                    newDivImg.width = 500;
+                        
+                        console.log("✅ Image detected and processed!");
+                        if(document.getElementById("text-bar").value.length <= 1){
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                            });
+                            storeToDB(newDiv.innerHTML);
+                        }
+                        else{
+                            newDiv.innerHTML = `<br><strong>${username}: </strong>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname);
+                            storeToDB(newDiv.innerHTML);
+                            newDiv.innerHTML = "";
+                            newDiv.appendChild(newDivImg);
+                            document.getElementById("text-bar").value = newDiv.innerHTML;
+                            sendMsg(username, teamname).addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = url;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                                
+                            });
+
+                            storeToDB(newDiv.innerHTML);
+                        }
+                        ws.send(JSON.stringify({
+                            username: username,  // ✅ Replace with actual logged-in user
+                            teamname: teamname,
+                            message: newDiv.innerHTML
+                        })); // ✅ Send message via WebSocket
+                        
+                        event.preventDefault(); // ❌ Prevent default text paste
+                        scrollToBottom();
+
                     document.querySelector("#div-custom-body").appendChild(image);
                 })
                 .catch(err => console.error("Upload failed:", err));
