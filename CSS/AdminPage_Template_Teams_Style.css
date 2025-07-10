@@ -1029,6 +1029,7 @@ body {
     /* top: 0vh; 
     left: 25vw; */
     align-self: center;
+    justify-self: center;
 }
 
 #emoji-container{

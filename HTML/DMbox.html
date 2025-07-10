@@ -14,7 +14,7 @@
     <body>
         <div id="screen" style="display: flex; flex-direction: row; ">
        
-            <div id="pop-up-image">
+            <div id="pop-up-image" style="justify-content: center; align-items: center;">
                 <img id="image-container">
             </div>
             
@@ -806,6 +806,18 @@
                             alert(`message from team ${teamname} was not deleted!`);
                         }
                         });
+                        if(msg.message.includes("starter-production-0722.up.railway.app")){
+                            newDiv.addEventListener("click", () => {
+                                document.getElementById("pop-up-image").style.display = "flex";
+                                document.getElementById("image-container").src = newDiv.src;
+
+                                document.getElementById("pop-up-image").addEventListener("click", () => {
+                                    document.getElementById("pop-up-image").style.display = "none";
+                                    document.getElementById("image-container").src = "";
+                                });
+                                
+                            });
+                        }
                         console.log("Test for appending messages")
                         msgcontainer.appendChild(newDiv);
                         console.log("after appending messages");
