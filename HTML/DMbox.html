@@ -154,7 +154,7 @@
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("pop-up-image").innerHTML = newDiv.innerTe;
+                                document.getElementById("pop-up-image").innerHTML = newDiv.innerText;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
@@ -174,7 +174,7 @@
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("image-container").src = url;
+                                document.getElementById("pop-up-image").innerHTML = newDiv.innerText;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
@@ -458,7 +458,7 @@
                 msgcontainer.style.alignItems = "center";
                 // msgcontainer.style.justifyContent = "flex-end"
                 const message = document.getElementById("text-bar").value;
-
+                
                 newDiv.innerHTML = message;
                 newDiv.style.backgroundColor = "rgb(44, 121, 202)";
                 newDiv.style.color = "white";
