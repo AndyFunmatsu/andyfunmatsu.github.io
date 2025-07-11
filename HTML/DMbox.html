@@ -155,7 +155,7 @@
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
                                 document.getElementById("pop-up-image").innerHTML = newDiv.innerHTML;
-                                console.log(newDiv.innerHTML);
+                                // console.log(newDiv.innerHTML);
                                 // document.getElementById("image-container").src = newDivImg.src;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
@@ -176,7 +176,7 @@
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("image-container").src = newDivImg.src;
+                                document.getElementById("pop-up-image").innerHTML = newDiv.innerHTML;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
@@ -226,13 +226,14 @@
                         console.log("Sent message!");
                     }
                     else{
-                        sendMsg(parsedMessage.username, parsedMessage.teamname).addEventListener("click", () => {
+                        const msg = sendMsg(parsedMessage.username, parsedMessage.teamname);
+                        msg.addEventListener("click", () => {
                             document.getElementById("pop-up-image").style.display = "flex";
-                            document.getElementById("image-container").src = parsedMessage.message.src;
+                            document.getElementById("pop-up-image").innerHTML = msg.innerHTML;
 
                             document.getElementById("pop-up-image").addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "none";
-                                document.getElementById("image-container").src = "";
+                                // document.getElementById("image-container").src = "";
                             });
                         });
                         console.log("Sent message!");
