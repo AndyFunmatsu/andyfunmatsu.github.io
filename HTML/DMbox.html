@@ -154,7 +154,7 @@
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("pop-up-image").innerHTML = newDiv.innerText;
+                                document.getElementById("pop-up-image").innerHTML = newDivImg.innerHTML;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
@@ -174,7 +174,7 @@
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname).addEventListener("click", () => {
                                 document.getElementById("pop-up-image").style.display = "flex";
-                                document.getElementById("pop-up-image").innerHTML = newDiv.innerText;
+                                document.getElementById("pop-up-image").src = filename;
 
                                 document.getElementById("pop-up-image").addEventListener("click", () => {
                                     document.getElementById("pop-up-image").style.display = "none";
