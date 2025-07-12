@@ -248,8 +248,8 @@
                         Notification.requestPermission().then(permission => {
                             if(permission === "granted"){
                                 let notif = new Notification(`New Message from ${parsedMessage.username}`, {
-                                    body: `Important message!`,
-                                    icon: "chathaven_logo.png",
+                                    body: `Important message! ${parsedMessage.message.split("<strong>${username}: ")}`,
+                                    logo: "chathaven_logo.png",
                                 });
                             }
                         });
