@@ -20,7 +20,11 @@
             
             
                 <div id="menu">
-                    <div id="team-info"><br>(Team Name)<br><hr style="justify-self: center; width: 100%"><br></div>
+                    <div id="team-info-container" style="justify-content: space-between">
+                        <div>
+                            <div id="team-info"><br>(Team Name)<br><hr style="justify-self: center; width: 100%"><br></div>
+                        </div>
+                    </div>
 
                     <!-- <div class="general-button" id="channel">
                         {Channel2}
@@ -117,7 +121,14 @@
             let quote_id = 0;
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
-
+            let exitIcon = document.createElement('img');
+            exitIcon.src = "../images/exit-12.png"
+            exitIcon.addEventListener("click", () => {
+                document.getElementById(menu).style.display = "none";
+            });
+            if(isPhone){
+                document.getElementById("team-info-container").appendChild(exitIcon);
+            }
             // const fs = require("fs");
             
             function uploadImageVolume(filename){

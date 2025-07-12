@@ -121,6 +121,16 @@
             let quote_id = 0;
 
             const isPhone = window.matchMedia("(max-width: 1024px)").matches;
+
+            let exitIcon = document.createElement('img');
+            exitIcon.src = "../images/exit-12.png"
+            exitIcon.addEventListener("click", () => {
+                document.getElementById(menu).style.display = "none";
+            });
+            if(isPhone){
+                document.getElementById("team-info-container").appendChild(exitIcon);
+            }
+
             function uploadImageVolume(filename){
                 // fs.writeFile(path, imageBuffer, (err) => {
                 console.log("✅ Image saved to volume!");
