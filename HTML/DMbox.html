@@ -242,6 +242,8 @@
                         console.log("Sent message!");
                     }
                     scrollToBottom();
+                    navigator.serviceWorker.register("sw.js");
+
                     if ("Notification" in window) {
                         Notification.requestPermission().then(permission => {
                             if(permission === "granted"){
@@ -252,6 +254,19 @@
                             }
                         });
                     }
+                    if(isPhone){
+                        Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            navigator.serviceWorker.ready.then(reg => {
+                            reg.showNotification(`New Message from ${parsedMessage.username}`, {
+                                body: "Important message!",
+                                icon: "chathaven_logo.png"
+                            });
+                            });
+                        }
+                        });
+                    }
+
                 }        
 
                 document.getElementById("text-bar").value = tempTextBar;          
