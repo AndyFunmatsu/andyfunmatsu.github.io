@@ -20,7 +20,7 @@
             
             
                 <div id="menu">
-                    <div id="team-info-container" style="justify-content: space-between">
+                    <div id="team-info-container" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
                         <div>
                             <div id="team-info"><br>(Team Name)<br><hr style="justify-self: center; width: 100%"><br></div>
                         </div>
@@ -127,6 +127,8 @@
                 document.getElementById("menu").style.display = "none";
             });
             exitIcon.width = 20;
+            exitIcon.height = 20;
+            exitIcon.style.justifySelf = "center";
             if(isPhone){
                 document.getElementById("team-info-container").appendChild(exitIcon);
             }
