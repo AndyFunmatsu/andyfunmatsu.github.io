@@ -117,7 +117,7 @@ app.get("/", (req, res) => {
 });
 
 const storage = multer.diskStorage({
-  destination: "/app/images",
+  destination: "/var/lib/mysql",
 });
 
 const upload = multer({ storage });
