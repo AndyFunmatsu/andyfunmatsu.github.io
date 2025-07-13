@@ -329,8 +329,9 @@ body {
 
     #upload-image{
         border-radius: 10px;
-        height: calc(100% + 1vh) !important;
-        width: 12vh !important;
+        height: calc(100% + 2vh) !important;
+        width: 100px !important;
+        padding: 0px !important;
         /* background-color: rgba(240, 248, 255, 0); */
         /* border-color: rgba(240, 248, 255, 0); */
         /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75); */
@@ -814,15 +815,20 @@ body {
     /* position: relative; */
     /* top: calc(100% - 20vh); */
     width: 100%;
-    height: 1px;
-    overflow-y: hidden;
+    box-sizing: border-box;
+    /* height: 1px; */
+    /* overflow-y: hidden; */
     /* min-height: 10px; */
-    padding: 2vw;
+    align-content: center;
+    padding-left: 2vw;
+    /* padding-top: 2vw; */
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     border-width: 0.1vh;
+    height: inherit; 
+    transform: scaleY(-1);
     /* display: flex;
     flex-wrap: wrap; */
-    text-align: justify;
+    /* text-align: justify; */
     /* text-justify: auto; */
     
     /* min-width: 65vw; */
@@ -858,20 +864,25 @@ body {
 
 #upload-image{
     border-radius: 10px;
-    height: calc(100% + 2vh);
-    width: 21vh;
+    height: 14vh;
+    width: 180px;
+    /* flex-grow: 0; */
+    /* min-width: 1; */
+    padding-top: 10px;
+    /* min-width: 15vh; */
     background-color: rgba(240, 248, 255, 0);
     border-color: rgba(240, 248, 255, 0);
     /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75); */
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #add-image{
     border-radius: 10px;
-    height: inherit;
+    height: 100%;
     width: 100%;
-    align-self: center;
+    /* align-self: center; */
 }
  
 #send-msg{

@@ -58,10 +58,12 @@
                             <div id="quote-container"></div>
                             <!-- <div style="float: right;">❌</div> -->
                             <div class="text-bar-container">
-                                <textarea id="text-bar" placeholder="message" ></textarea>
+                                <div style="height: inherit; width: 100%; transform: scaleY(-1);">
+                                    <textarea id="text-bar" placeholder="message"></textarea>
+                                </div>
                                 <input type="file" id="fileInput" accept="image/*" style="display: none;" />
                                 <button id="upload-image" onclick="document.getElementById('fileInput').click();" >
-                                    <img id="add-image" src="../blue_camera_icon.png">
+                                    <img id="add-image" src="../images/blue_cam_!.png">
                                 </button>
                                 <button id="send-msg">Send</button>
                                 <button id="emojis">😀</button>
@@ -607,7 +609,7 @@
                 document.getElementById("quote-container").innerHTML = "";
                 document.getElementById("quote-container").style.display = "none";
                 // document.getElementById("text-bar").value = "";
-                return msgcontainer;
+                return message;
             }
 
             function storeToDB(msg){
