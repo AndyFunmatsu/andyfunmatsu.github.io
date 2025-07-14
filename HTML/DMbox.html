@@ -319,7 +319,7 @@
                     }
                     else{
                         if(document.getElementById("close-quote"))
-                        document.getElementById("quote-container").removeChild(document.getElementById("close-quote"));
+                        document.getElementById("close-quote").remove();
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         msgString = document.getElementById("text-bar").value;
