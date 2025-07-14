@@ -814,13 +814,15 @@ body {
     border-radius: 1vh;
     /* position: relative; */
     /* top: calc(100% - 20vh); */
+    /* text-indent: 2vh; */
     width: 100%;
+    min-width: 2vw;
     box-sizing: border-box;
     /* height: 1px; */
     /* overflow-y: hidden; */
     /* min-height: 10px; */
     align-content: center;
-    padding-left: 2vw;
+    padding-left: 2vh;
     /* padding-top: 2vw; */
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     border-width: 0.1vh;

@@ -540,9 +540,9 @@
                     .then(data => {
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p>❌</div>`;
                             if(username_sent === msg.username){
-                                document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${msg.message}</div>`;
+                                document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p>❌</div>`;
                             }
                         })
                     });
