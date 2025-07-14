@@ -339,7 +339,7 @@
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += ` Sent picture <small>${new Date().totoLocaleString()}</small>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
@@ -359,7 +359,7 @@
                         }
                         else{
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().totoLocaleString()}</small>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
@@ -542,14 +542,15 @@
                     .then(data => {
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                            document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                            document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                             if(username_sent === msg.username){
-                                document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                                document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
                             }
                         })
                     });
                     if(document.getElementById("close-quote")){
-                        
+
                     }
                     quote_id = newDiv.id;
                     console.log(quote_id);
@@ -618,7 +619,7 @@
 
             function storeToDB(msg){
                 const message = msg;
-                let timeNow = new Date().totoLocaleString();
+                let timeNow = new Date().toLocaleString();
                 console.log("🚀 Sending POST request to backend at:", timeNow);
                 fetch("https://starter-production-0722.up.railway.app/messages_teams", {
                     method: "POST",
@@ -628,7 +629,7 @@
                         teamname, 
                         message: message, // ✅ Only the message content
                         channel,
-                        created_at: new Date().totoLocaleString(),
+                        created_at: new Date().toLocaleString(),
                         quote_id
                     })
                 })
@@ -734,11 +735,12 @@
                             .then(data => {
                                 data.messages.forEach(msgs => {
                                     console.log(msgs.message);
-                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                                    document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                                    document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                                     console.log("username: ", username);
                                     console.log("username quote: ", msgs.username);
                                     if(username === msgs.username){
-                                        document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                                        document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
                                     }
                                 })
                             });

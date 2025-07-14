@@ -600,12 +600,12 @@
                     quote_id = newDiv.id;
                     console.log(quote_id);
                     // document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%;">Quoting @${newDiv.innerHTML}<div id="closeQuote" style="float: right; cursor: pointer;">❌</div></div>`;
-                    // if(!document.getElementById("closeQuote")){
-                    //     document.getElementById("closeQuote").addEventListener("click", () => {
-                    //         document.getElementById("quote-container").innerHTML = "";
-                    //         document.getElementById("quote-container").style.display = "none";
-                    //     });
-                    // }
+                    if(document.getElementById("close-quote")){
+                        document.getElementById("close-quote").addEventListener("click", () => {
+                            document.getElementById("quote-container").innerHTML = "";
+                            document.getElementById("quote-container").style.display = "none";
+                        });
+                    }
                     // document.getElementById("quote-container").appendChild(document.getElementById("closeQuote"));
                     isQuoting = true;
                 });
@@ -780,12 +780,18 @@
                             .then(data => {
                                 data.messages.forEach(msgs => {
                                     console.log(msgs.message)
-                                    document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
                                     document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
             
                                     if(username !== msgs.username){
-                                        document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
+                                        document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center">❌</div></div>`;
                                         document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
+                                    }
+                                    if(document.getElementById("close-quote")){
+                                        document.getElementById("close-quote").addEventListener("click", () => {
+                                            document.getElementById("quote-container").innerHTML = "";
+                                            document.getElementById("quote-container").style.display = "none";
+                                        });
                                     }
                                 })
                             });
