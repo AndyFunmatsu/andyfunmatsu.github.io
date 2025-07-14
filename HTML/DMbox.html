@@ -577,7 +577,7 @@
 
                 quoteMsg.addEventListener("click", () => {
                     console.log("Messaage id: ", newDiv.id);
-                    document.getElementById("quote-container").style.display = "inline-block";
+                    document.getElementById("quote-container").style.display = "flex";
                     document.getElementById("quote-container").style.flexDirection = "column";
                     fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}/${newDiv.id}`)
                     .then(response => response.text()) // ✅ Log raw response before parsing
@@ -588,10 +588,10 @@
                     .then(data => {
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                            document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div style="display: inline-block">❌</div></div>`;
                             document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                             if(username_sent !== msg.username){
-                                document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div style="display: inline-block">❌</div></div>`;
                                 document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                             }                        
                         })
@@ -770,7 +770,7 @@
                         newDiv.id = n_messages;
 
                         quoteMsg.addEventListener("click", () => {
-                            document.getElementById("quote-container").style.display = "inline-block";
+                            document.getElementById("quote-container").style.display = "flex";
                             fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}/${newDiv.id}`)
                             .then(response => response.text()) // ✅ Log raw response before parsing
                             .then(text => {
