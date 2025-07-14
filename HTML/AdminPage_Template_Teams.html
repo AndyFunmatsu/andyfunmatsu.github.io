@@ -131,7 +131,7 @@
             let exitIcon = document.createElement('img');
             exitIcon.src = "../images/exit-12.png"
             exitIcon.addEventListener("click", () => {
-                document.getElementById("menu").style.display = "none";
+                document.getElementById("menu").style.left = "-100vw";
             });
             exitIcon.width = 20;
             exitIcon.height = 20;
@@ -426,6 +426,7 @@
                     // document.querySelector(".custom-body").style.display = "none";
                     // document.getElementById("admin-page-header").style.display = "none";
                     document.getElementById("menu").style.zIndex = 10;
+                    document.getElementById("menu").style.left = "0vh";
                     document.getElementById("menu").style.display = "block";
                     document.getElementById("menu").style.maxWidth = "1000vw";
                     document.getElementById("menu").style.width = "50%";
