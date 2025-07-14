@@ -566,7 +566,7 @@
                 quoteMsg.addEventListener("click", () => {
                     console.log("Messaage id: ", newDiv.id);
                     document.getElementById("quote-container").style.display = "flex";
-                    document.getElementById("quote-container").style.flexDirection = "row";
+                    document.getElementById("quote-container").style.flexDirection = "column";
                     fetch(`https://starter-production-0722.up.railway.app/direct_messages/${teamname}/${username}/${channel}/${newDiv.id}`)
                     .then(response => response.text()) // ✅ Log raw response before parsing
                     .then(text => {
