@@ -144,7 +144,7 @@
                 // fs.writeFile(path, imageBuffer, (err) => {
                 console.log("✅ Image saved to volume!");
                 // let path = "/app/uploads/" + filename;
-
+                document.getElementById("text-bar").value = "";
                 let newDiv = document.createElement('div');
                 let newDivImg = document.createElement('img');
                 
@@ -272,8 +272,8 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        // if(document.getElementById("closeQuote"))
-                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        if(document.getElementById("close-quote"))
+                        document.getElementById("quote-container").removeChild(document.getElementById("close-quote"));
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         msgString = document.getElementById("text-bar").value;
@@ -286,7 +286,7 @@
                      })); // ✅ Send message via WebSocket
                     sendMsg(username);
                     document.getElementById("quote-container").innerHTML = "";
-
+                    document.getElementById("text-bar").value = "";
                 }
             });
 
@@ -312,6 +312,7 @@
                      })); // ✅ Send message via WebSocket
                     sendMsg(username);
                     document.getElementsById("quote-container").innerHTML = "";
+                    document.getElementById("text-bar").value = "";
                 }
             });
             
@@ -613,6 +614,7 @@
                 scrollToBottom()
                 document.getElementById("quote-container").innerHTML = "";
                 document.getElementById("quote-container").style.display = "none";
+                document.getElementById("text-bar").value = "";
                 // document.getElementById("text-bar").value = "";
                 return msgcontainer;
             }
