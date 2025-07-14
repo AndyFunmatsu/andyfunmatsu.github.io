@@ -133,9 +133,20 @@
             exitIcon.style.justifySelf = "center";
             if(isPhone){
                 document.getElementById("team-info-container").appendChild(exitIcon);
-            }
-            // const fs = require("fs");
-            
+            }            
+            // document.addEventListener("DOMContentLoaded", () => {
+            //     let tempHeight = document.getElementById("text-bar").style.height;
+            //     document.getElementById("text-bar").style.position = "absolute";
+            //     // document.getElementById("text-bar").style.top = -tempHeight/2;
+            // });
+            // document.getElementById("text-bar").addEventListener("input", () => {
+            //     let tempHeight = document.getElementById("text-bar").scrollHeight + "px";
+            //     if(document.getElementById("text-bar").style.height < tempHeight)
+            //     document.getElementById("text-bar").style.height = document.getElementById("text-bar").scrollHeight + "px";
+                
+            //     document.getElementById("text-bar").style.top = (document.getElementById("text-bar").style.height)/2;
+            // });
+
             function uploadImageVolume(filename){
                 // fs.writeFile(path, imageBuffer, (err) => {
                 console.log("✅ Image saved to volume!");
@@ -164,7 +175,7 @@
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
@@ -186,7 +197,7 @@
                         }
                         else{
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
@@ -373,7 +384,7 @@
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
@@ -393,7 +404,7 @@
                         }
                         else{
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
@@ -577,9 +588,11 @@
                     .then(data => {
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                            document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                            document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                             if(username_sent !== msg.username){
-                                document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                             }                        
                         })
                     });
@@ -652,7 +665,7 @@
 
             function storeToDB(msg){
                 const message = msg;
-                let timeNow = new Date().toISOString();
+                let timeNow = new Date().toLocaleString();
                 console.log("🚀 Sending POST request to backend at:", timeNow);
                 fetch("https://starter-production-0722.up.railway.app/direct_messages", {
                     method: "POST",
@@ -767,10 +780,12 @@
                             .then(data => {
                                 data.messages.forEach(msgs => {
                                     console.log(msgs.message)
-                                    document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                    document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                    document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
             
                                     if(username !== msgs.username){
-                                        document.getElementById("quote-container").innerHTML = `<div style="background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                        document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: column; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div>❌</div></div>`;
+                                        document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                                     }
                                 })
                             });

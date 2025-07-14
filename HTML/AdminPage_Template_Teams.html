@@ -168,7 +168,7 @@
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
@@ -187,7 +187,7 @@
                         }
                         else{
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username, teamname);
                             storeToDB(newDiv.innerHTML);
@@ -339,7 +339,7 @@
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += ` Sent picture <small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += ` Sent picture <small>${new Date().totoLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
@@ -359,7 +359,7 @@
                         }
                         else{
                             newDiv.innerHTML = `<br><strong>${username}: </strong>`;
-                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().toISOString()}</small>`;
+                            newDiv.innerHTML += `${document.getElementById("text-bar").value}<small>${new Date().totoLocaleString()}</small>`;
                             document.getElementById("text-bar").value = newDiv.innerHTML;
                             sendMsg(username);
                             storeToDB(newDiv.innerHTML);
@@ -616,7 +616,7 @@
 
             function storeToDB(msg){
                 const message = msg;
-                let timeNow = new Date().toISOString();
+                let timeNow = new Date().totoLocaleString();
                 console.log("🚀 Sending POST request to backend at:", timeNow);
                 fetch("https://starter-production-0722.up.railway.app/messages_teams", {
                     method: "POST",
@@ -626,7 +626,7 @@
                         teamname, 
                         message: message, // ✅ Only the message content
                         channel,
-                        created_at: new Date().toISOString(),
+                        created_at: new Date().totoLocaleString(),
                         quote_id
                     })
                 })
