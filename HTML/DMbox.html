@@ -344,8 +344,8 @@
                         document.getElementById("text-bar").value = msgString;
                     }
                     else{
-                        // if(document.getElementById("closeQuote"))
-                        // document.getElementById("quote-container").removeChild(document.getElementById("closeQuote"));
+                        if(document.getElementById("close-quote"))
+                        document.getElementById("close-quote").remove();
                         document.getElementById("text-bar").value = document.getElementById("quote-container").innerHTML;
                         document.getElementById("text-bar").value += msgString;
                         msgString = document.getElementById("text-bar").value;
@@ -529,6 +529,7 @@
                 newDiv.style.borderRadius = "10px";
                 newDiv.style.padding = "15px";
                 newDiv.style.margin = "10px";
+                newDiv.style.justifyContent = "center";
                 if(isPhone){
                     newDiv.style.fontSize = "15px";
                 }
@@ -733,6 +734,7 @@
                         newDiv.style.borderRadius = "10px";
                         newDiv.style.padding = "15px";
                         newDiv.style.margin = "10px";
+                        newDiv.style.justifyContent = "center";
                         if(isPhone){
                             newDiv.style.fontSize = "15px";
                         }
