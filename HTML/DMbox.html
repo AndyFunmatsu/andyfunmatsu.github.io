@@ -988,10 +988,10 @@
                     let nameChannel = document.createElement('p');
                     nameChannel.innerText = name;
                     for(let i = 0; i < nameChannel.innerText.length; i++){
-                        if(i > 13 && i < 15){
-                            nameChannel.innerText.charAt(i) = "."
-                        }
-                        else if(i > 15){
+                        if(i > 13){
+                            let text = nameChannel.innerText;
+                            let updated = text.substring(0, i) + "...";
+                            nameChannel.innerText = updated;
                             break;
                         }
                     }
