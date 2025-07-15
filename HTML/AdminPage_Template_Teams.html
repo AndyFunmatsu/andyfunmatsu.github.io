@@ -159,11 +159,13 @@
                             return newDivImg.src;
                         };
                         // newDivImg.width = 500;
-                        newDivImg.style.maxWidth = "500px";
-                        newDivImg.style.maxHeight = "500px";
                         if(isPhone){
-                            newDivImg.style.maxWidth = "400px";
+                            newDivImg.style.maxWidth = "300px";
                         }
+                        else{
+                        newDivImg.style.maxWidth = "500px";
+                        }
+                        newDivImg.style.maxHeight = "500px";
                         
                         console.log("✅ Image detected and processed!");
                         if(document.getElementById("text-bar").value.length <= 1){
