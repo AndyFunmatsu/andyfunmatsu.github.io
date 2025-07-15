@@ -960,13 +960,13 @@
                             if (data.success) {
                                 console.log("✅ Channel deleted:", data);
                                 alert(`🎉 Channel '${channel}' deleted successfully!`);
-                                window.location.href = `AdminPage_Template.html?username=${username}&teamname=${teamname}`;
+                                // window.location.href = `AdminPage_Template.html?username=${username}&teamname=${teamname}`;
                             } else {
                                 alert("❌ Error deleting Channel: " + data.message);
                             }
                         })
                         .catch(error => console.error("❌ Error:", error));
-                        window.location.reload();
+                        // window.location.reload();
                     }
                     });
                     coverDiv.appendChild(nameChannel);
