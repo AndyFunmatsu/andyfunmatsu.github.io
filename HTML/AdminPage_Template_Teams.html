@@ -938,6 +938,9 @@
                     channelDiv.appendChild(nameChannel);
                     let deleteChannelDiv = document.createElement('div');
                     deleteChannelDiv.innerText = "❌";
+                    if(isPhone){
+                        deleteChannelDiv.style.fontSize = "15px";
+                    }
                     deleteChannelDiv.style.alignself = "flex-end";
                     deleteChannelDiv.style.height = "fit-content"
                     deleteChannelDiv.style.width = "30px";
