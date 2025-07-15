@@ -919,7 +919,7 @@
                     let nameChannel = document.createElement('p');
                     nameChannel.innerText = name;
                     for(let i = 0; i < nameChannel.innerText.length; i++){
-                        if(i > 13){
+                        if(i >= 10){
                             let text = nameChannel.innerText;
                             let updated = text.substring(0, i) + "...";
                             nameChannel.innerText = updated;
