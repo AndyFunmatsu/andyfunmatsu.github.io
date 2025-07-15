@@ -593,10 +593,11 @@
                     .then(data => {
                         data.messages.forEach(msg => {
                             console.log(msg.message)
-                            document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
+                            document.getElementById("quote-container").style.height = "0px";
+                            document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); color: black; padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
                             document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
                             if(username_sent !== msg.username){
-                                document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
+                                document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); color: white; padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
                             }                        
                         })
                     });
@@ -607,6 +608,7 @@
                     if(document.getElementById("close-quote")){
                         document.getElementById("close-quote").addEventListener("click", () => {
                             document.getElementById("quote-container").innerHTML = "";
+                            document.getElementById("quote-container").style.height = "0px";
                             document.getElementById("quote-container").style.display = "none";
                         });
                     }
@@ -785,7 +787,8 @@
                             })
                             .then(data => {
                                 data.messages.forEach(msgs => {
-                                    console.log(msgs.message)
+                                    console.log(msgs.message);
+                                    document.getElementById("quote-container").style.height = "0px";
                                     document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
                                     document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
             
@@ -795,6 +798,7 @@
                                     if(document.getElementById("close-quote")){
                                         document.getElementById("close-quote").addEventListener("click", () => {
                                             document.getElementById("quote-container").innerHTML = "";
+                                            document.getElementById("quote-container").style.height = "0px";
                                             document.getElementById("quote-container").style.display = "none";
                                         });
                                     }
