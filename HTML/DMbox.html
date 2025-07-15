@@ -1032,6 +1032,7 @@
                             if (data.success) {
                                 console.log("✅ Channel deleted:", data);
                                 alert(`🎉 Channel '${channel}' deleted successfully!`);
+                                channelDiv.remove();
                                 // window.location.href = `DirectMsg.html?username=${username}&teamname=${teamname}`;
                             } else {
                                 alert("❌ Error deleting Channel: " + data.message);
