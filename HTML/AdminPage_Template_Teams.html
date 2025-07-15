@@ -37,7 +37,7 @@
                     <div id="page-title" style="color: white; justify-self: center; text-align: center;">
                         TEAMS
                     </div>
-                    <p style="width: 100%; background-color: rgb(4, 212, 1);text-align: center;color: white; padding: 5px;padding-left: 0px;"> channels </p>
+                    <p style="width: 100%; background-color: rgb(4, 212, 1);text-align: center;color: white; padding: 5px; box-sizing: border-box; padding-left: 0px;"> channels </p>
                     <div class="general-button" id="create-channel-button">
                         Create Channel
                     </div>
@@ -931,7 +931,7 @@
                     deleteChannelDiv.style.width = "30px";
                     deleteChannelDiv.style.display = "none";
                     channelDiv.addEventListener("mouseover", () => {
-                        deleteChannelDiv.style.display = "flex";
+                        deleteChannelDiv.style.display = "inline-block";
                     })
                     channelDiv.addEventListener("mouseout", () => {
                         deleteChannelDiv.style.display = "none";
