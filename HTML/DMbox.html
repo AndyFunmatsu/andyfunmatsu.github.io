@@ -789,11 +789,11 @@
                                 data.messages.forEach(msgs => {
                                     console.log(msgs.message);
                                     document.getElementById("quote-container").style.height = "0px";
-                                    document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
+                                    document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(0, 255, 0); color: black; padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;
                                     document.getElementById("quote-container").style.height = document.getElementById("quote-container").scrollHeight + "px";
             
                                     if(username !== msgs.username){
-                                        document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;                                    
+                                        document.getElementById("quote-container").innerHTML = `<div style="display: flex; flex-direction: row; background-color: rgb(7, 168, 255); color: white; padding: 1vh; border-radius: 1vh; width: 100%; height: fit-content; justify-content: space-between;"><p>Quoting @${msg.message}</p><div id="close-quote" style="display: inline-block; align-self: center; cursor: pointer">❌</div></div>`;                                    
                                     }
                                     if(document.getElementById("close-quote")){
                                         document.getElementById("close-quote").addEventListener("click", () => {
@@ -819,9 +819,9 @@
                             .then(data => {
                                 console.log(data.messages);
                                 data.messages.forEach(msgs => {
-                                    let tempMsg = `<div style="background-color: rgb(7, 168, 255); border-radius: 10px; padding: 10px; height: fit-content; justify-content: center">Quoting @${msgs.message}</div><div>${message}</div>`;
+                                    let tempMsg = `<div style="background-color: rgb(7, 168, 255); color: white; border-radius: 10px; padding: 10px; height: fit-content; justify-content: center">Quoting @${msgs.message}</div><div>${message}</div>`;
                                     if(username === msgs.username){
-                                        tempMsg = `<div style="background-color: rgb(0, 255, 0); border-radius: 10px; padding: 10px; height: fit-content; justify-content: center">Quoting @${msgs.message}</div><div>${message}</div>`;
+                                        tempMsg = `<div style="background-color: rgb(0, 255, 0); color: black; border-radius: 10px; padding: 10px; height: fit-content; justify-content: center">Quoting @${msgs.message}</div><div>${message}</div>`;
                                     }
                                     newDiv.innerHTML = tempMsg;
                                 })
@@ -967,6 +967,10 @@
                     channelDiv.classList.add('general-button');
                     channelDiv.classList.add('channel');
                     channelDiv.style.height = "fit-content";
+                    let coverDiv = document.createElement("div");
+                    coverDiv.style.display = "flex";
+                    coverDiv.style.flexDirection = "row";
+                    coverDiv.style.justifyContent = "space-between";
                     // channelDiv.style.justifyContent = "space-between";
                     channelDiv.addEventListener("click", () => {
                         window.location.href = `DMbox.html?username=${username}&teamname=${teamname}&channel=${name}`;
@@ -983,6 +987,14 @@
                     channelDiv.appendChild(hashDiv);
                     let nameChannel = document.createElement('p');
                     nameChannel.innerText = name;
+                    for(let i = 0; i < nameChannel.innerText.length; i++){
+                        if(i > 13 && i < 15){
+                            nameChannel.innerText.charAt(i) = "."
+                        }
+                        else if(i > 15){
+                            break;
+                        }
+                    }
                     nameChannel.style.justifyContent = "space-between";
                     nameChannel.style.margin = "0px"
                     if(isPhone){
@@ -1007,6 +1019,7 @@
                     })
                     deleteChannelDiv.addEventListener("click", (event) => {
                         event.preventDefault();
+                        event.stopPropagation();
                         if(confirm(`Delete ${name} Channel?`)){
                         fetch(`https://starter-production-0722.up.railway.app/channels/${name}`, {
                             method: "DELETE",
@@ -1025,7 +1038,8 @@
                         window.location.reload();
                     }
                     });
-                    nameChannel.appendChild(deleteChannelDiv)
+                    coverDiv.appendChild(nameChannel); 
+                    coverDiv.appendChild(deleteChannelDiv);
             }
             
             const back = document.querySelector("#back");
