@@ -302,6 +302,7 @@ function generateDiv() {
             newerDivText.style.float = "left";
             deleteTeamDiv.addEventListener("click", (event) => {
                 event.preventDefault();
+                event.stopPropagation();
                 
                 fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
                     method: "DELETE",
@@ -497,6 +498,7 @@ function renderTeam() {
     newerDivText.style.float = "left";
     deleteTeamDiv.addEventListener("click", (event) => {
         event.preventDefault();
+        event.stopPropagation();
         if(confirm((`delete team ${teamname} ?`))){
             fetch(`https://starter-production-0722.up.railway.app/teams/${teamname}`, {
                 method: "DELETE",
@@ -506,7 +508,9 @@ function renderTeam() {
                 if (data.success) {
                     console.log("✅ Team deleted:", data);
                     alert(`🎉 Team '${teamname}' deleted successfully!`);
-                    window.location.href = `../AdminPage_Template.html?username=${username}`;
+                    newDiv.remove();
+                    newerDiv.remove()
+                    // window.location.href = `../AdminPage_Template.html?username=${username}`;
                 } else {
                     alert("❌ Error deleting team: " + data.message);
                 }
