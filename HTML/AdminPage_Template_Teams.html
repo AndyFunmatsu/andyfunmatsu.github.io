@@ -892,7 +892,9 @@
                 })
                 
             })
-
+            document.addEventListener("contextmenu", () => {
+                e.preventDefault();
+            })
             function createChannel(name){
                 let channelDiv = document.createElement('div');
                     channelDiv.classList.add('general-button');
